@@ -11,7 +11,7 @@ import (
 type ByLength []globals.Material
 
 func (a ByLength) Len() int           { return len(a) }
-func (a ByLength) Less(i, j int) bool { return a[i].StockLength < a[j].StockLength } // Descending order
+func (a ByLength) Less(i, j int) bool { return a[i].Length < a[j].Length } // Descending order
 func (a ByLength) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
 func SortMaterialByLength(materials []globals.Material) []globals.Material {
@@ -30,9 +30,10 @@ func SortMaterialByCode(materials []globals.Material, target string) ([]globals.
 	if len(result) == 0 {
 		errMsg := fmt.Sprintf("%s: no material found", target)
 		return result, errors.New(errMsg)
-	} else {
-		result = SortMaterialByLength(result)
 	}
+	// else {
+	// 	result = SortMaterialByLength(result)
+	// }
 	// fmt.Println(target, ":", result)
 	return result, nil
 }

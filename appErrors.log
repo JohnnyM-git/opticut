@@ -1,22 +1,42 @@
-Error: 2024/08/09 11:01:31 logger.go:15: HSS3X3X.375: no material found
-Error: 2024/08/09 11:02:23 HSS3X3X.375: no material foundError: 2024/08/09 11:46:34 HSS3X3X.375: no material found
-Error: 2024/08/09 11:46:52 HSS3X3X.375: no material found
-Error: 2024/08/09 11:47:11 HSS3X3X.375: no material found
-Error: 2024/08/09 11:47:29 HSS3X3X.375: no material found
-Error: 2024/08/09 11:47:51 HSS3X3X.375: no material found
-Error: 2024/08/09 11:48:03 HSS3X3X.375: no material found
-Error: 2024/08/09 11:52:25 HSS3X3X.375: no material found
-Error: 2024/08/09 11:52:50 HSS3X3X.375: no material found
-Error: 2024/08/09 11:53:04 HSS3X3X.375: no material found
-Error: 2024/08/09 12:30:09 HSS3X3X.375: no material found
-Error: 2024/08/09 12:31:14 HSS3X3X.375: no material found
-Error: 2024/08/09 12:32:10 HSS3X3X.375: no material found
-Error: 2024/08/09 12:32:59 HSS3X3X.375: no material found
-Error: 2024/08/09 12:33:36 HSS3X3X.375: no material found
-Error: 2024/08/09 12:34:44 HSS3X3X.375: no material found
-Error: 2024/08/09 12:36:05 HSS3X3X.375: no material found
-Error: 2024/08/09 12:37:04 HSS3X3X.375: no material found
-Error: 2024/08/09 12:37:17 HSS3X3X.375: no material found
-Error: 2024/08/09 12:40:34 HSS3X3X.375: no material found
-Error: 2024/08/09 12:40:47 HSS3X3X.375: no material found
-Error: 2024/08/09 12:41:00 HSS3X3X.375: no material found
+Error: 2024/08/12 10:08:44 HSS3X3X.25 : no material at the correct length found 1 in needed
+
+Error: 2024/08/12 10:10:19 HSS3X3X.25 : no material at the correct length found 1 in needed
+
+Error: 2024/08/12 10:11:25 HSS3X3X.25%!(EXTRA string=: no material at the correct length found, float32=1, string=in, string=needed)
+Error: 2024/08/12 10:13:12 HSS3X3X.25: no material at the correct length found1inneeded
+Error: 2024/08/12 10:13:21 HSS3X3X.25: no material at the correct length found1inneeded
+Error: 2024/08/12 10:22:04 HSS3X3X.25: no material at the correct length found 1in needed
+Error: 2024/08/12 10:22:36 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:23:14 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:23:41 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:23:47 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:37:13 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:37:38 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:38:09 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:46:00 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:46:16 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 10:46:36 HSS3X3X.25: no material at the correct length found 1" needed
+Error: 2024/08/12 12:31:13 HSS3X3X.25: no material at the correct length found 10" needed
+Error: 2024/08/12 12:31:45 HSS3X3X.325: no material found
+Error: 2024/08/12 12:32:41 HSS3X3X.325: no material found
+Error: 2024/08/12 15:09:51 HSS3X3X.375: no material found
+Error: 2024/08/12 15:16:46 HSS3X3X.375: no material found
+Error: 2024/08/12 15:18:28 HSS3X3X.375: no material found
+Error: 2024/08/12 15:18:51 HSS3X3X.375: no material found
+Error: 2024/08/12 15:19:55 HSS3X3X.375: no material found
+Error: 2024/08/12 15:20:25 HSS3X3X.375: no material found
+Error: 2024/08/12 16:00:24 HSS3X3X.375: no material found
+Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:46 HSS3X3X.375: no material found
+Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:55 HSS3X3X.375: no material found
+Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
+Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub

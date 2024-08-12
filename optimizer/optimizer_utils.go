@@ -1,49 +1,155 @@
 package optimizer
 
 import (
+	"errors"
 	"fmt"
+	"sort"
 
 	"optimizer/globals"
+	"optimizer/logger"
+	"optimizer/part_utils"
 )
 
-func CreateLayout(parts []globals.Part, materials []globals.Material) []globals.CutMaterials {
-	var results []globals.CutMaterials
-	for i, material := range materials {
-		fmt.Println(i, material)
-		results = append(
-			results, globals.CutMaterials{
-				MaterialCode:    material.MaterialCode,
-				Parts:           nil,
-				RemainingLength: material.StockLength,
-				Quantity:        material.Quantity,
-			})
-	}
-	// for _, part := range parts {
-	// 	p := part
-	// 	var remainingQty = p.Quantity
-	//
-	//
-	// 	// for i := 0; i < int(p.Quantity); i++ {
-	// 	// 	if remainingQty == 0 {
-	// 	// 		break
-	// 	// 	}
-	// 	// 	if len(results) != 0 {
-	// 	// 		for _, material := range results {
-	// 	// 			if p.Length <= material.RemainingLength {
-	// 	// 				m := material
-	// 	// 				m.RemainingLength -= p.Length + globals.Kerf
-	// 	// 				m.Parts = append(m.Parts, p)
-	// 	// 				fmt.Println("TEST", m)
-	// 	// 				results = append(results, m)
-	// 	// 				remainingQty -= 1
-	// 	// 			} else {
-	// 	// 				fmt.Println("TEST", p)
-	// 	// 			}
-	// 	// 		}
-	// 	// 	}
-	// 	// }
-	//
+func CreateLayout(parts []globals.Part, materials []globals.Material) []globals.CutMaterial {
+	var results []globals.CutMaterial
+	// m := globals.CutMaterial{
+	// 	MaterialCode: "HSS3X3X.25",
+	// 	Parts:        []globals.Part{},
+	// 	Quantity:     1,
+	// 	StockLength:  10,
+	// 	Length:       10,
 	// }
-	fmt.Println("RESULTS", results)
+	// results = append(results, m)
+	// fmt.Println(results)
+	for _, part := range parts {
+		p := part
+		remainingQty := p.Quantity
+		for {
+			if remainingQty == 0 {
+				break
+			}
+			materialIndex, err := checkForMaterial(&p, &results, &materials)
+			if err != nil {
+				logger.LogError(err.Error())
+				break
+			} else {
+				cutMaterial := &results[materialIndex]
+				if _, exists := cutMaterial.Parts[p.PartNumber]; exists {
+					cutMaterial.Parts[p.PartNumber] += 1
+				} else {
+					cutMaterial.Parts[p.PartNumber] = 1
+				}
+				cutMaterial.Length -= p.Length + globals.Kerf
+				remainingQty--
+			}
+		}
+	}
+	mergeDuplicateCutMaterialsInPlace(&results)
+	part_utils.SavePartsToDB(&results)
+	// fmt.Println(results)
+	// resultsJSON, err := json.MarshalIndent(results, "", "    ")
+	// if err != nil {
+	// 	fmt.Println("Error marshalling to JSON:", err)
+	// 	return results
+	// }
+	//
+	// // Save JSON to a file
+	// file, err := os.Create("results.json")
+	// if err != nil {
+	// 	fmt.Println("Error creating file:", err)
+	// 	return results
+	// }
+	// defer file.Close()
+	//
+	// _, err = file.Write(resultsJSON)
+	// if err != nil {
+	// 	fmt.Println("Error writing to file:", err)
+	// 	return results
+	// }
+	//
+	// fmt.Println("OPTI RESULTS JSON saved to results.json")
 	return results
+}
+
+func checkForMaterial(p *globals.Part, results *[]globals.CutMaterial, materials *[]globals.Material) (
+	int, error) {
+	if len(*results) != 0 {
+		SortCutMaterialsByLength(*results)
+		for i, m := range *results {
+			if p.Length <= m.Length {
+				return i, nil
+			}
+		}
+	}
+
+	if len(*materials) != 0 {
+		SortMaterialsByLength(*materials)
+		// fmt.Println(*materials)
+		for _, material := range *materials {
+			if p.Length <= material.Length {
+				m := globals.CutMaterial{
+					Job:          "TEST",
+					MaterialCode: material.MaterialCode,
+					Parts:        map[string]uint16{},
+					Quantity:     1,
+					StockLength:  material.Length,
+					Length:       material.Length,
+				}
+				*results = append(*results, m)
+				return len(*results) - 1, nil
+			}
+		}
+	}
+	errMsg := fmt.Sprint(p.MaterialCode, ": no material at the correct length found ", p.Length, `"`, " needed")
+	return 0, errors.New(errMsg)
+}
+
+func SortCutMaterialsByLength(materials []globals.CutMaterial) {
+	sort.Slice(
+		materials, func(i, j int) bool {
+			return materials[i].Length < materials[j].Length
+		})
+}
+
+func SortMaterialsByLength(materials []globals.Material) {
+	sort.Slice(
+		materials, func(i, j int) bool {
+			return materials[i].Length < materials[j].Length
+		})
+}
+
+func mergeDuplicateCutMaterialsInPlace(cutMaterials *[]globals.CutMaterial) {
+	mergedResults := []globals.CutMaterial{}
+
+	for _, cm := range *cutMaterials {
+		found := false
+		for i, merged := range mergedResults {
+			if cm.MaterialCode == merged.MaterialCode &&
+				cm.StockLength == merged.StockLength &&
+				cm.Length == merged.Length &&
+				arePartsEqual(cm.Parts, merged.Parts) {
+
+				mergedResults[i].Quantity += cm.Quantity
+				found = true
+				break
+			}
+		}
+		if !found {
+			mergedResults = append(mergedResults, cm)
+		}
+	}
+
+	*cutMaterials = mergedResults
+}
+
+func arePartsEqual(parts1, parts2 map[string]uint16) bool {
+	if len(parts1) != len(parts2) {
+		return false
+	}
+	for part, qty := range parts1 {
+		if parts2[part] != qty {
+			return false
+		}
+	}
+	return true
 }

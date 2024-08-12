@@ -10,17 +10,41 @@ type Part struct {
 
 type Material struct {
 	MaterialCode     string
-	StockLength      float32
+	Length           float32
 	CuttingOperation string
 	Quantity         uint16
 }
 
-type CutMaterials struct {
-	MaterialCode    string
-	Parts           []Part
-	Quantity        uint16
-	RemainingLength float32
+type CutMaterial struct {
+	Job          string
+	MaterialCode string
+	Parts        map[string]uint16
+	Quantity     uint16
+	StockLength  float32
+	Length       float32
 }
+
+// type LengthSortable interface {
+// 	GetLength() float32
+// }
+//
+// func (material Material) GetLength() float32 {
+// 	return material.StockLength
+// }
+//
+// func (cutMaterial CutMaterial) GetLength() float32 {
+// 	return cutMaterial.RemainingLength
+// }
+
+// type ByLength []LengthSortable
+//
+// func (a ByLength) Len() int           { return len(a) }
+// func (a ByLength) Less(i, j int) bool { return a[i].GetLength() > a[j].GetLength() }
+// func (a ByLength) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+//
+// func SortResultsByLength(slice []LengthSortable) {
+// 	sort.Sort(ByLength(slice))
+// }
 
 var Kerf float32 = .0625
 
@@ -58,13 +82,13 @@ var Parts = []Part{
 var Materials = []Material{
 	{
 		MaterialCode:     "HSS3X3X.25",
-		StockLength:      240,
+		Length:           40,
 		CuttingOperation: "Saw",
 		Quantity:         2,
 	},
 	{
 		MaterialCode:     "HSS3X3X.25",
-		StockLength:      40,
+		Length:           40,
 		CuttingOperation: "Saw",
 		Quantity:         20,
 	},
