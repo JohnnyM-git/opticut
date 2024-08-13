@@ -83,13 +83,13 @@ var Materials = []Material{
 	{
 		MaterialCode:     "HSS3X3X.25",
 		Length:           40,
-		CuttingOperation: "Saw",
+		CuttingOperation: "",
 		Quantity:         2,
 	},
 	{
 		MaterialCode:     "HSS3X3X.25",
-		Length:           40,
-		CuttingOperation: "Saw",
+		Length:           10,
+		CuttingOperation: "",
 		Quantity:         20,
 	},
 }

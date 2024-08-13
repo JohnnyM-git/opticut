@@ -1,14 +1,12 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
-	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 
 	_ "github.com/mattn/go-sqlite3"
+	"optimizer/db"
 	"optimizer/globals"
 	"optimizer/logger"
 	"optimizer/material_utils"
@@ -22,20 +20,30 @@ func main() {
 
 	// Check if prod.db exists at the root of the project
 	if !fileExists(rootPath) {
-		initdb()
+		db.SetupDB()
+	} else {
+		db.InitDB("./prod.db")
 	}
-	part_utils.InsertPartsIntoPartTable(globals.Parts)
+	db.InsertPartsIntoPartTable(globals.Parts)
 	sortedGroupedPartSlice := part_utils.SortPartsByCode(globals.Parts)
 	// fmt.Println(sortedGroupedPartSlice)
 	for _, partSlice := range sortedGroupedPartSlice {
 		// fmt.Println(partSlice)
 		materialCode := partSlice[0].MaterialCode
-		results, err := material_utils.SortMaterialByCode(globals.Materials, materialCode)
+		results, err := material_utils.SortMaterialByCode(
+			globals.Materials,
+			materialCode)
 		if err != nil {
 			logger.LogError(err.Error())
 		} else {
-			optimizer.CreateLayout(partSlice, results)
-			// fmt.Println(results)
+			results, errSlice := optimizer.CreateLayout(partSlice, results)
+			if len(errSlice) > 0 {
+				for _, err := range errSlice {
+					logger.LogError(err)
+				}
+			} else {
+				fmt.Println(results)
+			}
 		}
 
 	}
@@ -47,29 +55,4 @@ func fileExists(filepath string) bool {
 		return false
 	}
 	return err == nil
-}
-
-func initdb() {
-	dbFile := "prod.db"
-
-	// Open the database (creates the file if it doesn't exist)
-	db, err := sql.Open("sqlite3", dbFile)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
-
-	// Read the SQL script from file
-	script, err := ioutil.ReadFile("setup_db.sql")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Execute the SQL script
-	_, err = db.Exec(string(script))
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Database and tables created successfully!")
 }

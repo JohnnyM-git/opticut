@@ -5,13 +5,17 @@ import (
 	"fmt"
 	"sort"
 
+	"optimizer/db"
 	"optimizer/globals"
 	"optimizer/logger"
-	"optimizer/part_utils"
+	"optimizer/ops"
 )
 
-func CreateLayout(parts []globals.Part, materials []globals.Material) []globals.CutMaterial {
-	var results []globals.CutMaterial
+func CreateLayout(parts []globals.Part, materials []globals.Material) (
+	results []globals.CutMaterial,
+	errSlice []string) {
+	results = []globals.CutMaterial{}
+	errSlice = []string{}
 	// m := globals.CutMaterial{
 	// 	MaterialCode: "HSS3X3X.25",
 	// 	Parts:        []globals.Part{},
@@ -31,6 +35,7 @@ func CreateLayout(parts []globals.Part, materials []globals.Material) []globals.
 			materialIndex, err := checkForMaterial(&p, &results, &materials)
 			if err != nil {
 				logger.LogError(err.Error())
+				errSlice = append(errSlice, err.Error())
 				break
 			} else {
 				cutMaterial := &results[materialIndex]
@@ -45,33 +50,15 @@ func CreateLayout(parts []globals.Part, materials []globals.Material) []globals.
 		}
 	}
 	mergeDuplicateCutMaterialsInPlace(&results)
-	part_utils.SavePartsToDB(&results)
-	// fmt.Println(results)
-	// resultsJSON, err := json.MarshalIndent(results, "", "    ")
-	// if err != nil {
-	// 	fmt.Println("Error marshalling to JSON:", err)
-	// 	return results
-	// }
-	//
-	// // Save JSON to a file
-	// file, err := os.Create("results.json")
-	// if err != nil {
-	// 	fmt.Println("Error creating file:", err)
-	// 	return results
-	// }
-	// defer file.Close()
-	//
-	// _, err = file.Write(resultsJSON)
-	// if err != nil {
-	// 	fmt.Println("Error writing to file:", err)
-	// 	return results
-	// }
-	//
-	// fmt.Println("OPTI RESULTS JSON saved to results.json")
-	return results
+	db.SavePartsToDB(&results)
+	ops.SaveResultsJSONFile(&results, results[0].Job)
+	return results, errSlice
 }
 
-func checkForMaterial(p *globals.Part, results *[]globals.CutMaterial, materials *[]globals.Material) (
+func checkForMaterial(
+	p *globals.Part,
+	results *[]globals.CutMaterial,
+	materials *[]globals.Material) (
 	int, error) {
 	if len(*results) != 0 {
 		SortCutMaterialsByLength(*results)
@@ -85,8 +72,9 @@ func checkForMaterial(p *globals.Part, results *[]globals.CutMaterial, materials
 	if len(*materials) != 0 {
 		SortMaterialsByLength(*materials)
 		// fmt.Println(*materials)
-		for _, material := range *materials {
-			if p.Length <= material.Length {
+		for i := range *materials {
+			material := &(*materials)[i]
+			if p.Length <= material.Length && material.Quantity != 0 {
 				m := globals.CutMaterial{
 					Job:          "TEST",
 					MaterialCode: material.MaterialCode,
@@ -96,11 +84,18 @@ func checkForMaterial(p *globals.Part, results *[]globals.CutMaterial, materials
 					Length:       material.Length,
 				}
 				*results = append(*results, m)
+				(*materials)[i].Quantity = (*materials)[i].Quantity - 1
+				fmt.Println("M QTY:", material.Quantity)
 				return len(*results) - 1, nil
 			}
 		}
 	}
-	errMsg := fmt.Sprint(p.MaterialCode, ": no material at the correct length found ", p.Length, `"`, " needed")
+	errMsg := fmt.Sprint(
+		p.MaterialCode,
+		": no material at the correct length found ",
+		p.Length,
+		`"`,
+		" needed")
 	return 0, errors.New(errMsg)
 }
 
