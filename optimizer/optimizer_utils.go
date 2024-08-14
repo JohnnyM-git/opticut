@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"sort"
 
-	"optimizer/db"
 	"optimizer/globals"
+	"optimizer/internal/db"
 	"optimizer/logger"
-	"optimizer/ops"
 )
 
 func CreateLayout(parts []globals.Part, materials []globals.Material) (
@@ -51,7 +50,7 @@ func CreateLayout(parts []globals.Part, materials []globals.Material) (
 	}
 	mergeDuplicateCutMaterialsInPlace(&results)
 	db.SavePartsToDB(&results)
-	ops.SaveResultsJSONFile(&results, results[0].Job)
+	// ops.SaveResultsJSONFile(&results, results[0].Job)
 	return results, errSlice
 }
 

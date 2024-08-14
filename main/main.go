@@ -6,8 +6,9 @@ import (
 	"path/filepath"
 
 	_ "github.com/mattn/go-sqlite3"
-	"optimizer/db"
 	"optimizer/globals"
+	"optimizer/internal/db"
+	"optimizer/internal/server"
 	"optimizer/logger"
 	"optimizer/material_utils"
 	"optimizer/optimizer"
@@ -24,6 +25,7 @@ func main() {
 	} else {
 		db.InitDB("./prod.db")
 	}
+
 	db.InsertPartsIntoPartTable(globals.Parts)
 	sortedGroupedPartSlice := part_utils.SortPartsByCode(globals.Parts)
 	// fmt.Println(sortedGroupedPartSlice)
@@ -47,6 +49,7 @@ func main() {
 		}
 
 	}
+	server.StartServer()
 }
 
 func fileExists(filepath string) bool {

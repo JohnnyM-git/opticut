@@ -24,6 +24,27 @@ type CutMaterial struct {
 	Length       float32
 }
 
+type CutMaterialPart struct {
+	CutMaterialID           int
+	Job                     string
+	CutMaterialMaterialCode string
+	CutMaterialQuantity     int
+	StockLength             float64
+	CutMaterialLength       float64
+	PartID                  int
+	PartNumber              string
+	PartMaterialCode        string
+	PartLength              float64
+	PartQty                 int
+}
+
+type CutMaterialTotals struct {
+	MaterialCode  string
+	StockLength   float64
+	TotalQuantity int
+	TotalLength   float64
+}
+
 // type LengthSortable interface {
 // 	GetLength() float32
 // }
@@ -59,7 +80,7 @@ var Parts = []Part{
 	{
 		PartNumber:       "Part2",
 		MaterialCode:     "HSS3X3X.25",
-		Length:           12.3,
+		Length:           2,
 		Quantity:         15,
 		CuttingOperation: "Saw",
 	},
@@ -89,6 +110,12 @@ var Materials = []Material{
 	{
 		MaterialCode:     "HSS3X3X.25",
 		Length:           10,
+		CuttingOperation: "",
+		Quantity:         20,
+	},
+	{
+		MaterialCode:     "HSS3X3X.375",
+		Length:           100,
 		CuttingOperation: "",
 		Quantity:         20,
 	},

@@ -1,115 +1,38 @@
-Error: 2024/08/12 10:08:44 HSS3X3X.25 : no material at the correct length found 1 in needed
-
-Error: 2024/08/12 10:10:19 HSS3X3X.25 : no material at the correct length found 1 in needed
-
-Error: 2024/08/12 10:11:25 HSS3X3X.25%!(EXTRA string=: no material at the correct length found, float32=1, string=in, string=needed)
-Error: 2024/08/12 10:13:12 HSS3X3X.25: no material at the correct length found1inneeded
-Error: 2024/08/12 10:13:21 HSS3X3X.25: no material at the correct length found1inneeded
-Error: 2024/08/12 10:22:04 HSS3X3X.25: no material at the correct length found 1in needed
-Error: 2024/08/12 10:22:36 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:23:14 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:23:41 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:23:47 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:37:13 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:37:38 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:38:09 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:46:00 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:46:16 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 10:46:36 HSS3X3X.25: no material at the correct length found 1" needed
-Error: 2024/08/12 12:31:13 HSS3X3X.25: no material at the correct length found 10" needed
-Error: 2024/08/12 12:31:45 HSS3X3X.325: no material found
-Error: 2024/08/12 12:32:41 HSS3X3X.325: no material found
-Error: 2024/08/12 15:09:51 HSS3X3X.375: no material found
-Error: 2024/08/12 15:16:46 HSS3X3X.375: no material found
-Error: 2024/08/12 15:18:28 HSS3X3X.375: no material found
-Error: 2024/08/12 15:18:51 HSS3X3X.375: no material found
-Error: 2024/08/12 15:19:55 HSS3X3X.375: no material found
-Error: 2024/08/12 15:20:25 HSS3X3X.375: no material found
-Error: 2024/08/12 16:00:24 HSS3X3X.375: no material found
-Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:46 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:46 HSS3X3X.375: no material found
-Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:55 HSS3X3X.375: no material found
-Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/12 16:00:55 Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work. This is a stub
-Error: 2024/08/13 06:31:54 HSS3X3X.375: no material found
-Error: 2024/08/13 06:31:59 HSS3X3X.375: no material found
-Error: 2024/08/13 07:09:22 HSS3X3X.375: no material found
-Error: 2024/08/13 07:10:09 HSS3X3X.375: no material found
-Error: 2024/08/13 07:10:59 HSS3X3X.375: no material found
-Error: 2024/08/13 07:11:07 HSS3X3X.375: no material found
-Error: 2024/08/13 07:13:39 HSS3X3X.375: no material found
-Error: 2024/08/13 07:23:16 HSS3X3X.375: no material found
-Error: 2024/08/13 07:24:02 HSS3X3X.375: no material found
-Error: 2024/08/13 07:49:43 HSS3X3X.375: no material found
-Error: 2024/08/13 07:50:30 HSS3X3X.375: no material found
-Error: 2024/08/13 07:50:52 HSS3X3X.375: no material found
-Error: 2024/08/13 07:52:24 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 07:52:24 HSS3X3X.375: no material found
-Error: 2024/08/13 08:05:13 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:05:13 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:05:13 HSS3X3X.375: no material found
-Error: 2024/08/13 08:05:23 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:05:23 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:05:23 HSS3X3X.375: no material found
-Error: 2024/08/13 08:29:07 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:29:07 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:29:07 HSS3X3X.375: no material found
-Error: 2024/08/13 08:39:47 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:39:47 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:39:47 HSS3X3X.375: no material found
-Error: 2024/08/13 08:40:03 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:40:03 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:40:03 HSS3X3X.375: no material found
-Error: 2024/08/13 08:52:04 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:52:04 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 08:52:04 HSS3X3X.375: no material found
-Error: 2024/08/13 10:04:26 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:04:26 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:04:26 HSS3X3X.375: no material found
-Error: 2024/08/13 10:33:03 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:33:03 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:33:03 HSS3X3X.375: no material found
-Error: 2024/08/13 10:34:02 HSS3X3X.375: no material found
-Error: 2024/08/13 10:34:02 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:34:02 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:36:21 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:36:21 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:36:21 HSS3X3X.375: no material found
-Error: 2024/08/13 10:39:21 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:39:21 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 10:39:21 HSS3X3X.375: no material found
-Error: 2024/08/13 14:35:03 no such table: parts
-Error: 2024/08/13 14:35:03 no such table: parts
-Error: 2024/08/13 14:35:03 no such table: parts
-Error: 2024/08/13 14:35:03 no such table: parts
-Error: 2024/08/13 14:35:03 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 14:35:03 no such table: cut_materials
-Error: 2024/08/13 14:35:03 no such table: cut_materials
-Error: 2024/08/13 14:35:03 no such table: cut_materials
-Error: 2024/08/13 14:35:03 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 14:35:03 HSS3X3X.375: no material found
-Error: 2024/08/13 14:36:29 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 14:36:29 sql: no rows in result set
-Error: 2024/08/13 14:36:29 sql: no rows in result set
-Error: 2024/08/13 14:36:29 sql: no rows in result set
-Error: 2024/08/13 14:36:29 sql: no rows in result set
-Error: 2024/08/13 14:36:29 sql: no rows in result set
-Error: 2024/08/13 14:36:29 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 14:36:29 HSS3X3X.375: no material found
-Error: 2024/08/13 14:37:30 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 14:37:30 sql: no rows in result set
-Error: 2024/08/13 14:37:30 sql: no rows in result set
-Error: 2024/08/13 14:37:30 sql: no rows in result set
-Error: 2024/08/13 14:37:30 sql: no rows in result set
-Error: 2024/08/13 14:37:30 sql: no rows in result set
-Error: 2024/08/13 14:37:30 HSS3X3X.25: no material at the correct length found 12.3" needed
-Error: 2024/08/13 14:37:30 HSS3X3X.375: no material found
+Error: 2024/08/14 08:10:03 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:10:03 sql: no rows in result set
+Error: 2024/08/14 08:10:03 sql: no rows in result set
+Error: 2024/08/14 08:10:03 sql: no rows in result set
+Error: 2024/08/14 08:10:03 sql: no rows in result set
+Error: 2024/08/14 08:10:03 sql: no rows in result set
+Error: 2024/08/14 08:10:03 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:10:03 HSS3X3X.375: no material found
+Error: 2024/08/14 08:10:31 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:10:31 sql: no rows in result set
+Error: 2024/08/14 08:10:31 sql: no rows in result set
+Error: 2024/08/14 08:10:31 sql: no rows in result set
+Error: 2024/08/14 08:10:31 sql: no rows in result set
+Error: 2024/08/14 08:10:31 sql: no rows in result set
+Error: 2024/08/14 08:10:31 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:10:31 HSS3X3X.375: no material found
+Error: 2024/08/14 08:11:27 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:11:27 sql: no rows in result set
+Error: 2024/08/14 08:11:27 sql: no rows in result set
+Error: 2024/08/14 08:11:27 sql: no rows in result set
+Error: 2024/08/14 08:11:27 sql: no rows in result set
+Error: 2024/08/14 08:11:27 sql: no rows in result set
+Error: 2024/08/14 08:11:27 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:11:27 HSS3X3X.375: no material found
+Error: 2024/08/14 08:11:43 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:11:43 sql: no rows in result set
+Error: 2024/08/14 08:11:43 sql: no rows in result set
+Error: 2024/08/14 08:11:43 sql: no rows in result set
+Error: 2024/08/14 08:11:43 sql: no rows in result set
+Error: 2024/08/14 08:11:43 sql: no rows in result set
+Error: 2024/08/14 08:11:43 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:11:43 HSS3X3X.375: no material found
+Error: 2024/08/14 08:12:05 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:12:05 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:12:05 HSS3X3X.375: no material found
+Error: 2024/08/14 08:41:03 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:41:03 HSS3X3X.25: no material at the correct length found 12.3" needed
+Error: 2024/08/14 08:41:03 HSS3X3X.375: no material found
