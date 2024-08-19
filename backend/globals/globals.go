@@ -120,3 +120,13 @@ var Materials = []Material{
 		Quantity:         20,
 	},
 }
+
+type JobType struct {
+	Job      string
+	Customer string
+}
+
+var JobInfo = JobType{
+	Job:      "TEST1",
+	Customer: "ATS",
+}

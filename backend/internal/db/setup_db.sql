@@ -1,5 +1,13 @@
 -- Create a database file (use sqlite3 command line to execute this script)
 
+
+-- Create the jobs table
+CREATE TABLE  IF NOT EXISTS jobs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    job_number TEXT NOT NULL COLLATE NOCASE,
+    customer TEXT NOT NULL COLLATE NOCASE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 -- Create the parts table
 CREATE TABLE IF NOT EXISTS parts (
                                      id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -11,7 +19,8 @@ CREATE TABLE IF NOT EXISTS parts (
 -- Create the cut_materials table
 CREATE TABLE IF NOT EXISTS cut_materials (
                                              id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                             job TEXT NOT NULL ,
+                                             job TEXT NOT NULL COLLATE NOCASE,
+                                             job_id INTEGER NOT NULL,
                                              material_code TEXT NOT NULL,
                                              quantity INTEGER NOT NULL,
                                              stock_length REAL NOT NULL,

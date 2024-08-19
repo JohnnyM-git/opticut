@@ -1,0 +1,12 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /*background-color: #5bbec3 !important;*/
+}
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

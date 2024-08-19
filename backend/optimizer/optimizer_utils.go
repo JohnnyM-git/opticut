@@ -10,20 +10,11 @@ import (
 	"optimizer/logger"
 )
 
-func CreateLayout(parts []globals.Part, materials []globals.Material) (
+func CreateLayout(parts []globals.Part, materials []globals.Material, JobInfo globals.JobType) (
 	results []globals.CutMaterial,
 	errSlice []string) {
 	results = []globals.CutMaterial{}
 	errSlice = []string{}
-	// m := globals.CutMaterial{
-	// 	MaterialCode: "HSS3X3X.25",
-	// 	Parts:        []globals.Part{},
-	// 	Quantity:     1,
-	// 	StockLength:  10,
-	// 	Length:       10,
-	// }
-	// results = append(results, m)
-	// fmt.Println(results)
 	for _, part := range parts {
 		p := part
 		remainingQty := p.Quantity
@@ -31,7 +22,7 @@ func CreateLayout(parts []globals.Part, materials []globals.Material) (
 			if remainingQty == 0 {
 				break
 			}
-			materialIndex, err := checkForMaterial(&p, &results, &materials)
+			materialIndex, err := checkForMaterial(&p, &results, &materials, JobInfo.Job)
 			if err != nil {
 				logger.LogError(err.Error())
 				errSlice = append(errSlice, err.Error())
@@ -49,7 +40,7 @@ func CreateLayout(parts []globals.Part, materials []globals.Material) (
 		}
 	}
 	mergeDuplicateCutMaterialsInPlace(&results)
-	db.SavePartsToDB(&results)
+	db.SavePartsToDB(&results, JobInfo)
 	// ops.SaveResultsJSONFile(&results, results[0].Job)
 	return results, errSlice
 }
@@ -57,7 +48,8 @@ func CreateLayout(parts []globals.Part, materials []globals.Material) (
 func checkForMaterial(
 	p *globals.Part,
 	results *[]globals.CutMaterial,
-	materials *[]globals.Material) (
+	materials *[]globals.Material,
+	job string) (
 	int, error) {
 	if len(*results) != 0 {
 		SortCutMaterialsByLength(*results)
@@ -75,7 +67,7 @@ func checkForMaterial(
 			material := &(*materials)[i]
 			if p.Length <= material.Length && material.Quantity != 0 {
 				m := globals.CutMaterial{
-					Job:          "TEST",
+					Job:          job,
 					MaterialCode: material.MaterialCode,
 					Parts:        map[string]uint16{},
 					Quantity:     1,

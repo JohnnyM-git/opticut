@@ -27,18 +27,19 @@ func main() {
 	}
 
 	db.InsertPartsIntoPartTable(globals.Parts)
+	db.SaveJobInfoToDB(globals.JobInfo)
 	sortedGroupedPartSlice := part_utils.SortPartsByCode(globals.Parts)
 	// fmt.Println(sortedGroupedPartSlice)
-	for _, partSlice := range sortedGroupedPartSlice {
+	for _, partsByCodeSlice := range sortedGroupedPartSlice {
 		// fmt.Println(partSlice)
-		materialCode := partSlice[0].MaterialCode
+		materialCode := partsByCodeSlice[0].MaterialCode
 		results, err := material_utils.SortMaterialByCode(
 			globals.Materials,
 			materialCode)
 		if err != nil {
 			logger.LogError(err.Error())
 		} else {
-			results, errSlice := optimizer.CreateLayout(partSlice, results)
+			results, errSlice := optimizer.CreateLayout(partsByCodeSlice, results, globals.JobInfo)
 			if len(errSlice) > 0 {
 				for _, err := range errSlice {
 					logger.LogError(err)

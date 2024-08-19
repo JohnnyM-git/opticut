@@ -80,16 +80,31 @@ func InsertPartsIntoPartTable(parts []globals.Part) {
 	}
 }
 
-func SavePartsToDB(results *[]globals.CutMaterial) {
+func SaveJobInfoToDB(jobInfo globals.JobType) {
+	if db == nil {
+		log.Println("Database is not initialized")
+	}
+	_, err := db.Exec(`INSERT INTO jobs (job_number, customer) VALUES(?, ?)`, jobInfo.Job, jobInfo.Customer)
+	if err != nil {
+		logger.LogError(err.Error())
+	}
+
+}
+
+func SavePartsToDB(results *[]globals.CutMaterial, jobInfo globals.JobType) {
 	if db == nil {
 		log.Println("Database is not initialized")
 		return
 	}
 
+	var jobId int64
+	jobId = 1
+
 	for _, result := range *results {
 		id, err := db.Exec(
-			`INSERT INTO cut_materials (job, material_code, quantity, stock_length, length) VALUES(?, ?, ?, ?, ?)`,
+			`INSERT INTO cut_materials (job, job_id, material_code, quantity, stock_length, length) VALUES(?, ?, ?, ?, ?, ?)`,
 			result.Job,
+			jobId,
 			result.MaterialCode,
 			result.Quantity,
 			result.StockLength,
@@ -134,6 +149,7 @@ func GetJobData(job string) ([]globals.CutMaterialPart, error) {
     SELECT
         cm.id AS cut_material_id,
         cm.job,
+        cm.job_id,
         cm.material_code AS cut_material_material_code,
         cm.quantity AS cut_material_quantity,
         cm.stock_length,

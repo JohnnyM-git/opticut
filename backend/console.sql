@@ -36,4 +36,7 @@ GROUP BY
 --SELECTS *
 SELECT * FROM cut_material_parts;
 SELECT * FROM parts;
-SELECT * FROM parts;
+SELECT * FROM jobs;
+
+
+SELECT * FROM jobs;
