@@ -12,10 +12,19 @@ import {
   ListItemText,
   TextField,
 } from "@mui/material";
-import { Home, Inbox, Mail } from "@mui/icons-material";
+import {
+  Cloud, DataArray, DataObject, Dataset, DataUsage,
+  Home,
+  Inbox,
+  LocalActivity, LocalAtm, LocalBar,
+  Mail,
+  People,
+  Settings, Storage
+} from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getJobData } from "../functions/getJobData.ts";
 import "./styles/navbar.css";
+import { useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   jobId: string;
@@ -23,12 +32,9 @@ interface NavbarProps {
   setJobId?: any;
 }
 
-export const Navbar: FunctionComponent<NavbarProps> = ({
-  jobId,
-  setJobData,
-  setJobId,
-}) => {
-  const [open, setOpen] = useState<boolean>(false);
+export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobData, setJobId,}) => {
+  const [open, setOpen] = useState<boolean>(true);
+  const navigate = useNavigate();
   const DrawerList = (
     <Box
       sx={{ width: 250 }}
@@ -36,12 +42,22 @@ export const Navbar: FunctionComponent<NavbarProps> = ({
       onClick={() => toggleDrawer(false)}
     >
       <List>
-        <ListItem disablePadding>
+        <ListItem disablePadding onClick={() => navigate("/")}>
           <ListItemButton>
             <ListItemIcon>
               <Home />
             </ListItemIcon>
-            <ListItemText primary={"Home / All Jobs"} />
+            <ListItemText primary={"Home"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+
+        <ListItem disablePadding onClick={() => navigate("/localjobs")}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Storage />
+            </ListItemIcon>
+            <ListItemText primary={"Local Jobs"} />
           </ListItemButton>
         </ListItem>
         <Divider />
@@ -49,9 +65,30 @@ export const Navbar: FunctionComponent<NavbarProps> = ({
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <Home />
+              <Cloud />
+            </ListItemIcon>
+            <ListItemText primary={"Cloud Jobs"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+
+
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <People />
             </ListItemIcon>
             <ListItemText primary={"Customers"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+
+        <ListItem disablePadding onClick={() => navigate("/settings")}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Settings />
+            </ListItemIcon>
+            <ListItemText primary={"Settings"} />
           </ListItemButton>
         </ListItem>
         <Divider />

@@ -1,5 +1,11 @@
 package globals
 
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
+
 type Part struct {
 	PartNumber       string
 	MaterialCode     string
@@ -63,11 +69,42 @@ type CutMaterialTotals struct {
 // func (a ByLength) Less(i, j int) bool { return a[i].GetLength() > a[j].GetLength() }
 // func (a ByLength) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 //
-// func SortResultsByLength(slice []LengthSortable) {
-// 	sort.Sort(ByLength(slice))
-// }
+//	func SortResultsByLength(slice []LengthSortable) {
+//		sort.Sort(ByLength(slice))
+//	}
 
-var Kerf float32 = .0625
+type LocalJobsList struct {
+	JobNumber string
+	Customer  string
+}
+
+type SettingsConfig struct {
+	Kerf float32 `json:"kerf"`
+}
+
+var Settings SettingsConfig
+
+func LoadSettings() error {
+	fmt.Println("Loading settings...")
+	var filename = "./globals/settings.json"
+	file, err := os.Open(filename)
+	if err != nil {
+		fmt.Println("Error opening settings.json:", err)
+		return err
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&Settings)
+	if err != nil {
+		return err
+	}
+	fmt.Println("Settings:", Settings)
+
+	return nil
+}
+
+// var Kerf float32 = .0625
 
 var Parts = []Part{
 	{

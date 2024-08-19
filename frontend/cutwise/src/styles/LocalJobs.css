@@ -1,0 +1,7 @@
+.job {
+    display: flex;
+    flex-direction: row;
+}
+.job__Data {
+    border-bottom: 1px solid red;
+}

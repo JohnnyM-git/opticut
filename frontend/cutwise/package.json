@@ -17,8 +17,10 @@
     "@mui/material": "^5.16.7",
     "@mui/styled-engine-sc": "6.0.0-alpha.18",
     "@tauri-apps/api": "^1",
+    "axios": "^1.7.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.26.1",
     "styled-components": "^6.1.12"
   },
   "devDependencies": {

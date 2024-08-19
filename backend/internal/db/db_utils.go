@@ -84,7 +84,10 @@ func SaveJobInfoToDB(jobInfo globals.JobType) {
 	if db == nil {
 		log.Println("Database is not initialized")
 	}
-	_, err := db.Exec(`INSERT INTO jobs (job_number, customer) VALUES(?, ?)`, jobInfo.Job, jobInfo.Customer)
+	_, err := db.Exec(
+		`INSERT INTO jobs (job_number, customer) VALUES(?, ?)`,
+		jobInfo.Job,
+		jobInfo.Customer)
 	if err != nil {
 		logger.LogError(err.Error())
 	}
@@ -248,4 +251,36 @@ GROUP BY
 
 	return results, nil
 
+}
+
+func GetLocalJobs() ([]globals.LocalJobsList, error) {
+	if db == nil {
+		logger.LogError("Database is not initialized")
+	}
+
+	query := `SELECT job_number, customer FROM jobs`
+
+	rows, err := db.Query(query)
+	if err != nil {
+		logger.LogError(err.Error())
+	}
+	defer rows.Close()
+	var jobs []globals.LocalJobsList
+	for rows.Next() {
+		var job globals.LocalJobsList
+		err := rows.Scan(
+			&job.JobNumber,
+			&job.Customer,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("row scan error: %v", err)
+		}
+		jobs = append(jobs, job)
+
+	}
+	if err = rows.Err(); err != nil {
+		return nil, fmt.Errorf("rows error: %v", err)
+	}
+
+	return jobs, nil
 }

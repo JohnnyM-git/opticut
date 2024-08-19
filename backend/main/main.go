@@ -26,6 +26,8 @@ func main() {
 		db.InitDB("./prod.db")
 	}
 
+	globals.LoadSettings()
+
 	db.InsertPartsIntoPartTable(globals.Parts)
 	db.SaveJobInfoToDB(globals.JobInfo)
 	sortedGroupedPartSlice := part_utils.SortPartsByCode(globals.Parts)
@@ -39,7 +41,10 @@ func main() {
 		if err != nil {
 			logger.LogError(err.Error())
 		} else {
-			results, errSlice := optimizer.CreateLayout(partsByCodeSlice, results, globals.JobInfo)
+			results, errSlice := optimizer.CreateLayout(
+				partsByCodeSlice,
+				results,
+				globals.JobInfo)
 			if len(errSlice) > 0 {
 				for _, err := range errSlice {
 					logger.LogError(err)

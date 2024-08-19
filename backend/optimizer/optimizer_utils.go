@@ -10,7 +10,10 @@ import (
 	"optimizer/logger"
 )
 
-func CreateLayout(parts []globals.Part, materials []globals.Material, JobInfo globals.JobType) (
+func CreateLayout(
+	parts []globals.Part,
+	materials []globals.Material,
+	JobInfo globals.JobType) (
 	results []globals.CutMaterial,
 	errSlice []string) {
 	results = []globals.CutMaterial{}
@@ -22,7 +25,11 @@ func CreateLayout(parts []globals.Part, materials []globals.Material, JobInfo gl
 			if remainingQty == 0 {
 				break
 			}
-			materialIndex, err := checkForMaterial(&p, &results, &materials, JobInfo.Job)
+			materialIndex, err := checkForMaterial(
+				&p,
+				&results,
+				&materials,
+				JobInfo.Job)
 			if err != nil {
 				logger.LogError(err.Error())
 				errSlice = append(errSlice, err.Error())
@@ -34,7 +41,7 @@ func CreateLayout(parts []globals.Part, materials []globals.Material, JobInfo gl
 				} else {
 					cutMaterial.Parts[p.PartNumber] = 1
 				}
-				cutMaterial.Length -= p.Length + globals.Kerf
+				cutMaterial.Length -= p.Length + globals.Settings.Kerf
 				remainingQty--
 			}
 		}
