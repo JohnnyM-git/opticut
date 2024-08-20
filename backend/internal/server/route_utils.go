@@ -3,9 +3,9 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
-	"os"
+	"strconv"
 
 	"optimizer/globals"
 	"optimizer/internal/db"
@@ -83,36 +83,93 @@ func HandleGetLocalJobs(w http.ResponseWriter, r *http.Request) {
 }
 
 func SettingsHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Settings Handler")
 	fmt.Println(r.Method)
 	switch r.Method {
-	case http.MethodGet:
+	case "GET":
 		GetSettingsHandler(w, r)
-	// case http.MethodPost:
-	// 	UpdateSettingsHandler(w, r)
+	case "POST":
+		UpdateSettingsHandler(w, r)
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
 
-func LoadSettings() (globals.SettingsConfig, error) {
-	var settings globals.SettingsConfig
-	file, err := os.Open("Backend/globals/Settings.json")
-	if err != nil {
-		return settings, err
-	}
-	defer file.Close()
-
-	byteValue, _ := ioutil.ReadAll(file)
-	json.Unmarshal(byteValue, &settings)
-
-	return settings, nil
-}
+// func LoadSettings() (globals.SettingsConfig, error) {
+// 	var settings globals.SettingsConfig
+// 	var filename = "./globals/settings.json"
+// 	file, err := os.Open(filename)
+// 	if err != nil {
+// 		return settings, err
+// 	}
+// 	defer file.Close()
+//
+// 	byteValue, _ := ioutil.ReadAll(file)
+// 	json.Unmarshal(byteValue, &settings)
+//
+// 	return settings, nil
+// }
 
 func GetSettingsHandler(w http.ResponseWriter, r *http.Request) {
-	settings, err := LoadSettings()
+	settings, err := globals.LoadSettings()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(settings)
+}
+
+func UpdateSettingsHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("HTTP Method:", r.Method)
+	fmt.Println("Endpoint Hit: Update Settings")
+
+	// Read the request body
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer r.Body.Close()
+
+	// Print the request body as a string
+	fmt.Println("Request Body:", string(body))
+
+	// Parse the JSON body into a Settings struct
+	var newSettings globals.SettingsConfig
+	err = json.Unmarshal(body, &newSettings)
+	if err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	// Convert Kerf from string to float64
+	kerfValue, err := strconv.ParseFloat(newSettings.Kerf, 32)
+	if err != nil {
+		http.Error(w, "Invalid kerf value", http.StatusBadRequest)
+		return
+	}
+
+	// Load current settings
+	settings, err := globals.LoadSettings()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	fmt.Println("Current Settings:", settings)
+
+	// Update settings with new values
+	settings.Kerf = kerfValue
+
+	// Save the updated settings to the JSON file
+	err = globals.SaveSettings(settings)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println("Settings updated successfully")
+
+	// Respond to the client
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Settings updated successfully"))
 }

@@ -84,24 +84,36 @@ type SettingsConfig struct {
 
 var Settings SettingsConfig
 
-func LoadSettings() error {
-	fmt.Println("Loading settings...")
+func LoadSettings() (Settings SettingsConfig, err error) {
+	// fmt.Println("Loading settings...")
 	var filename = "./globals/settings.json"
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening settings.json:", err)
-		return err
+		return Settings, err
 	}
 	defer file.Close()
 
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&Settings)
 	if err != nil {
+		return Settings, err
+	}
+	// fmt.Println("Settings:", Settings)
+
+	return Settings, nil
+}
+
+func SaveSettings(settings SettingsConfig) error {
+	file, err := os.Create("settings.json")
+	if err != nil {
 		return err
 	}
-	fmt.Println("Settings:", Settings)
+	defer file.Close()
 
-	return nil
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "  ") // Optional: For pretty-printing JSON
+	return encoder.Encode(settings)
 }
 
 // var Kerf float32 = .0625

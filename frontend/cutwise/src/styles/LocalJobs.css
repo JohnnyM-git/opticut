@@ -1,7 +1,21 @@
+.heading {
+    text-align: start;
+    padding-top: var(--padding-l);
+    margin: 0 auto var(--margin-m) var(--margin-m);
+
+}
 .job {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: fit-content;
+    margin: 0 auto var(--margin-m) var(--margin-m);
 }
-.job__Data {
-    border-bottom: 1px solid red;
+.job__number {
+    font-size: var(--font-size-m);
+    cursor: pointer;
+}
+.customer {
+    text-align: start;
+font-size: var(--font-size-s);
 }
