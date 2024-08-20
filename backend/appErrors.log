@@ -40,3 +40,102 @@ Error: 2024/08/17 11:37:31 table jobs has no column named job
 Error: 2024/08/17 11:37:31 table jobs has no column named job
 Error: 2024/08/17 11:51:06 table jobs has no column named job
 Error: 2024/08/17 11:51:06 table jobs has no column named job
+Error: 2024/08/20 06:45:02 no such table: parts
+Error: 2024/08/20 06:45:02 no such table: parts
+Error: 2024/08/20 06:45:02 no such table: parts
+Error: 2024/08/20 06:45:02 no such table: parts
+Error: 2024/08/20 06:45:02 no such table: jobs
+Error: 2024/08/20 06:45:02 no such table: cut_materials
+Error: 2024/08/20 06:45:02 no such table: cut_materials
+Error: 2024/08/20 06:45:02 no such table: cut_materials
+Error: 2024/08/20 06:45:02 no such table: cut_materials
+Error: 2024/08/20 06:45:02 no such table: cut_materials
+Error: 2024/08/20 06:45:06 no such table: jobs
+Error: 2024/08/20 06:45:06 no such table: jobs
+Error: 2024/08/20 06:45:36 no such table: jobs
+Error: 2024/08/20 06:45:45 no such table: parts
+Error: 2024/08/20 06:45:45 no such table: parts
+Error: 2024/08/20 06:45:45 no such table: parts
+Error: 2024/08/20 06:45:45 no such table: parts
+Error: 2024/08/20 06:45:45 no such table: jobs
+Error: 2024/08/20 06:45:45 no such table: cut_materials
+Error: 2024/08/20 06:45:45 no such table: cut_materials
+Error: 2024/08/20 06:45:45 no such table: cut_materials
+Error: 2024/08/20 06:45:45 no such table: cut_materials
+Error: 2024/08/20 06:45:45 no such table: cut_materials
+Error: 2024/08/20 06:45:59 no such table: jobs
+Error: 2024/08/20 06:45:59 no such table: jobs
+Error: 2024/08/20 07:13:09 near "UPSERT": syntax error
+Error: 2024/08/20 07:13:09 near "UPSERT": syntax error
+Error: 2024/08/20 07:13:09 near "UPSERT": syntax error
+Error: 2024/08/20 07:13:09 near "UPSERT": syntax error
+Error: 2024/08/20 07:13:09 near "UPSERT": syntax error
+Error: 2024/08/20 08:45:01 row scan error: sql: expected 12 destination arguments in Scan, not 11
+Error: 2024/08/20 08:45:01 row scan error: sql: expected 12 destination arguments in Scan, not 11
+Error: 2024/08/20 08:46:06 row scan error: sql: expected 12 destination arguments in Scan, not 11
+Error: 2024/08/20 08:46:06 row scan error: sql: expected 12 destination arguments in Scan, not 11
+Error: 2024/08/20 09:00:23 no such column: job_id
+Error: 2024/08/20 09:00:23 no such column: job_id
+Error: 2024/08/20 09:31:39 no such column: job_id
+Error: 2024/08/20 09:31:47 no such column: job_id
+Error: 2024/08/20 09:31:47 no such column: job_id
+Error: 2024/08/20 09:33:25 no such column: job_id
+Error: 2024/08/20 09:33:25 no such column: job_id
+Error: 2024/08/20 09:34:18 no such column: job_id
+Error: 2024/08/20 09:34:18 no such column: job_id
+Error: 2024/08/20 09:38:02 no such column: job_id
+Error: 2024/08/20 09:38:02 query execution error: no such column: job_id
+Error: 2024/08/20 09:38:02 no such column: job_id
+Error: 2024/08/20 09:38:02 query execution error: no such column: job_id
+Error: 2024/08/20 09:40:34 no such column: job_id
+Error: 2024/08/20 09:40:34 query execution error: no such column: job_id
+Error: 2024/08/20 09:40:34 no such column: job_id
+Error: 2024/08/20 09:40:34 query execution error: no such column: job_id
+Error: 2024/08/20 09:40:56 no such column: job_id
+Error: 2024/08/20 09:40:56 query execution error: no such column: job_id
+Error: 2024/08/20 09:41:03 no such column: job_id
+Error: 2024/08/20 09:41:03 query execution error: no such column: job_id
+Error: 2024/08/20 09:41:03 no such column: job_id
+Error: 2024/08/20 09:41:03 query execution error: no such column: job_id
+Error: 2024/08/20 09:41:24 no such column: job_id
+Error: 2024/08/20 09:41:24 query execution error: no such column: job_id
+Error: 2024/08/20 09:42:05 no such column: job_id
+Error: 2024/08/20 09:42:05 query execution error: no such column: job_id
+Error: 2024/08/20 09:42:23 no such column: job_id
+Error: 2024/08/20 09:42:23 query execution error: no such column: job_id
+Error: 2024/08/20 09:42:23 no such column: job_id
+Error: 2024/08/20 09:42:23 query execution error: no such column: job_id
+Error: 2024/08/20 09:44:16 no such column: job_id
+Error: 2024/08/20 09:44:16 query execution error: no such column: job_id
+Error: 2024/08/20 09:44:16 no such column: job_id
+Error: 2024/08/20 09:44:16 query execution error: no such column: job_id
+Error: 2024/08/20 09:45:39 no such column: job_id
+Error: 2024/08/20 09:45:39 query execution error: no such column: job_id
+Error: 2024/08/20 09:45:39 no such column: job_id
+Error: 2024/08/20 09:45:39 query execution error: no such column: job_id
+Error: 2024/08/20 15:43:11 query execution error: near "length": syntax error
+Error: 2024/08/20 15:43:11 query execution error: near "length": syntax error
+Error: 2024/08/20 15:44:40 query execution error: near "length": syntax error
+Error: 2024/08/20 15:44:40 query execution error: near "length": syntax error
+Error: 2024/08/20 15:44:46 query execution error: near "length": syntax error
+Error: 2024/08/20 15:44:46 query execution error: near "length": syntax error
+Error: 2024/08/20 15:50:48 row scan error: sql: expected 5 destination arguments in Scan, not 6
+Error: 2024/08/20 15:50:48 row scan error: sql: expected 5 destination arguments in Scan, not 6
+Error: 2024/08/20 15:51:30 row scan error: sql: expected 5 destination arguments in Scan, not 6
+Error: 2024/08/20 15:51:30 row scan error: sql: expected 5 destination arguments in Scan, not 6
+Error: 2024/08/20 15:53:13 row scan error: sql: Scan error on column index 2, name "cut_material_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 15:53:13 row scan error: sql: Scan error on column index 2, name "cut_material_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 15:53:56 row scan error: sql: Scan error on column index 2, name "length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 15:53:56 row scan error: sql: Scan error on column index 2, name "length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 15:55:23 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 15:55:23 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 15:57:42 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 15:57:42 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 16:00:32 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 16:00:32 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 16:00:57 query execution error: near "FROM": syntax error
+Error: 2024/08/20 16:00:57 query execution error: near "FROM": syntax error
+Error: 2024/08/20 16:01:20 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 16:01:20 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
+Error: 2024/08/20 16:02:08 row scan error: sql: expected 4 destination arguments in Scan, not 5
+Error: 2024/08/20 16:02:08 row scan error: sql: expected 4 destination arguments in Scan, not 5

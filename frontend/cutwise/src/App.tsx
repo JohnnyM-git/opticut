@@ -7,6 +7,7 @@ import { Settings } from "./pages/Settings.tsx";
 import {Home} from "./pages/Home.tsx";
 import {LocalJobs} from "./pages/LocalJobs.tsx";
 import {CloudJobs} from "./pages/CloudJobs.tsx";
+import {Results} from "./pages/Results.tsx";
 // import Home from './pages/Home';
 // import AllJobs from './pages/AllJobs';
 // import JobDetail from './pages/JobDetail';
@@ -29,7 +30,7 @@ function App() {
                      <Route path="/" element={<Home />} />
                      <Route path="/localjobs" element={<LocalJobs />} />
                      <Route path="/cloudjobs" element={<CloudJobs />} />
-                    {/* <Route path="/jobs/:jobId" element={<JobDetail />} /> */}
+                     <Route path="/results/:jobId" element={<Results />} />
                     <Route path="/settings" element={<Settings />} />
                 </Routes>
             </div>

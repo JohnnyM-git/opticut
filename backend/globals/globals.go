@@ -33,6 +33,7 @@ type CutMaterial struct {
 type CutMaterialPart struct {
 	CutMaterialID           int
 	Job                     string
+	JobId                   int
 	CutMaterialMaterialCode string
 	CutMaterialQuantity     int
 	StockLength             float64
@@ -45,10 +46,12 @@ type CutMaterialPart struct {
 }
 
 type CutMaterialTotals struct {
-	MaterialCode  string
-	StockLength   float64
-	TotalQuantity int
-	TotalLength   float64
+	MaterialCode     string  `json:"material_code"`
+	StockLength      float64 `json:"stock_length"`
+	Length           float64 `json:"remaining_length"`   // length AS remaining_length
+	TotalQuantity    int     `json:"total_quantity"`     // SUM(quantity)
+	TotalStockLength float64 `json:"total_stock_length"` // stock_length * SUM(quantity)
+	TotalUsedLength  float64 `json:"total_used_length"`  // stock_length - length * SUM(quantity)
 }
 
 // type LengthSortable interface {
@@ -76,6 +79,7 @@ type CutMaterialTotals struct {
 type LocalJobsList struct {
 	JobNumber string
 	Customer  string
+	Star      int
 }
 
 type SettingsConfig struct {
@@ -110,7 +114,7 @@ func SaveSettings(settings SettingsConfig) error {
 		return err
 	}
 	defer file.Close()
-
+	fmt.Println("Saving settings to settings.json...")
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "  ") // Optional: For pretty-printing JSON
 	return encoder.Encode(settings)
@@ -173,6 +177,7 @@ var Materials = []Material{
 type JobType struct {
 	Job      string
 	Customer string
+	Star     int
 }
 
 var JobInfo = JobType{

@@ -5,16 +5,17 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strconv"
 
 	"optimizer/globals"
 	"optimizer/internal/db"
+	"optimizer/logger"
 )
 
-type Response struct {
+type JobResponse struct {
 	Message      string                      `json:"message"`
 	JobData      []globals.CutMaterialPart   `json:"JobData"`
 	MaterialData []globals.CutMaterialTotals `json:"MaterialData"`
+	Job          globals.JobType             `json:"Job"`
 }
 
 type LocalJobsResponse struct {
@@ -22,17 +23,17 @@ type LocalJobsResponse struct {
 	JobsList []globals.LocalJobsList `json:"JobsList"`
 }
 
-func HelloHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	response := Response{Message: "Hello, World!"}
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
-}
+// func HelloHandler(w http.ResponseWriter, r *http.Request) {
+// 	if r.Method != http.MethodGet {
+// 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+// 		return
+// 	}
+//
+// 	response := Response{Message: "Hello, World!"}
+//
+// 	w.Header().Set("Content-Type", "application/json")
+// 	json.NewEncoder(w).Encode(response)
+// }
 
 func HandleGetJob(w http.ResponseWriter, r *http.Request) {
 	// Parse the query parameters
@@ -46,13 +47,29 @@ func HandleGetJob(w http.ResponseWriter, r *http.Request) {
 	}
 
 	jobData, err := db.GetJobData(jobID)
+	if err != nil {
+		logger.LogError(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 	materialTotals, err := db.GetMaterialTotals(jobID)
+	if err != nil {
+		fmt.Println("Material Err", err.Error())
+		logger.LogError(err.Error())
+	}
+
+	job, err := db.GetJobInfoFromDB(jobID)
+	if err != nil {
+		fmt.Println("JOB ERR", err.Error())
+		logger.LogError(err.Error())
+	}
+	fmt.Println("job", job)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	response := Response{
+	response := JobResponse{
 		Message:      jobID,
+		Job:          job,
 		JobData:      jobData,
 		MaterialData: materialTotals,
 	}
@@ -134,20 +151,15 @@ func UpdateSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	// Print the request body as a string
 	fmt.Println("Request Body:", string(body))
 
-	// Parse the JSON body into a Settings struct
+	// Parse the JSON body into a SettingsConfig struct
 	var newSettings globals.SettingsConfig
 	err = json.Unmarshal(body, &newSettings)
 	if err != nil {
+		fmt.Println("Unmarshal error:", err)
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
-
-	// Convert Kerf from string to float64
-	kerfValue, err := strconv.ParseFloat(newSettings.Kerf, 32)
-	if err != nil {
-		http.Error(w, "Invalid kerf value", http.StatusBadRequest)
-		return
-	}
+	fmt.Println("newSettings:", newSettings)
 
 	// Load current settings
 	settings, err := globals.LoadSettings()
@@ -158,7 +170,7 @@ func UpdateSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Current Settings:", settings)
 
 	// Update settings with new values
-	settings.Kerf = kerfValue
+	settings.Kerf = newSettings.Kerf
 
 	// Save the updated settings to the JSON file
 	err = globals.SaveSettings(settings)
@@ -166,10 +178,64 @@ func UpdateSettingsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	// Create a response object
+	response := map[string]interface{}{
+		"message":  "Settings updated successfully",
+		"settings": newSettings,
+	}
 
-	fmt.Println("Settings updated successfully")
+	// Set the content type to application/json
+	w.Header().Set("Content-Type", "application/json")
 
-	// Respond to the client
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Settings updated successfully"))
+	// Encode the response as JSON and write it to the response body
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func ToggleStar(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("HTTP Method:", r.Method)
+	fmt.Println("Endpoint Hit: Toggle Star")
+
+	// Read the request body
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer r.Body.Close()
+
+	// Define a struct with exported fields and correct JSON tags
+	type ToggleStarParams struct {
+		JobNumber string `json:"jobNumber"`
+		Value     int    `json:"value"`
+	}
+
+	// Unmarshal the JSON body into the struct
+	var params ToggleStarParams
+	err = json.Unmarshal(body, &params)
+	if err != nil {
+		fmt.Println("Unmarshal error:", err)
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+	fmt.Println("Request Body:", params)
+
+	// Call the database function
+	toggleErr := db.ToggleStar(params.JobNumber, params.Value)
+	if toggleErr != nil {
+		fmt.Println("Toggle Error:", toggleErr)
+		http.Error(w, toggleErr.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Create a response object
+	response := map[string]interface{}{
+		"message": "Toggle Star successfully",
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }

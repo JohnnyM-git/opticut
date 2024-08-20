@@ -24,8 +24,8 @@ export const Settings = () => {
     console.log(data);
   };
 
-  const setKerf = (value: number) => {
-    setSettings({ ...settings, kerf: value });
+  const setKerf = (value: string) => {
+    setSettings({ ...settings, kerf: parseFloat(value) });
   };
 
   const saveSettings = async () => {
@@ -35,13 +35,13 @@ export const Settings = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(settings), // assuming 'settings' is the object you want to save
+        body: JSON.stringify(settings),
       });
 
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
-
+      // console.log(await res.json());
       const data = await res.json();
       console.log("Settings saved:", data);
     } catch (error) {

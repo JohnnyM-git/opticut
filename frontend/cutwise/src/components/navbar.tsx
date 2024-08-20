@@ -33,7 +33,7 @@ interface NavbarProps {
 }
 
 export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobData, setJobId,}) => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const DrawerList = (
     <Box
@@ -73,15 +73,15 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobData, setJ
         <Divider />
 
 
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <People />
-            </ListItemIcon>
-            <ListItemText primary={"Customers"} />
-          </ListItemButton>
-        </ListItem>
-        <Divider />
+        {/*<ListItem disablePadding>*/}
+        {/*  <ListItemButton>*/}
+        {/*    <ListItemIcon>*/}
+        {/*      <People />*/}
+        {/*    </ListItemIcon>*/}
+        {/*    <ListItemText primary={"Customers"} />*/}
+        {/*  </ListItemButton>*/}
+        {/*</ListItem>*/}
+        {/*<Divider />*/}
 
         <ListItem disablePadding onClick={() => navigate("/settings")}>
           <ListItemButton>
