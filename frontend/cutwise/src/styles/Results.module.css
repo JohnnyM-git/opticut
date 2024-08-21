@@ -51,11 +51,23 @@ h2 {
 }
 
 .material__info {
-    /*border: 1px solid black;*/
-    /*border-radius: 12px;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.material__info__left {
     padding: var(--padding-s);
     margin: var(--margin-s);
     text-align: start;
+    /*width: fit-content;*/
+}
+.material__info__right {
+    padding: var(--padding-s);
+    margin: var(--margin-s);
+    text-align: end;
     /*width: fit-content;*/
 }
 

@@ -31,18 +31,24 @@ type CutMaterial struct {
 }
 
 type CutMaterialPart struct {
-	CutMaterialID           int
-	Job                     string
-	JobId                   int
-	CutMaterialMaterialCode string
-	CutMaterialQuantity     int
-	StockLength             float64
-	CutMaterialLength       float64
-	PartID                  int
-	PartNumber              string
-	PartMaterialCode        string
-	PartLength              float64
-	PartQty                 int
+	CutMaterialID    int     `json:"cut_material_id"`
+	PartID           int     `json:"part_id"`
+	PartNumber       string  `json:"part_number"`
+	PartMaterialCode string  `json:"part_material_code"`
+	PartLength       float64 `json:"part_length"`
+	PartQty          int     `json:"part_qty"`
+}
+
+type CutMaterials struct {
+	CutMaterialID           int     `json:"cut_material_id"`
+	Job                     string  `json:"job"`
+	JobId                   int     `json:"job_id"`
+	CutMaterialMaterialCode string  `json:"cut_material_material_code"`
+	CutMaterialQuantity     int     `json:"cut_material_quantity"`
+	StockLength             float64 `json:"stock_length"`
+	CutMaterialLength       float64 `json:"cut_material_length"`
+	TotalUsedLength         float64 `json:"total_used_length"`
+	TotalPartsCutOnMaterial int     `json:"total_parts_cut_on_material"`
 }
 
 type CutMaterialTotals struct {
@@ -127,51 +133,51 @@ var Parts = []Part{
 		PartNumber:       "Part1",
 		MaterialCode:     "HSS3X3X.25",
 		Length:           1.0,
-		Quantity:         10,
+		Quantity:         1,
 		CuttingOperation: "Saw",
 	},
 	{
 		PartNumber:       "Part2",
 		MaterialCode:     "HSS3X3X.25",
 		Length:           2,
-		Quantity:         15,
+		Quantity:         3,
 		CuttingOperation: "Saw",
 	},
-	{
-		PartNumber:       "Part3",
-		MaterialCode:     "HSS3X3X.375",
-		Length:           18.6,
-		Quantity:         20,
-		CuttingOperation: "Tube",
-	},
-	{
-		PartNumber:       "Part4",
-		MaterialCode:     "HSS3X3X.25",
-		Length:           1.6,
-		Quantity:         20,
-		CuttingOperation: "Saw",
-	},
+	// {
+	// 	PartNumber:       "Part3",
+	// 	MaterialCode:     "HSS3X3X.375",
+	// 	Length:           18.6,
+	// 	Quantity:         20,
+	// 	CuttingOperation: "Tube",
+	// },
+	// {
+	// 	PartNumber:       "Part4",
+	// 	MaterialCode:     "HSS3X3X.25",
+	// 	Length:           1.6,
+	// 	Quantity:         20,
+	// 	CuttingOperation: "Saw",
+	// },
 }
 
 var Materials = []Material{
-	{
-		MaterialCode:     "HSS3X3X.25",
-		Length:           40,
-		CuttingOperation: "",
-		Quantity:         2,
-	},
+	// {
+	// 	MaterialCode:     "HSS3X3X.25",
+	// 	Length:           40,
+	// 	CuttingOperation: "",
+	// 	Quantity:         2,
+	// },
 	{
 		MaterialCode:     "HSS3X3X.25",
 		Length:           10,
 		CuttingOperation: "",
 		Quantity:         20,
 	},
-	{
-		MaterialCode:     "HSS3X3X.375",
-		Length:           100,
-		CuttingOperation: "",
-		Quantity:         20,
-	},
+	// {
+	// 	MaterialCode:     "HSS3X3X.375",
+	// 	Length:           100,
+	// 	CuttingOperation: "",
+	// 	Quantity:         20,
+	// },
 }
 
 type JobType struct {

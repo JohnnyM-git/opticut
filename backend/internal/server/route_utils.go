@@ -12,10 +12,10 @@ import (
 )
 
 type JobResponse struct {
-	Message      string                      `json:"message"`
-	JobData      []globals.CutMaterialPart   `json:"JobData"`
-	MaterialData []globals.CutMaterialTotals `json:"MaterialData"`
-	Job          globals.JobType             `json:"Job"`
+	Message          string                      `json:"message"`
+	JobDataMaterials []globals.CutMaterials      `json:"job_data_materials"`
+	MaterialData     []globals.CutMaterialTotals `json:"material_data"`
+	Job              globals.JobType             `json:"job_info"`
 }
 
 type LocalJobsResponse struct {
@@ -46,7 +46,7 @@ func HandleGetJob(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jobData, err := db.GetJobData(jobID)
+	jobDataMaterials, err := db.GetJobData(jobID)
 	if err != nil {
 		logger.LogError(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -67,11 +67,15 @@ func HandleGetJob(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+
+	// jobDataMaterials, err := db.GetPartData()
+
 	response := JobResponse{
-		Message:      jobID,
-		Job:          job,
-		JobData:      jobData,
-		MaterialData: materialTotals,
+		Message:          jobID,
+		Job:              job,
+		JobDataMaterials: jobDataMaterials,
+		MaterialData:     materialTotals,
+		// JobDataParts:
 	}
 	w.Header().Set("Content-Type", "application/json")
 

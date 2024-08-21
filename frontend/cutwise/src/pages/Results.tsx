@@ -1,135 +1,206 @@
-import {useEffect, useState} from "react";
-import {apiUrl} from "../globals.ts";
-import {useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { apiUrl } from "../globals.ts";
+import { useParams } from "react-router-dom";
 import styles from "../styles/Results.module.css";
-import {Button} from "@mui/material";
-import {Star, StarBorder} from "@mui/icons-material";
+import { Button } from "@mui/material";
+import { Print, Star, StarBorder } from "@mui/icons-material";
 
+export const Results: Function = () => {
+  interface JobDetails {
+    Job: string;
+    Customer: string;
+    Star: number;
+  }
 
+  interface Job {
+    message: string;
+    job_data_materials: Array<any>;
+    material_data: Array<any>;
+    job_info: JobDetails;
+  }
 
-export const Results: Function = (() => {
+  const [job, setJob] = useState<Job>({
+    message: "",
+    job_data_materials: [],
+    material_data: [],
+    job_info: {
+      Job: "",
+      Customer: "",
+      Star: 0,
+    },
+  });
+  const { jobId } = useParams();
 
-    interface JobDetails {
-        Job: string;
-        Customer: string;
-        Star: number;
+  useEffect(() => {
+    getJob();
+  }, [jobId]);
+
+  async function getJob() {
+    console.log(jobId);
+    // const jobNum = query
+    const res = await fetch(`${apiUrl}job?job_id=${jobId}`);
+    if (!res.ok) {
+      // console.error(res);
+      throw new Error(`HTTP error! status: ${res.status}`);
     }
+    const data = await res.json();
+    console.log(data);
+    setJob(data);
+  }
 
-    interface Job {
-        message: string;
-        JobData: Array<any>;
-        MaterialData: Array<any>;
-        Job: JobDetails;
-    }
-
-    const [job, setJob] = useState<Job>({
-        message: '',
-        JobData: [],
-        MaterialData: [],
-        Job: {
-            Job: '',
-            Customer: '',
-            Star: 0,
-        },
-    });
-    const { jobId } = useParams();
-
-    useEffect(() => {
-        getJob()
-    }, [jobId])
-
-    async function getJob() {
-        console.log(jobId);
-        // const jobNum = query
-        const res = await fetch(`${apiUrl}job?job_id=${jobId}`)
-        if (!res.ok) {
-            // console.error(res);
-            throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data = await res.json();
-        console.log(data);
-        setJob(data);
-
-
-    }
-
-    async function toggleStar(jobNumber: string, value: number,) {
-        const options = {
-            jobNumber: jobNumber.toString(),
-            value: value,
-        };
-
-        try {
-            const res = await fetch(`${apiUrl}togglestar`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(options),
-            });
-
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            const data = await res.json();
-            console.log(data);
-            updateStar(value);
-        } catch (error) {
-            console.error("Error toggling star:", error);
-        }
-    }
-
-    const updateStar = (newStarValue: number) => {
-        setJob((prevJob) => ({
-            ...prevJob,
-            Job: {
-                ...prevJob.Job,
-                Star: newStarValue,
-            },
-        }));
+  async function toggleStar(jobNumber: string, value: number) {
+    const options = {
+      jobNumber: jobNumber.toString(),
+      value: value,
     };
 
+    try {
+      const res = await fetch(`${apiUrl}togglestar`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(options),
+      });
 
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      console.log(data);
+      updateStar(value);
+    } catch (error) {
+      console.error("Error toggling star:", error);
+    }
+  }
 
-    return (
-        <div>
-            <h1 className={styles.heading}>Results</h1>
-            <div className={styles.job}>
-                <div className={styles.job__info}>
-                    <h2>Job Info</h2>
-                    <h3>Job Number: {job.Job.Job}</h3>
-                    <h4>Customer: {job.Job.Customer}</h4>
-                </div>
-                <div className={styles.buttons}>
-                    <Button
-                        onClick={() => toggleStar(job.Job.Job, job.Job.Star === 0 ? 1 : 0)}>
-                        {job.Job.Star === 0 ? <StarBorder/> : <Star/>}
-                    </Button>
-                </div>
-            </div>
+  const updateStar = (newStarValue: number) => {
+    setJob((prevJob) => ({
+      ...prevJob,
+      Job: {
+        ...prevJob.Job,
+        Star: newStarValue,
+      },
+    }));
+  };
 
-            <div className={styles.material}>
-                <div className={styles.material__info}>
-                    <h2>Material Info</h2>
-                    <h3>Job Number: {job.Job.Job}</h3>
-                    {/*<h4>Customer: {job.Job.Customer}</h4>*/}
-                </div>
-                <div className={styles.material__totals}>
-                    {job.MaterialData
-                        .sort((a, b) => a.MaterialCode.localeCompare(b.MaterialCode))
-                        .map((item, i) => (
-                            <div key={i}>
-                                <h3 className={styles.material__code}>Material Code: {item.MaterialCode} <span className={styles.tip}>(click to filter results)</span> </h3>
-                                <p className={styles.material__info__property}>Total Length: {(item.TotalLength / 12).toFixed(2)}'</p>
-                                <p className={styles.material__info__property}>QTY: {item.TotalQuantity} | Stock Length: {(item.StockLength / 12).toFixed(2)}' | {item.StockLength}"</p>
+  return (
+    <div>
+      <h1 className={styles.heading}>Results</h1>
 
-                            </div>
-                        ))}
-
-                </div>
-            </div>
-
-
+      {/*Job Info*/}
+      <div className={styles.job}>
+        <div className={styles.job__info}>
+          <h2>Job Info</h2>
+          <h3>Job Number: {job.job_info.Job}</h3>
+          <h4>Customer: {job.job_info.Customer}</h4>
         </div>
-    )
-})
+        <div className={styles.buttons}>
+          <Button
+            onClick={() =>
+              toggleStar(job.job_info.Job, job.job_info.Star === 0 ? 1 : 0)
+            }
+          >
+            {job.job_info.Star === 0 ? <StarBorder /> : <Star />}
+          </Button>
+        </div>
+      </div>
+      {/*Job Info*/}
+
+      {/*Visual display of materials totals*/}
+      <div className={styles.material}>
+        <div className={styles.material__info}>
+          <div className={styles.material__info__left}>
+            <h2>Material Info</h2>
+            <h3>Job Number: {job.job_info.Job}</h3>
+            {/*<h4>Customer: {job.Job.Customer}</h4>*/}
+          </div>
+          <div className={styles.material__info__right}>
+            <Button>
+              <Print />
+              Print
+            </Button>
+          </div>
+        </div>
+        <div className={styles.material__totals}>
+          {job.material_data
+            .sort((a, b) => a.material_code.localeCompare(b.material_code))
+            .map((item, i) => (
+              <div key={i}>
+                <h3 className={styles.material__code}>
+                  Material Code: {item.material_code}{" "}
+                  <span className={styles.tip}>(click to filter results)</span>{" "}
+                </h3>
+                <p className={styles.material__info__property}>
+                  Total Length: {(item.total_stock_length / 12).toFixed(2)}' |{" "}
+                  {item.total_stock_length.toFixed(2)}"
+                  <p className={styles.material__info__property}></p>
+                  Total Used: {(item.total_used_length / 12).toFixed(2)}' |{" "}
+                  {item.total_used_length.toFixed(2)}"
+                </p>
+                <p className={styles.material__info__property}>
+                  QTY: {item.total_quantity} | Stock Length:{" "}
+                  {(item.stock_length / 12).toFixed(2)}' |{" "}
+                  {item.stock_length.toFixed(2)}"
+                </p>
+              </div>
+            ))}
+        </div>
+      </div>
+      {/*Visual display of materials totals*/}
+
+      {/*Visual display of materials*/}
+      {job.job_data_materials.map((item) => (
+        <div className={styles.material__display}>
+          <div className={styles.material__display__info}>
+            <div className={styles.material__display__info__left}>
+              <h4>Material Code: {item.cut_material_material_code}</h4>
+              <h4>Material ID: {item.cut_material_id}</h4>
+              <h4>
+                Total Material Used: {(item.total_used_length / 12).toFixed(2)}'
+                | {item.total_used_length.toFixed(2)}"
+              </h4>
+              <h4>
+                Material Stock Length: {(item.stock_length / 12).toFixed(2)}' |{" "}
+                {item.stock_length.toFixed(2)}
+              </h4>
+              <h4>Identical Lengths: {item.cut_material_quantity}</h4>
+              <h4>Unique Parts: {item.total_parts_cut_on_material}</h4>
+            </div>
+            <div className={styles.material__info__right}>
+              <Button>
+                <Print />
+                Print
+              </Button>
+            </div>
+          </div>
+          {/*<div className={styles.material__totals}>*/}
+          {/*  {job.MaterialData.sort((a, b) =>*/}
+          {/*    a.material_code.localeCompare(b.material_code),*/}
+          {/*  ).map((item, i) => (*/}
+          {/*    <div key={i}>*/}
+          {/*      <h3 className={styles.material__code}>*/}
+          {/*        Material Code: {item.material_code}{" "}*/}
+          {/*        <span className={styles.tip}>(click to filter results)</span>{" "}*/}
+          {/*      </h3>*/}
+          {/*      <p className={styles.material__info__property}>*/}
+          {/*        Total Length: {(item.total_stock_length / 12).toFixed(2)}' -{" "}*/}
+          {/*        {item.total_stock_length}" | Total Used:{" "}*/}
+          {/*        {(item.total_used_length / 12).toFixed(2)}' -{" "}*/}
+          {/*        {item.total_used_length.toFixed(2)}"*/}
+          {/*      </p>*/}
+          {/*      <p className={styles.material__info__property}>*/}
+          {/*        QTY: {item.total_quantity} | Stock Length:{" "}*/}
+          {/*        {(item.stock_length / 12).toFixed(2)}' |{" "}*/}
+          {/*        {item.stock_length.toFixed(2)}"*/}
+          {/*      </p>*/}
+          {/*    </div>*/}
+          {/*  ))}*/}
+          {/*</div>*/}
+        </div>
+      ))}
+
+      {/*Visual display of materials*/}
+    </div>
+  );
+};

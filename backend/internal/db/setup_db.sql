@@ -33,9 +33,11 @@ CREATE TABLE IF NOT EXISTS cut_material_parts (
                                                   cut_material_id INTEGER,
                                                   part_id INTEGER,
                                                   part_qty INTEGER,
+                                                  job_id INTEGER,
                                                   PRIMARY KEY (cut_material_id, part_id),
                                                   FOREIGN KEY (cut_material_id) REFERENCES cut_materials(id),
-                                                  FOREIGN KEY (part_id) REFERENCES parts(id)
+                                                  FOREIGN KEY (part_id) REFERENCES parts(id),
+                                                  FOREIGN KEY (job_id) REFERENCES jobs(id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_cut_materials_job ON cut_materials(job);

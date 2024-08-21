@@ -81,9 +81,10 @@ func InsertPartsIntoPartTable(parts []globals.Part) {
 	}
 }
 
-func SaveJobInfoToDB(jobInfo globals.JobType) {
+func SaveJobInfoToDB(jobInfo globals.JobType) error {
 	if db == nil {
 		log.Println("Database is not initialized")
+		return errors.New("Database is not initialized")
 	}
 	_, err := db.Exec(
 		`INSERT INTO jobs (job_number, customer) VALUES(?, ?)`,
@@ -91,7 +92,9 @@ func SaveJobInfoToDB(jobInfo globals.JobType) {
 		jobInfo.Customer)
 	if err != nil {
 		logger.LogError(err.Error())
+		return errors.New("Error inserting job into database")
 	}
+	return nil
 }
 
 func SavePartsToDB(results *[]globals.CutMaterial, jobInfo globals.JobType) {
@@ -101,7 +104,15 @@ func SavePartsToDB(results *[]globals.CutMaterial, jobInfo globals.JobType) {
 	}
 
 	var jobId int64
-	jobId = 1
+	err := db.QueryRow(`SELECT id FROM jobs WHERE job_number = ?`, jobInfo.Job).Scan(&jobId)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			logger.LogError("No job found with the provided job number")
+		} else {
+			logger.LogError(err.Error())
+		}
+	}
+	// jobId = 9
 
 	for _, result := range *results {
 		id, err := db.Exec(
@@ -133,10 +144,11 @@ stock_length, length) VALUES(?, ?, ?, ?, ?, ?)`,
 					continue
 				}
 				_, err = db.Exec(
-					`INSERT INTO cut_material_parts (cut_material_id, part_id, part_qty) VALUES(?, ?, ?)`,
+					`INSERT INTO cut_material_parts (cut_material_id, part_id, part_qty, job_id) VALUES(?, ?, ?, ?)`,
 					lastID,
 					partID,
 					part,
+					jobId,
 				)
 			}
 			fmt.Println("Inserted ", lastID, " into database")
@@ -181,7 +193,7 @@ func GetJobInfoFromDB(jobId string) (globals.JobType, error) {
 	return job, errors.New("job not found")
 }
 
-func GetJobData(job string) ([]globals.CutMaterialPart, error) {
+func GetJobData(job string) ([]globals.CutMaterials, error) {
 	if db == nil {
 		return nil, fmt.Errorf("database is not initialized")
 	}
@@ -195,17 +207,14 @@ func GetJobData(job string) ([]globals.CutMaterialPart, error) {
         cm.quantity AS cut_material_quantity,
         cm.stock_length,
         cm.length AS cut_material_length,
-        p.id AS part_id,
-        p.part_number,
-        p.material_code AS part_material_code,
-        p.length AS part_length,
-        cmp.part_qty
+    	cm.stock_length - cm.length AS total_used_material,
+    	 (
+        SELECT COUNT(*)
+        FROM cut_material_parts cmp
+        WHERE cmp.cut_material_id = cm.id
+    ) AS unique_parts_qty
     FROM
         cut_materials cm
-    JOIN
-        cut_material_parts cmp ON cm.id = cmp.cut_material_id
-    JOIN
-        parts p ON cmp.part_id = p.id
     WHERE
         cm.job = ?
     `
@@ -216,9 +225,9 @@ func GetJobData(job string) ([]globals.CutMaterialPart, error) {
 	}
 	defer rows.Close()
 
-	var results []globals.CutMaterialPart
+	var results []globals.CutMaterials
 	for rows.Next() {
-		var cmp globals.CutMaterialPart
+		var cmp globals.CutMaterials
 		err := rows.Scan(
 			&cmp.CutMaterialID,
 			&cmp.Job,
@@ -227,11 +236,8 @@ func GetJobData(job string) ([]globals.CutMaterialPart, error) {
 			&cmp.CutMaterialQuantity,
 			&cmp.StockLength,
 			&cmp.CutMaterialLength,
-			&cmp.PartID,
-			&cmp.PartNumber,
-			&cmp.PartMaterialCode,
-			&cmp.PartLength,
-			&cmp.PartQty,
+			&cmp.TotalUsedLength,
+			&cmp.TotalPartsCutOnMaterial,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("row scan error: %v", err)
@@ -258,7 +264,7 @@ func GetMaterialTotals(job string) ([]globals.CutMaterialTotals, error) {
     length AS remaining_length,
     SUM(quantity) AS total_quantity,
     stock_length * SUM(quantity) AS total_stock_length,
-    stock_length - length * SUM(quantity) AS total_used_length
+    (stock_length - length) * SUM(quantity) AS total_used_length
 FROM
     cut_materials
 WHERE
@@ -295,6 +301,16 @@ GROUP BY
 
 	return results, nil
 }
+
+// func GetPartData(jobId int) ([]globals.CutMaterialPart, error) {
+// 	if db == nil {
+// 		logger.LogError("Database is not initialized")
+// 		return nil, fmt.Errorf("database is not initialized")
+// 	}
+//
+// 	query := `SELECT cut_material_id FROM cut_material_parts cm WHERE cm.job = jobId`
+//
+// }
 
 func GetLocalJobs() ([]globals.LocalJobsList, error) {
 	if db == nil {

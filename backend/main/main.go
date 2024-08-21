@@ -29,7 +29,11 @@ func main() {
 	globals.LoadSettings()
 
 	db.InsertPartsIntoPartTable(globals.Parts)
-	db.SaveJobInfoToDB(globals.JobInfo)
+	err := db.SaveJobInfoToDB(globals.JobInfo)
+	if err != nil {
+		errMsg := fmt.Sprintf("Failed to save job info to database: %v", err)
+		logger.LogError(errMsg)
+	}
 	sortedGroupedPartSlice := part_utils.SortPartsByCode(globals.Parts)
 	// fmt.Println(sortedGroupedPartSlice)
 	for _, partsByCodeSlice := range sortedGroupedPartSlice {

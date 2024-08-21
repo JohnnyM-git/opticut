@@ -139,3 +139,6 @@ Error: 2024/08/20 16:01:20 row scan error: sql: Scan error on column index 2, na
 Error: 2024/08/20 16:01:20 row scan error: sql: Scan error on column index 2, name "remaining_length": converting driver.Value type float64 ("7.000003814697266") to a int: invalid syntax
 Error: 2024/08/20 16:02:08 row scan error: sql: expected 4 destination arguments in Scan, not 5
 Error: 2024/08/20 16:02:08 row scan error: sql: expected 4 destination arguments in Scan, not 5
+Error: 2024/08/20 19:35:05 query execution error: near "WHERE": syntax error
+Error: 2024/08/20 19:35:05 query execution error: near "WHERE": syntax error
+Error: 2024/08/20 20:56:42 sql: converting argument $2 type: unsupported type sql.driverResult, a struct
