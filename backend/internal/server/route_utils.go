@@ -16,6 +16,7 @@ type JobResponse struct {
 	JobDataMaterials []globals.CutMaterials      `json:"job_data_materials"`
 	MaterialData     []globals.CutMaterialTotals `json:"material_data"`
 	Job              globals.JobType             `json:"job_info"`
+	JobDataParts     []globals.CutMaterialPart   `json:"job_data_parts"`
 }
 
 type LocalJobsResponse struct {
@@ -38,44 +39,45 @@ type LocalJobsResponse struct {
 func HandleGetJob(w http.ResponseWriter, r *http.Request) {
 	// Parse the query parameters
 	query := r.URL.Query()
-	jobID := query.Get("job_id")
+	jobNumber := query.Get("job_id")
 
 	// Use the query parameters in your logic
-	if jobID == "" {
+	if jobNumber == "" {
 		http.Error(w, "Missing job_id parameter", http.StatusBadRequest)
 		return
 	}
 
-	jobDataMaterials, err := db.GetJobData(jobID)
-	if err != nil {
-		logger.LogError(err.Error())
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-	materialTotals, err := db.GetMaterialTotals(jobID)
-	if err != nil {
-		fmt.Println("Material Err", err.Error())
-		logger.LogError(err.Error())
-	}
-
-	job, err := db.GetJobInfoFromDB(jobID)
+	job, jobId, err := db.GetJobInfoFromDB(jobNumber)
 	if err != nil {
 		fmt.Println("JOB ERR", err.Error())
 		logger.LogError(err.Error())
 	}
 	fmt.Println("job", job)
 
+	jobDataMaterials, err := db.GetJobData(jobId)
+	if err != nil {
+		logger.LogError(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	materialTotals, err := db.GetMaterialTotals(jobId)
+	if err != nil {
+		fmt.Println("Material Err", err.Error())
+		logger.LogError(err.Error())
+	}
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	// jobDataMaterials, err := db.GetPartData()
+	jobDataParts, err := db.GetPartData(jobId)
+	fmt.Println("jobDataParts", jobDataParts)
 
 	response := JobResponse{
-		Message:          jobID,
+		Message:          job.Job,
 		Job:              job,
 		JobDataMaterials: jobDataMaterials,
 		MaterialData:     materialTotals,
-		// JobDataParts:
+		JobDataParts:     jobDataParts,
 	}
 	w.Header().Set("Content-Type", "application/json")
 
@@ -115,21 +117,6 @@ func SettingsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
-
-// func LoadSettings() (globals.SettingsConfig, error) {
-// 	var settings globals.SettingsConfig
-// 	var filename = "./globals/settings.json"
-// 	file, err := os.Open(filename)
-// 	if err != nil {
-// 		return settings, err
-// 	}
-// 	defer file.Close()
-//
-// 	byteValue, _ := ioutil.ReadAll(file)
-// 	json.Unmarshal(byteValue, &settings)
-//
-// 	return settings, nil
-// }
 
 func GetSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	settings, err := globals.LoadSettings()
@@ -179,9 +166,12 @@ func UpdateSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	// Save the updated settings to the JSON file
 	err = globals.SaveSettings(settings)
 	if err != nil {
+		fmt.Println("Save error:", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	fmt.Println("Saved settings:", settings)
+	globals.LoadSettings()
 	// Create a response object
 	response := map[string]interface{}{
 		"message":  "Settings updated successfully",

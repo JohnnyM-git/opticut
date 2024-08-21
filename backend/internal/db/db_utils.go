@@ -104,7 +104,9 @@ func SavePartsToDB(results *[]globals.CutMaterial, jobInfo globals.JobType) {
 	}
 
 	var jobId int64
-	err := db.QueryRow(`SELECT id FROM jobs WHERE job_number = ?`, jobInfo.Job).Scan(&jobId)
+	err := db.QueryRow(
+		`SELECT id FROM jobs WHERE job_number = ?`,
+		jobInfo.Job).Scan(&jobId)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			logger.LogError("No job found with the provided job number")
@@ -116,8 +118,7 @@ func SavePartsToDB(results *[]globals.CutMaterial, jobInfo globals.JobType) {
 
 	for _, result := range *results {
 		id, err := db.Exec(
-			`INSERT INTO cut_materials (job, job_id, material_code, quantity, 
-stock_length, length) VALUES(?, ?, ?, ?, ?, ?)`,
+			`INSERT INTO cut_materials (job, job_id, material_code, quantity, stock_length, length) VALUES(?, ?, ?, ?, ?, ?)`,
 			result.Job,
 			jobId,
 			result.MaterialCode,
@@ -135,20 +136,34 @@ stock_length, length) VALUES(?, ?, ?, ?, ?, ?)`,
 			}
 			for i, part := range result.Parts {
 				var partID int64
+				var partLength float64
+				var materialCode string
 				err := db.QueryRow(
-					`SELECT id FROM parts WHERE part_number = ?`,
-					i).Scan(&partID)
+					`SELECT id, length, 
+material_code FROM parts WHERE part_number = ?`,
+					i).Scan(&partID, &partLength, &materialCode)
 				if err != nil {
 					fmt.Println("Error getting part id: ", i, err)
 					logger.LogError(err.Error())
 					continue
 				}
 				_, err = db.Exec(
-					`INSERT INTO cut_material_parts (cut_material_id, part_id, part_qty, job_id) VALUES(?, ?, ?, ?)`,
+					`INSERT INTO cut_material_parts (
+                                cut_material_id, 
+                                part_id, 
+                                part_qty,
+                                job_id, 
+                                length, 
+                                part_cut_length, 
+                                material_code) 
+					VALUES(?, ?, ?, ?,?, ?, ?)`,
 					lastID,
 					partID,
 					part,
 					jobId,
+					partLength,
+					(partLength + globals.Settings.Kerf),
+					materialCode,
 				)
 			}
 			fmt.Println("Inserted ", lastID, " into database")
@@ -156,44 +171,45 @@ stock_length, length) VALUES(?, ?, ?, ?, ?, ?)`,
 	}
 }
 
-func GetJobInfoFromDB(jobId string) (globals.JobType, error) {
+func GetJobInfoFromDB(jobNumber string) (globals.JobType, *int, error) {
 	// Create a variable to hold the result
 	var job globals.JobType
 	if db == nil {
 		logger.LogError("Database is not initialized")
-		return job, errors.New("database is not initialized")
+		return job, nil, errors.New("database is not initialized")
 	}
 
-	query := `SELECT job_number, customer, star FROM jobs WHERE job_number = ?`
+	query := `SELECT id, job_number, customer, 
+star FROM jobs WHERE job_number = ?`
 
-	rows, err := db.Query(query, jobId)
+	rows, err := db.Query(query, jobNumber)
 	if err != nil {
 		logger.LogError(err.Error())
-		return job, fmt.Errorf("query execution error: %v", err)
+		return job, nil, fmt.Errorf("query execution error: %v", err)
 	}
 	defer rows.Close()
 
 	// Iterate over the result set
 	if rows.Next() {
-		err := rows.Scan(&job.Job, &job.Customer, &job.Star)
+		err := rows.Scan(&job.JobId, &job.Job, &job.Customer, &job.Star)
 		if err != nil {
 			logger.LogError(err.Error())
-			return job, fmt.Errorf("row scan error: %v", err)
+			return job, nil, fmt.Errorf("row scan error: %v", err)
 		}
 		// Return the job information and no error
-		return job, nil
+		return job, &job.JobId, nil
 	}
 
 	// If no rows are found, return an appropriate error
 	if err = rows.Err(); err != nil {
 		logger.LogError(err.Error())
-		return job, fmt.Errorf("rows error: %v", err)
+		return job, nil, fmt.Errorf("rows error: %v", err)
 	}
 
-	return job, errors.New("job not found")
+	return job, nil, errors.New("job not found")
 }
 
-func GetJobData(job string) ([]globals.CutMaterials, error) {
+func GetJobData(jobId *int) ([]globals.CutMaterials, error) {
 	if db == nil {
 		return nil, fmt.Errorf("database is not initialized")
 	}
@@ -216,10 +232,10 @@ func GetJobData(job string) ([]globals.CutMaterials, error) {
     FROM
         cut_materials cm
     WHERE
-        cm.job = ?
+        cm.job_id = ?
     `
 
-	rows, err := db.Query(query, job)
+	rows, err := db.Query(query, jobId)
 	if err != nil {
 		return nil, fmt.Errorf("query execution error: %v", err)
 	}
@@ -252,13 +268,14 @@ func GetJobData(job string) ([]globals.CutMaterials, error) {
 	return results, nil
 }
 
-func GetMaterialTotals(job string) ([]globals.CutMaterialTotals, error) {
+func GetMaterialTotals(jobId *int) ([]globals.CutMaterialTotals, error) {
 	if db == nil {
 		logger.LogError("Database is not initialized")
 		return nil, fmt.Errorf("database is not initialized")
 	}
 
 	query := `SELECT
+    id,
     material_code,
     stock_length,
     length AS remaining_length,
@@ -268,11 +285,11 @@ func GetMaterialTotals(job string) ([]globals.CutMaterialTotals, error) {
 FROM
     cut_materials
 WHERE
-    job = ?
+    job_id = ?
 GROUP BY
     material_code, stock_length;`
 
-	rows, err := db.Query(query, job)
+	rows, err := db.Query(query, jobId)
 	if err != nil {
 		return nil, fmt.Errorf("query execution error: %v", err)
 	}
@@ -282,6 +299,7 @@ GROUP BY
 	for rows.Next() {
 		var total globals.CutMaterialTotals
 		err := rows.Scan(
+			&total.Id,
 			&total.MaterialCode,
 			&total.StockLength,
 			&total.Length, // length AS remaining_length
@@ -302,15 +320,64 @@ GROUP BY
 	return results, nil
 }
 
-// func GetPartData(jobId int) ([]globals.CutMaterialPart, error) {
-// 	if db == nil {
-// 		logger.LogError("Database is not initialized")
-// 		return nil, fmt.Errorf("database is not initialized")
-// 	}
-//
-// 	query := `SELECT cut_material_id FROM cut_material_parts cm WHERE cm.job = jobId`
-//
-// }
+func GetPartData(jobId *int) ([]globals.CutMaterialPart, error) {
+	if db == nil {
+		logger.LogError("Database is not initialized")
+		return nil, fmt.Errorf("database is not initialized")
+	}
+
+	query := `SELECT
+    cmp.cut_material_id,
+    cmp.part_id,
+    p.part_number,
+    p.material_code,
+    p.length,
+    cmp.part_cut_length,
+    cmp.part_qty,
+    (
+        SELECT SUM(cmp_inner.part_qty)
+        FROM cut_material_parts cmp_inner
+        WHERE cmp_inner.part_id = cmp.part_id
+    ) AS total_part_qty
+FROM
+    cut_material_parts cmp
+        JOIN
+    parts p ON cmp.part_id = p.id
+WHERE
+    cmp.job_id = ?`
+
+	rows, err := db.Query(query, *jobId)
+	if err != nil {
+		fmt.Println("func GerPartData rows, err", err)
+		logger.LogError(err.Error())
+		return nil, fmt.Errorf("query execution error: %v", err)
+	}
+	defer rows.Close()
+	var results []globals.CutMaterialPart
+	for rows.Next() {
+		var cmp globals.CutMaterialPart
+		err := rows.Scan(
+			&cmp.CutMaterialID,
+			&cmp.PartID,
+			&cmp.PartNumber,
+			&cmp.PartMaterialCode,
+			&cmp.PartLength,
+			&cmp.PartCutLength,
+			&cmp.PartQty,
+			&cmp.TotalPartQty)
+		if err != nil {
+			return nil, fmt.Errorf("row scan error: %v", err)
+		}
+		results = append(results, cmp)
+	}
+	if err = rows.Err(); err != nil {
+		logger.LogError(err.Error())
+		return nil, fmt.Errorf("rows error: %v", err)
+	}
+	fmt.Println("func GetPartData result", results)
+	return results, nil
+
+}
 
 func GetLocalJobs() ([]globals.LocalJobsList, error) {
 	if db == nil {

@@ -9,14 +9,14 @@ import (
 type Part struct {
 	PartNumber       string
 	MaterialCode     string
-	Length           float32
+	Length           float64
 	Quantity         uint16
 	CuttingOperation string
 }
 
 type Material struct {
 	MaterialCode     string
-	Length           float32
+	Length           float64
 	CuttingOperation string
 	Quantity         uint16
 }
@@ -26,8 +26,8 @@ type CutMaterial struct {
 	MaterialCode string
 	Parts        map[string]uint16
 	Quantity     uint16
-	StockLength  float32
-	Length       float32
+	StockLength  float64
+	Length       float64
 }
 
 type CutMaterialPart struct {
@@ -36,7 +36,9 @@ type CutMaterialPart struct {
 	PartNumber       string  `json:"part_number"`
 	PartMaterialCode string  `json:"part_material_code"`
 	PartLength       float64 `json:"part_length"`
+	PartCutLength    float64 `json:"part_cut_length"`
 	PartQty          int     `json:"part_qty"`
+	TotalPartQty     int     `json:"total_part_qty"`
 }
 
 type CutMaterials struct {
@@ -52,6 +54,7 @@ type CutMaterials struct {
 }
 
 type CutMaterialTotals struct {
+	Id               int     `json:"id"`
 	MaterialCode     string  `json:"material_code"`
 	StockLength      float64 `json:"stock_length"`
 	Length           float64 `json:"remaining_length"`   // length AS remaining_length
@@ -89,33 +92,34 @@ type LocalJobsList struct {
 }
 
 type SettingsConfig struct {
-	Kerf float32 `json:"kerf"`
+	Kerf float64 `json:"kerf"`
 }
 
 var Settings SettingsConfig
 
-func LoadSettings() (Settings SettingsConfig, err error) {
-	// fmt.Println("Loading settings...")
+func LoadSettings() (SettingsConfig, error) {
+	fmt.Println("Loading settings...")
 	var filename = "./globals/settings.json"
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening settings.json:", err)
-		return Settings, err
+		return SettingsConfig{}, err
 	}
 	defer file.Close()
 
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&Settings)
 	if err != nil {
-		return Settings, err
+		return SettingsConfig{}, err
 	}
-	// fmt.Println("Settings:", Settings)
+	fmt.Println("Settings:", Settings)
 
 	return Settings, nil
 }
 
 func SaveSettings(settings SettingsConfig) error {
-	file, err := os.Create("settings.json")
+	var filename = "./globals/settings.json"
+	file, err := os.Create(filename)
 	if err != nil {
 		return err
 	}
@@ -126,14 +130,12 @@ func SaveSettings(settings SettingsConfig) error {
 	return encoder.Encode(settings)
 }
 
-// var Kerf float32 = .0625
-
 var Parts = []Part{
 	{
 		PartNumber:       "Part1",
 		MaterialCode:     "HSS3X3X.25",
-		Length:           1.0,
-		Quantity:         1,
+		Length:           1,
+		Quantity:         8,
 		CuttingOperation: "Saw",
 	},
 	{
@@ -181,6 +183,7 @@ var Materials = []Material{
 }
 
 type JobType struct {
+	JobId    int
 	Job      string
 	Customer string
 	Star     int

@@ -41,7 +41,8 @@ func CreateLayout(
 				} else {
 					cutMaterial.Parts[p.PartNumber] = 1
 				}
-				cutMaterial.Length -= p.Length + globals.Settings.Kerf
+				fmt.Println("SUB", globals.Settings.Kerf)
+				cutMaterial.Length -= (p.Length + globals.Settings.Kerf)
 				remainingQty--
 			}
 		}

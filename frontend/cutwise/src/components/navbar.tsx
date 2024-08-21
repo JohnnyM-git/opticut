@@ -13,13 +13,20 @@ import {
   TextField,
 } from "@mui/material";
 import {
-  Cloud, DataArray, DataObject, Dataset, DataUsage,
+  Cloud,
+  DataArray,
+  DataObject,
+  Dataset,
+  DataUsage,
   Home,
   Inbox,
-  LocalActivity, LocalAtm, LocalBar,
+  LocalActivity,
+  LocalAtm,
+  LocalBar,
   Mail,
   People,
-  Settings, Storage
+  Settings,
+  Storage,
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getJobData } from "../functions/getJobData.ts";
@@ -32,7 +39,11 @@ interface NavbarProps {
   setJobId?: any;
 }
 
-export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobData, setJobId,}) => {
+export const Navbar: FunctionComponent<NavbarProps> = ({
+  jobId,
+  setJobData,
+  setJobId,
+}) => {
   const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const DrawerList = (
@@ -62,16 +73,15 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobData, setJ
         </ListItem>
         <Divider />
 
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <Cloud />
-            </ListItemIcon>
-            <ListItemText primary={"Cloud Jobs"} />
-          </ListItemButton>
-        </ListItem>
-        <Divider />
-
+        {/*<ListItem disablePadding>*/}
+        {/*  <ListItemButton>*/}
+        {/*    <ListItemIcon>*/}
+        {/*      <Cloud />*/}
+        {/*    </ListItemIcon>*/}
+        {/*    <ListItemText primary={"Cloud Jobs"} />*/}
+        {/*  </ListItemButton>*/}
+        {/*</ListItem>*/}
+        {/*<Divider />*/}
 
         {/*<ListItem disablePadding>*/}
         {/*  <ListItemButton>*/}
@@ -116,7 +126,7 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobData, setJ
           placeholder={"Enter Job Number"}
           onChange={(e) => setJobId(e.target.value)}
         />
-        <Button onClick={() => getJobData(jobId)}>Go</Button>
+        <Button onClick={() => navigate(`/results/${jobId}`)}>Go</Button>
       </div>
     </div>
   );

@@ -142,3 +142,11 @@ Error: 2024/08/20 16:02:08 row scan error: sql: expected 4 destination arguments
 Error: 2024/08/20 19:35:05 query execution error: near "WHERE": syntax error
 Error: 2024/08/20 19:35:05 query execution error: near "WHERE": syntax error
 Error: 2024/08/20 20:56:42 sql: converting argument $2 type: unsupported type sql.driverResult, a struct
+Error: 2024/08/21 08:29:23 sql: expected 4 destination arguments in Scan, not 3
+Error: 2024/08/21 08:29:23 row scan error: sql: expected 4 destination arguments in Scan, not 3
+Error: 2024/08/21 08:29:23 sql: expected 4 destination arguments in Scan, not 3
+Error: 2024/08/21 08:29:23 row scan error: sql: expected 4 destination arguments in Scan, not 3
+Error: 2024/08/21 08:53:23 job not found
+Error: 2024/08/21 08:53:23 job not found
+Error: 2024/08/21 10:41:55 no such column: p.part_cut_length
+Error: 2024/08/21 10:41:55 no such column: p.part_cut_length
