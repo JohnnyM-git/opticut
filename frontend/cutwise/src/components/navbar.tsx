@@ -18,12 +18,14 @@ import {
   DataObject,
   Dataset,
   DataUsage,
+  FiberNew,
   Home,
   Inbox,
   LocalActivity,
   LocalAtm,
   LocalBar,
   Mail,
+  NewReleases,
   People,
   Settings,
   Storage,
@@ -56,9 +58,9 @@ export const Navbar: FunctionComponent<NavbarProps> = ({
         <ListItem disablePadding onClick={() => navigate("/")}>
           <ListItemButton>
             <ListItemIcon>
-              <Home />
+              <FiberNew />
             </ListItemIcon>
-            <ListItemText primary={"Home"} />
+            <ListItemText primary={"New Job"} />
           </ListItemButton>
         </ListItem>
         <Divider />
