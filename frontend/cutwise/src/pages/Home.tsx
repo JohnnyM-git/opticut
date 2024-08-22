@@ -1,8 +1,10 @@
 import React, { FunctionComponent, useState } from "react";
 import styles from "../styles/Home.module.css";
-import { Badge, Button, List, ListItemIcon, TextField } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Badge, Button } from "@mui/material";
 import { Add, Segment } from "@mui/icons-material";
+import { StyledInput } from "../components/StyledInput.tsx";
+import { apiUrl } from "../globals.ts";
+import { useNavigate } from "react-router-dom";
 
 export const Home: FunctionComponent = () => {
   interface JobInfo {
@@ -12,10 +14,18 @@ export const Home: FunctionComponent = () => {
   interface Part {
     PartNumber: string;
     MaterialCode: string;
-    Length?: number | null;
-    Quantity?: number | null;
+    Length: number;
+    Quantity: number;
     CuttingOperation: string;
   }
+
+  const partInitialState = {
+    PartNumber: "",
+    MaterialCode: "",
+    Length: 0,
+    Quantity: 0,
+    CuttingOperation: "",
+  };
 
   interface Material {
     MaterialCode: string;
@@ -23,32 +33,173 @@ export const Home: FunctionComponent = () => {
     Quantity: number;
   }
 
-  const [jobInfo, setJobInfo] = useState<JobInfo>({ Job: "", Customer: "" });
-  const [parts, setParts] = useState<Part[]>([
-    {
-      PartNumber: "test",
-      MaterialCode: "test",
-      Length: 10,
-      CuttingOperation: "",
-      Quantity: 1,
-    },
-  ]);
-  const [material, setMaterial] = useState<Material[]>([
-    { MaterialCode: "test", Length: 1, Quantity: 10 },
-  ]);
-  const [part, setPart] = useState<Part>({
-    PartNumber: "",
+  const materialInitialState = {
     MaterialCode: "",
-    Length: null,
-    Quantity: null,
-    CuttingOperation: "",
-  });
+    Length: 0,
+    Quantity: 0,
+  };
+
+  const [jobInfo, setJobInfo] = useState<JobInfo>({ Job: "", Customer: "" });
+  const [parts, setParts] = useState<Part[]>([]);
+  const [materials, setMaterials] = useState<Material[]>([]);
+  const [part, setPart] = useState<Part>(partInitialState);
+  const [material, setMaterial] = useState<Material>(materialInitialState);
+  const [partErrorMsg, setPartErrorMsg] = useState<string | JSX.Element>("");
+  const [materialErrorMsg, setMaterialErrorMsg] = useState<string>("");
+  const navigate = useNavigate();
+
+  async function runProject(): Promise<void> {
+    if (checkDataValidity()) {
+      const res = await fetch(`${apiUrl}runproject`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          jobInfo: jobInfo,
+          parts: parts,
+          materials: materials,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      navigate(`/results/${jobInfo.Job}`);
+    }
+  }
+
+  function checkDataValidity(): boolean {
+    if (
+      !jobInfo.Job ||
+      !jobInfo.Customer ||
+      !parts.length ||
+      !materials.length
+    ) {
+      console.log("Job Info Not Valid");
+      return false;
+    } else {
+      console.log("Running Project");
+      return true;
+    }
+  }
+
+  function updatePart(key: string, value: string): void {
+    let processedValue: string | number;
+
+    if (key === "Length") {
+      // Convert the value to a float, or default to 0 if invalid or empty
+      processedValue = value ? parseFloat(value) || 0 : 0;
+    } else if (key === "Quantity") {
+      // Convert the value to an integer, or default to 0 if invalid or empty
+      processedValue = value ? parseInt(value, 10) || 0 : 0;
+    } else if (
+      key === "PartNumber" ||
+      key === "MaterialCode" ||
+      key === "CuttingOperation"
+    ) {
+      // For string fields, trim and convert to uppercase
+      processedValue = value.toUpperCase().trim();
+    } else {
+      // Handle unexpected keys if necessary
+      console.warn(`Unexpected key: ${key}`);
+      return;
+    }
+
+    setPart((prev) => ({
+      ...prev,
+      [key]: processedValue,
+    }));
+  }
+
+  function checkPartValidity(): boolean {
+    const errors: string[] = [];
+    setPartErrorMsg(""); // Clear previous errors
+
+    // Collect errors based on the current state
+    if (part.PartNumber.trim() === "") {
+      errors.push("Part number");
+    }
+    if (part.Length <= 0) {
+      errors.push("Length");
+    }
+    if (part.Quantity <= 0) {
+      errors.push("Quantity");
+    }
+    if (part.MaterialCode.trim() === "") {
+      errors.push("Material Code");
+    }
+
+    // If there are errors, join them into a single string and set the error message
+    if (errors.length !== 0) {
+      setPartErrorMsg("Required Part Fields are Invalid: " + errors.join(", "));
+      return false;
+    }
+
+    // If no errors, return true
+    return true;
+  }
+
+  function addToParts(e: any): void {
+    e.preventDefault();
+    if (checkPartValidity()) {
+      setParts((prev) => [...prev, part]);
+    }
+  }
+
+  function updateMaterial(key: keyof Material, value: string | number): void {
+    setMaterial((prev) => ({
+      ...prev,
+      [key]: !value && value !== 0 ? materialInitialState[key] : value,
+    }));
+  }
+
+  function checkMaterialValidity(): boolean {
+    const errors: string[] = [];
+    // Check if MaterialCode is a non-empty string
+    if (material.MaterialCode.trim() === "") {
+      errors.push("Material Code");
+    }
+
+    // Check if Length is greater than 0
+    if (material.Length <= 0) {
+      errors.push("Length");
+    }
+
+    // Check if Quantity is greater than 0
+    if (material.Quantity <= 0) {
+      errors.push("Quantity");
+    }
+
+    if (errors.length !== 0) {
+      setMaterialErrorMsg(
+        "Required Material Fields are Invalid: " + errors.join(", "),
+      );
+      return false;
+    }
+
+    // All checks passed, return true
+    return true;
+  }
+
+  function addToMaterials(e): void {
+    e.preventDefault();
+    if (checkMaterialValidity()) {
+      // Update state to add the new material
+      setMaterials((prev) => [...prev, material]);
+      // Clear any previous error message
+      setMaterialErrorMsg("");
+    } else {
+      // Set an error message to indicate invalid materials
+      setErrorMsg("Materials must be valid");
+    }
+  }
+
   return (
     <div>
       <h1>Create New Job</h1>
       <div className={styles.heading}>
         <div className={styles.heading__left}>
-          <TextField
+          <StyledInput
+            type={"text"}
             placeholder={"Enter Job / Project #"}
             value={jobInfo?.Job}
             onChange={(e) =>
@@ -58,7 +209,9 @@ export const Home: FunctionComponent = () => {
               }))
             }
           />
-          <TextField
+
+          <StyledInput
+            type={"text"}
             placeholder={"Enter Customer"}
             value={jobInfo?.Customer}
             onChange={(e) =>
@@ -68,6 +221,7 @@ export const Home: FunctionComponent = () => {
               }))
             }
           />
+          <Button onClick={runProject}>Run Project</Button>
         </div>
         <div className={styles.heading__right}>
           <Badge badgeContent={parts.length} color="primary">
@@ -76,7 +230,7 @@ export const Home: FunctionComponent = () => {
               <Segment />
             </Button>
           </Badge>
-          <Badge badgeContent={material.length} color="primary">
+          <Badge badgeContent={materials.length} color="primary">
             <Button>
               <p>Materials</p>
               <Segment />
@@ -88,76 +242,94 @@ export const Home: FunctionComponent = () => {
         <div className={styles.part__addition}>
           <h4>Add Part to Cut</h4>
           <div className={styles.part__addition__inputs}>
-            <TextField
-              placeholder={"Part Number"}
-              value={part?.PartNumber}
-              type={"text"}
-              onChange={(e) =>
-                setPart((prev) => ({
-                  ...prev,
-                  PartNumber: e.target.value.toUpperCase(),
-                }))
-              }
-            />
-            <TextField
-              placeholder={"Material Code"}
-              value={part?.MaterialCode}
-              type={"text"}
-              onChange={(e) =>
-                setPart((prev) => ({
-                  ...prev,
-                  MaterialCode: e.target.value.toUpperCase(),
-                }))
-              }
-            />
-            <TextField
-              placeholder={"Part Length - inch"}
-              value={part?.Length}
-              type={"number"}
-              onChange={(e) =>
-                setPart((prev) => ({
-                  ...prev,
-                  Length: parseInt(e.target.value),
-                }))
-              }
-            />
-            <TextField
-              placeholder={"Cutting Operation"}
-              value={part?.CuttingOperation}
-              type={"text"}
-              onChange={(e) =>
-                setPart((prev) => ({
-                  ...prev,
-                  CuttingOperation: e.target.value.toUpperCase(),
-                }))
-              }
-            />
-            <TextField
-              placeholder={"Part Quantity"}
-              onChange={(e) =>
-                setPart((prev) => ({
-                  ...prev,
-                  Quantity: parseInt(e.target.value),
-                }))
-              }
-            />
-            <Button>
-              <Add onClick={() => setParts((prev) => [...prev, part])} />
-            </Button>
+            <form onSubmit={addToParts}>
+              <div className={styles.part__addition__inputs__form}>
+                <StyledInput
+                  type={"text"}
+                  placeholder="Part Number"
+                  value={part.PartNumber}
+                  onChange={(e) => updatePart("PartNumber", e.target.value)}
+                  // onFocus={handleFocus}
+                  // onBlur={handleBlur}
+                />
+
+                <StyledInput
+                  type={"text"}
+                  placeholder="Material Code"
+                  value={part.MaterialCode}
+                  onChange={(e) => updatePart("MaterialCode", e.target.value)}
+                />
+
+                <StyledInput
+                  type={"number"}
+                  placeholder="Part Length"
+                  value={part.Length}
+                  onChange={(e) => updatePart("Length", e.target.value)}
+                />
+
+                <StyledInput
+                  type={"text"}
+                  placeholder={"Cutting Operation"}
+                  value={part.CuttingOperation}
+                  onChange={(e) =>
+                    updatePart("CuttingOperation", e.target.value)
+                  }
+                />
+                <StyledInput
+                  type={"number"}
+                  placeholder="Part Quantity"
+                  value={part.Quantity !== 0 ? part.Quantity : ""}
+                  onChange={(e) => updatePart("Quantity", e.target.value)}
+                />
+              </div>
+              <Button type="submit">
+                Add Part <Add />{" "}
+              </Button>
+            </form>
           </div>
+          {partErrorMsg && <div className="error">{partErrorMsg}</div>}
         </div>
 
         <div className={styles.material__addition}>
           <h4>Add Material</h4>
           <div className={styles.material__addition__inputs}>
-            <TextField placeholder={"Material Code"} />
-            <TextField placeholder={"Material Length - inch"} />
-            <TextField placeholder={"Material Quantity"} />
-
-            <Button>
-              <Add />
-            </Button>
+            <form onSubmit={addToMaterials}>
+              <div className={styles.material__addition__inputs__form}>
+                <StyledInput
+                  type={"text"}
+                  placeholder={"Material Code"}
+                  value={material.MaterialCode}
+                  onChange={(e) =>
+                    updateMaterial(
+                      "MaterialCode",
+                      e.target.value.toUpperCase().trim(),
+                    )
+                  }
+                />
+                <StyledInput
+                  type={"number"}
+                  placeholder={"Material Length - inch"}
+                  value={material.Length !== 0 ? material.Length : ""}
+                  onChange={(e) =>
+                    updateMaterial("Length", parseFloat(e.target.value))
+                  }
+                />
+                <StyledInput
+                  type={"number"}
+                  placeholder={"Material Quantity"}
+                  value={material.Quantity !== 0 ? material.Quantity : ""}
+                  onChange={(e) =>
+                    updateMaterial("Quantity", parseInt(e.target.value))
+                  }
+                />
+              </div>
+              <Button type="submit">
+                Add Material
+                <Add />
+              </Button>
+            </form>
           </div>
+          {materialErrorMsg && <div className="error">{materialErrorMsg}</div>}
         </div>
       </div>
     </div>

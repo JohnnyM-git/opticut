@@ -134,38 +134,49 @@ func SavePartsToDB(results *[]globals.CutMaterial, jobInfo globals.JobType) {
 				fmt.Println("Error getting last inserted id: ", err)
 				logger.LogError(err.Error())
 			}
-			for i, part := range result.Parts {
+			for i, partQty := range result.Parts {
 				var partID int64
 				var partLength float64
 				var materialCode string
+
 				err := db.QueryRow(
-					`SELECT id, length, 
-material_code FROM parts WHERE part_number = ?`,
-					i).Scan(&partID, &partLength, &materialCode)
+					`SELECT id, length, material_code FROM parts WHERE part_number = ?`, i).Scan(
+					&partID,
+					&partLength,
+					&materialCode)
 				if err != nil {
 					fmt.Println("Error getting part id: ", i, err)
 					logger.LogError(err.Error())
 					continue
 				}
+
 				_, err = db.Exec(
 					`INSERT INTO cut_material_parts (
-                                cut_material_id, 
-                                part_id, 
-                                part_qty,
-                                job_id, 
-                                length, 
-                                part_cut_length, 
-                                material_code) 
-					VALUES(?, ?, ?, ?,?, ?, ?)`,
+            cut_material_id, 
+            part_id, 
+            part_qty,
+            total_part_qty,
+            job_id, 
+            length, 
+            part_cut_length, 
+            material_code) 
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?)`,
 					lastID,
 					partID,
-					part,
+					partQty.CurrentQty, // Use CurrentQty for part_qty
+					partQty.TotalQty,   // Use TotalQty for total_part_qty
 					jobId,
 					partLength,
 					(partLength + globals.Settings.Kerf),
 					materialCode,
 				)
+				if err != nil {
+					fmt.Println("Error inserting cut material part: ", i, err)
+					logger.LogError(err.Error())
+					continue
+				}
 			}
+
 			fmt.Println("Inserted ", lastID, " into database")
 		}
 	}
@@ -334,11 +345,7 @@ func GetPartData(jobId *int) ([]globals.CutMaterialPart, error) {
     p.length,
     cmp.part_cut_length,
     cmp.part_qty,
-    (
-        SELECT SUM(cmp_inner.part_qty)
-        FROM cut_material_parts cmp_inner
-        WHERE cmp_inner.part_id = cmp.part_id
-    ) AS total_part_qty
+    cmp.total_part_qty
 FROM
     cut_material_parts cmp
         JOIN

@@ -1,18 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
-	_ "github.com/mattn/go-sqlite3"
-	"optimizer/globals"
-	"optimizer/internal/db"
-	"optimizer/internal/server"
-	"optimizer/logger"
-	"optimizer/material_utils"
-	"optimizer/optimizer"
-	"optimizer/part_utils"
+	"backend/globals"
+	"backend/internal/db"
+	"backend/internal/server"
 )
 
 func main() {
@@ -28,37 +22,37 @@ func main() {
 
 	globals.LoadSettings()
 
-	db.InsertPartsIntoPartTable(globals.Parts)
-	err := db.SaveJobInfoToDB(globals.JobInfo)
-	if err != nil {
-		errMsg := fmt.Sprintf("Failed to save job info to database: %v", err)
-		logger.LogError(errMsg)
-	}
-	sortedGroupedPartSlice := part_utils.SortPartsByCode(globals.Parts)
+	// db.InsertPartsIntoPartTable(globals.Parts)
+	// err := db.SaveJobInfoToDB(globals.JobInfo)
+	// if err != nil {
+	// 	errMsg := fmt.Sprintf("Failed to save job info to database: %v", err)
+	// 	logger.LogError(errMsg)
+	// }
+	// sortedGroupedPartSlice := part_utils.SortPartsByCode(globals.Parts)
 	// fmt.Println(sortedGroupedPartSlice)
-	for _, partsByCodeSlice := range sortedGroupedPartSlice {
-		// fmt.Println(partSlice)
-		materialCode := partsByCodeSlice[0].MaterialCode
-		results, err := material_utils.SortMaterialByCode(
-			globals.Materials,
-			materialCode)
-		if err != nil {
-			logger.LogError(err.Error())
-		} else {
-			results, errSlice := optimizer.CreateLayout(
-				partsByCodeSlice,
-				results,
-				globals.JobInfo)
-			if len(errSlice) > 0 {
-				for _, err := range errSlice {
-					logger.LogError(err)
-				}
-			} else {
-				fmt.Println(results)
-			}
-		}
-
-	}
+	// for _, partsByCodeSlice := range sortedGroupedPartSlice {
+	// 	// fmt.Println(partSlice)
+	// 	materialCode := partsByCodeSlice[0].MaterialCode
+	// 	results, err := material_utils.SortMaterialByCode(
+	// 		globals.Materials,
+	// 		materialCode)
+	// 	if err != nil {
+	// 		logger.LogError(err.Error())
+	// 	} else {
+	// 		results, errSlice := optimizer.CreateLayout(
+	// 			partsByCodeSlice,
+	// 			results,
+	// 			globals.JobInfo)
+	// 		if len(errSlice) > 0 {
+	// 			for _, err := range errSlice {
+	// 				logger.LogError(err)
+	// 			}
+	// 		} else {
+	// 			fmt.Println(results)
+	// 		}
+	// 	}
+	//
+	// }
 	server.StartServer()
 }
 

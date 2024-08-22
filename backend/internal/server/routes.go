@@ -10,4 +10,5 @@ func RegisterRoutes() {
 	http.HandleFunc("/api/v1/localjobs", HandleGetLocalJobs)
 	http.HandleFunc("/api/v1/settings", SettingsHandler)
 	http.HandleFunc("/api/v1/togglestar", ToggleStar)
+	http.HandleFunc("/api/v1/runproject", RunProject)
 }

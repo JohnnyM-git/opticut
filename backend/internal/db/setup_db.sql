@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS cut_material_parts (
                                                   cut_material_id INTEGER,
                                                   part_id INTEGER,
                                                   part_qty INTEGER,
+                                                  total_part_qty INTEGER,
                                                   job_id INTEGER,
                                                   length REAL,
                                                   part_cut_length REAL,

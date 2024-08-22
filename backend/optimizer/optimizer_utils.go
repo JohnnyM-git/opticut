@@ -14,9 +14,9 @@ func CreateLayout(
 	parts []globals.Part,
 	materials []globals.Material,
 	JobInfo globals.JobType) (
-	results []globals.CutMaterial,
+	// results []globals.CutMaterial,
 	errSlice []string) {
-	results = []globals.CutMaterial{}
+	var results []globals.CutMaterial
 	errSlice = []string{}
 	for _, part := range parts {
 		p := part
@@ -36,10 +36,16 @@ func CreateLayout(
 				break
 			} else {
 				cutMaterial := &results[materialIndex]
-				if _, exists := cutMaterial.Parts[p.PartNumber]; exists {
-					cutMaterial.Parts[p.PartNumber] += 1
+				if partQty, exists := cutMaterial.Parts[p.PartNumber]; exists {
+					// Update the existing PartQTY struct
+					partQty.CurrentQty += 1
+					cutMaterial.Parts[p.PartNumber] = partQty // Store it back in the map
 				} else {
-					cutMaterial.Parts[p.PartNumber] = 1
+					// Initialize and add a new PartQTY struct to the map
+					cutMaterial.Parts[p.PartNumber] = globals.PartQTY{
+						CurrentQty: 1,
+						TotalQty:   p.Quantity,
+					}
 				}
 				fmt.Println("SUB", globals.Settings.Kerf)
 				cutMaterial.Length -= (p.Length + globals.Settings.Kerf)
@@ -50,7 +56,7 @@ func CreateLayout(
 	mergeDuplicateCutMaterialsInPlace(&results)
 	db.SavePartsToDB(&results, JobInfo)
 	// ops.SaveResultsJSONFile(&results, results[0].Job)
-	return results, errSlice
+	return errSlice
 }
 
 func checkForMaterial(
@@ -77,7 +83,7 @@ func checkForMaterial(
 				m := globals.CutMaterial{
 					Job:          job,
 					MaterialCode: material.MaterialCode,
-					Parts:        map[string]uint16{},
+					Parts:        map[string]globals.PartQTY{},
 					Quantity:     1,
 					StockLength:  material.Length,
 					Length:       material.Length,
@@ -136,7 +142,7 @@ func mergeDuplicateCutMaterialsInPlace(cutMaterials *[]globals.CutMaterial) {
 	*cutMaterials = mergedResults
 }
 
-func arePartsEqual(parts1, parts2 map[string]uint16) bool {
+func arePartsEqual(parts1, parts2 map[string]globals.PartQTY) bool {
 	if len(parts1) != len(parts2) {
 		return false
 	}

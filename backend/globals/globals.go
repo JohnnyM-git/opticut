@@ -21,10 +21,15 @@ type Material struct {
 	Quantity         uint16
 }
 
+type PartQTY struct {
+	CurrentQty uint16
+	TotalQty   uint16
+}
+
 type CutMaterial struct {
 	Job          string
 	MaterialCode string
-	Parts        map[string]uint16
+	Parts        map[string]PartQTY
 	Quantity     uint16
 	StockLength  float64
 	Length       float64
@@ -58,7 +63,7 @@ type CutMaterialTotals struct {
 	MaterialCode     string  `json:"material_code"`
 	StockLength      float64 `json:"stock_length"`
 	Length           float64 `json:"remaining_length"`   // length AS remaining_length
-	TotalQuantity    int     `json:"total_quantity"`     // SUM(quantity)
+	TotalQuantity    uint16  `json:"total_quantity"`     // SUM(quantity)
 	TotalStockLength float64 `json:"total_stock_length"` // stock_length * SUM(quantity)
 	TotalUsedLength  float64 `json:"total_used_length"`  // stock_length - length * SUM(quantity)
 }

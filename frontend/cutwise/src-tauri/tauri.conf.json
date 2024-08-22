@@ -1,7 +1,7 @@
 {
   "build": {
-    "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "pnpm build",
+    "beforeDevCommand": "cd ../backend && go build -o backend/main/main.go && cd ../../frontend/cutwise && pnpm tauri dev",
+    "beforeBuildCommand": "cd ../backend && go build -o backend/main/main.go && cd ../../frontend/cutwise && pnpm tauri build",
     "devPath": "http://localhost:1420",
     "distDir": "../dist"
   },
@@ -11,9 +11,9 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false,
+      "all": true,
       "shell": {
-        "all": false,
+        "all": true,
         "open": true
       }
     },
@@ -38,7 +38,16 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ]
+    },
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://github.com/yourusername/yourrepo/releases/download/{version}/macos-update.zip",
+        "https://github.com/yourusername/yourrepo/releases/download/{version}/windows-update.zip",
+        "https://github.com/yourusername/yourrepo/releases/download/{version}/linux-update.zip"
+      ],
+      "dialog": true,
+      "pubkey": "your-public-key"
     }
   }
 }
-

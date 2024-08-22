@@ -9,6 +9,9 @@ import (
 	"optimizer/globals"
 	"optimizer/internal/db"
 	"optimizer/logger"
+	"optimizer/material_utils"
+	"optimizer/optimizer"
+	"optimizer/part_utils"
 )
 
 type JobResponse struct {
@@ -227,6 +230,88 @@ func ToggleStar(w http.ResponseWriter, r *http.Request) {
 	// Create a response object
 	response := map[string]interface{}{
 		"message": "Toggle Star successfully",
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func RunProject(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("HTTP Method:", r.Method)
+	fmt.Println("Endpoint Hit: Run Project")
+
+	type Part struct {
+		PartNumber       string
+		MaterialCode     string
+		Length           float64
+		Quantity         uint16
+		CuttingOperation string
+	}
+
+	type Material struct {
+		MaterialCode string
+		Length       float64
+		Quantity     uint16
+	}
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	defer r.Body.Close()
+	type RunProjectParams struct {
+		JobInfo   globals.JobType    `json:"jobInfo"`
+		Parts     []globals.Part     `json:"parts"`
+		Materials []globals.Material `json:"materials"`
+	}
+
+	var params RunProjectParams
+	err = json.Unmarshal(body, &params)
+	if err != nil {
+		fmt.Println("Unmarshal error:", err)
+	}
+	fmt.Println("Request Body:", params)
+
+	db.InsertPartsIntoPartTable(params.Parts)
+	saveJobErr := db.SaveJobInfoToDB(params.JobInfo)
+	if saveJobErr != nil {
+		errMsg := fmt.Sprintf("Failed to save job info to database: %v", err)
+		logger.LogError(errMsg)
+	}
+
+	sortedGroupedPartSlice := part_utils.SortPartsByCode(params.Parts)
+
+	for _, partsByCodeSlice := range sortedGroupedPartSlice {
+		// fmt.Println(partSlice)
+		materialCode := partsByCodeSlice[0].MaterialCode
+		results, err := material_utils.SortMaterialByCode(
+			params.Materials,
+			materialCode)
+		if err != nil {
+			logger.LogError(err.Error())
+		} else {
+			errSlice := optimizer.CreateLayout(
+				partsByCodeSlice,
+				results,
+				globals.JobInfo)
+			if len(errSlice) > 0 {
+				for _, err := range errSlice {
+					logger.LogError(err)
+				}
+			} else {
+				fmt.Println(results)
+			}
+		}
+
+	}
+
+	errSlice := optimizer.CreateLayout(params.Parts, params.Materials, params.JobInfo)
+	if errSlice != nil {
+		fmt.Println("CreateLayout error:", errSlice)
+	}
+	response := map[string]interface{}{
+		"message": "Project run successfully",
 	}
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(response); err != nil {
