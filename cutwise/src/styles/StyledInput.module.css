@@ -1,0 +1,20 @@
+.styled__input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+    background: #eee !important;
+}
+
+.styled__input:focus {
+    border-color: #1976d2; /* MUI primary color */
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.styled__input.error {
+    border-color: red;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+}

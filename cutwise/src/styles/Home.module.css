@@ -1,0 +1,39 @@
+.heading {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.heading__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 16px;
+ }
+.heading__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 16px;
+ }
+.part__addition__inputs__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+}
+
+.material__addition__inputs__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+}

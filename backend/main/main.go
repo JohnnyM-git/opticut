@@ -4,9 +4,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"backend/globals"
-	"backend/internal/db"
-	"backend/internal/server"
+	"main/globals"
+	"main/internal/db"
+	"main/internal/server"
 )
 
 func main() {
