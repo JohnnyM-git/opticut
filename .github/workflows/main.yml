@@ -1,18 +1,43 @@
-            - name: tauri-build
-  # You may pin to the exact commit or the version.
-  # uses: JonasKruckenberg/tauri-build@406f9292d464c04add8c74e8ed1ed4105b91a20e
-  uses: JonasKruckenberg/tauri-build@v1.0.3
-  with:
-    # Binary to use to build the application
-    runner: # optional
-    # Additional arguments for the build command
-    args: # optional
-    # Path to the root of the project
-    projectPath: # optional
-    # Path to the tauri.conf.json file if you want a configuration different from the default one
-    configPath: # optional
-    # The target triple to build against
-    target: # optional
-    # Builds with the debug flag
-    debug: # optional
-          
+name: Build Tauri App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # or the version of Node.js you are using
+
+    - name: Install dependencies
+      run: pnpm install # Adjust if you use npm or yarn instead
+
+    - name: Build Tauri app
+      uses: JonasKruckenberg/tauri-build@v1.0.3
+      with:
+        # Path to the root of the Tauri project
+        projectPath: './src-tauri'
+
+        # Path to the tauri.conf.json file
+        configPath: './src-tauri/tauri.conf.json'
+
+        # The target triple to build against
+        target: 'x86_64-pc-windows-msvc' # Adjust if you're targeting a different platform
+
+        # Builds with the debug flag
+        debug: false
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: tauri-bundle
+        path: ./src-tauri/target/release/bundle
