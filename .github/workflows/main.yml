@@ -18,22 +18,18 @@ jobs:
       with:
         node-version: '18' # or the version of Node.js you are using
 
+    - name: Install pnpm
+      run: npm install -g pnpm
+
     - name: Install dependencies
-      run: pnpm install # Adjust if you use npm or yarn instead
+      run: pnpm install
 
     - name: Build Tauri app
       uses: JonasKruckenberg/tauri-build@v1.0.3
       with:
-        # Path to the root of the Tauri project
         projectPath: './src-tauri'
-
-        # Path to the tauri.conf.json file
         configPath: './src-tauri/tauri.conf.json'
-
-        # The target triple to build against
         target: 'x86_64-pc-windows-msvc' # Adjust if you're targeting a different platform
-
-        # Builds with the debug flag
         debug: false
 
     - name: Upload Artifacts
