@@ -17,7 +17,7 @@ export const Settings = () => {
   }, []);
 
   const fetchSettings = async () => {
-    const res = await fetch("http://localhost:8080/api/v1/settings");
+    const res = await fetch("http://localhost:2828/api/v1/settings");
     const data = await res.json();
     setSettings(data);
     console.log(data);
@@ -29,7 +29,7 @@ export const Settings = () => {
 
   const saveSettings = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/v1/settings", {
+      const res = await fetch("http://localhost:2828/api/v1/settings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

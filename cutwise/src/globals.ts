@@ -1,4 +1,4 @@
-export const apiUrl: string = "http://localhost:8080/api/v1/";
+export const apiUrl: string = "http://localhost:2828/api/v1/";
 
 export interface jobListJob {
   JobNumber: string;

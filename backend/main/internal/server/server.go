@@ -9,9 +9,10 @@ import (
 
 func StartServer() {
 	RegisterRoutes()
+	var port = ":2828"
 
 	handlerWithCORS := middleware.CORS(http.DefaultServeMux)
 
-	log.Println("Server is running on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", handlerWithCORS))
+	log.Println("Server is running on http://localhost", port)
+	log.Fatal(http.ListenAndServe(port, handlerWithCORS))
 }

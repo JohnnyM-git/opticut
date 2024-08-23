@@ -27,17 +27,21 @@ type LocalJobsResponse struct {
 	JobsList []globals.LocalJobsList `json:"JobsList"`
 }
 
-// func HelloHandler(w http.ResponseWriter, r *http.Request) {
-// 	if r.Method != http.MethodGet {
-// 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-// 		return
-// 	}
-//
-// 	response := Response{Message: "Hello, World!"}
-//
-// 	w.Header().Set("Content-Type", "application/json")
-// 	json.NewEncoder(w).Encode(response)
-// }
+func HelloHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	type Response struct {
+		Message string `json:"Message"`
+	}
+
+	response := Response{Message: "Hello, World!"}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
 
 func HandleGetJob(w http.ResponseWriter, r *http.Request) {
 	// Parse the query parameters
