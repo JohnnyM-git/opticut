@@ -14,18 +14,20 @@ import { invoke } from "@tauri-apps/api";
 // import JobDetail from './pages/JobDetail';
 
 function App() {
-  const [jobData, setJobData] = useState();
+  // const [jobData, setJobData] = useState();
   const [jobId, setJobId] = useState("");
 
-  async function startBackend() {
-    try {
-      await invoke("start_backend");
-    } catch (error) {
-      console.error("Failed to start the backend:", error);
+  useEffect(() => {
+    async function startBackend() {
+      try {
+        await invoke("start_backend");
+      } catch (error) {
+        console.error("Failed to start the backend:", error);
+      }
     }
-  }
 
-  startBackend();
+    startBackend();
+  }, []);
 
   listen("open_job_event", (event): void => {
     console.log(event.payload); // This will log "Open Job menu item clicked"
@@ -35,7 +37,7 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <Navbar setJobId={setJobId} jobId={jobId} setJobData={setJobData} />
+        <Navbar setJobId={setJobId} jobId={jobId} />
         <Routes>
           {/* Uncomment and use the appropriate routes */}
           <Route path="/" element={<Home />} />

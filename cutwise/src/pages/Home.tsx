@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { Badge, Button } from "@mui/material";
 import { Add, Segment } from "@mui/icons-material";
@@ -180,7 +180,7 @@ export const Home: FunctionComponent = () => {
     return true;
   }
 
-  function addToMaterials(e): void {
+  function addToMaterials(e: any): void {
     e.preventDefault();
     if (checkMaterialValidity()) {
       // Update state to add the new material
@@ -189,7 +189,7 @@ export const Home: FunctionComponent = () => {
       setMaterialErrorMsg("");
     } else {
       // Set an error message to indicate invalid materials
-      setErrorMsg("Materials must be valid");
+      setMaterialErrorMsg("Materials must be valid");
     }
   }
 

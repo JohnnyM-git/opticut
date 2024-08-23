@@ -1,5 +1,5 @@
 // import React from "react";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import {
   Box,
   Button,
@@ -12,26 +12,8 @@ import {
   ListItemText,
   TextField,
 } from "@mui/material";
-import {
-  Cloud,
-  DataArray,
-  DataObject,
-  Dataset,
-  DataUsage,
-  FiberNew,
-  Home,
-  Inbox,
-  LocalActivity,
-  LocalAtm,
-  LocalBar,
-  Mail,
-  NewReleases,
-  People,
-  Settings,
-  Storage,
-} from "@mui/icons-material";
+import { FiberNew, Settings, Storage } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { getJobData } from "../functions/getJobData.ts";
 import "./styles/navbar.css";
 import { useNavigate } from "react-router-dom";
 
@@ -41,11 +23,7 @@ interface NavbarProps {
   setJobId?: any;
 }
 
-export const Navbar: FunctionComponent<NavbarProps> = ({
-  jobId,
-  setJobData,
-  setJobId,
-}) => {
+export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobId }) => {
   const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const DrawerList = (

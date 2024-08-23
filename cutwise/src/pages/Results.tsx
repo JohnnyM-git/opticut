@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { apiUrl } from "../globals.ts";
 import { useParams } from "react-router-dom";
 import styles from "../styles/Results.module.css";
 import { Button } from "@mui/material";
 import { Print, Star, StarBorder } from "@mui/icons-material";
 
-export const Results: Function = () => {
+export const Results: FunctionComponent = () => {
   interface JobDetails {
     Job: string;
     Customer: string;
@@ -80,7 +80,7 @@ export const Results: Function = () => {
     setJob((prevJob) => ({
       ...prevJob,
       Job: {
-        ...prevJob.Job,
+        ...prevJob.job_info,
         Star: newStarValue,
       },
     }));
@@ -127,7 +127,7 @@ export const Results: Function = () => {
         <div className={styles.material__totals}>
           {job.material_data
             .sort((a, b) => a.material_code.localeCompare(b.material_code))
-            .map((item, i) => (
+            .map((item) => (
               <div key={item.id}>
                 <h3 className={styles.material__code}>
                   Material Code: {item.material_code}{" "}
@@ -184,7 +184,7 @@ export const Results: Function = () => {
                   (partdata) =>
                     partdata.cut_material_id === item.cut_material_id,
                 )
-                .map((partdata, i) =>
+                .map((partdata) =>
                   Array.from({ length: partdata.part_qty }).map((_, index) => (
                     <div
                       key={`${partdata.part_id}-${index}`}
