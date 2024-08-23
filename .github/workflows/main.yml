@@ -21,6 +21,9 @@ jobs:
     - name: Install pnpm
       run: npm install -g pnpm
 
+    - name: Navigate to frontend directory
+      run: cd cutwise # Adjust to your actual frontend directory if different
+
     - name: Install dependencies
       run: pnpm install
 
