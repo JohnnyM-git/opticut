@@ -18,13 +18,13 @@ import "./styles/navbar.css";
 import { useNavigate } from "react-router-dom";
 
 interface NavbarProps {
-  jobId: string;
-  setJobData?: any;
-  setJobId?: any;
+  startbackend?: any;
+  // stopbackend?: any;
 }
 
-export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobId }) => {
+export const Navbar: FunctionComponent<NavbarProps> = ({ startbackend }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [jobId, setJobId] = useState("");
   const navigate = useNavigate();
   const DrawerList = (
     <Box
@@ -102,10 +102,11 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ jobId, setJobId }) => {
       </div>
       <div className={"search"}>
         <TextField
-          value={jobId}
-          placeholder={"Enter Job Number"}
-          onChange={(e) => setJobId(e.target.value)}
+            value={jobId}
+            placeholder={"Enter Job Number"}
+            onChange={(e) => setJobId(e.target.value)}
         />
+        <Button onClick={() => startbackend()}>Start</Button>
         <Button onClick={() => navigate(`/results/${jobId}`)}>Go</Button>
       </div>
     </div>

@@ -73,7 +73,7 @@ export const LocalJobs: FunctionComponent = () => {
       <div>
         <h1 className={styles.heading}>Local Jobs</h1>
         <div className={styles.jobs}>
-          {jobs.map((job, i) => (
+          {jobs?.map((job, i) => (
               <div className={styles.job} key={i}>
                 <h2
                     className={styles.job__number}
