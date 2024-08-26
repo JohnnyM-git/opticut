@@ -8,6 +8,9 @@ import (
 	"main/globals"
 	"main/internal/db"
 	"main/logger"
+	"main/material_utils"
+	"main/ops"
+	"main/part_utils"
 )
 
 func CreateLayout(
@@ -57,6 +60,158 @@ func CreateLayout(
 	db.SavePartsToDB(&results, JobInfo)
 	// ops.SaveResultsJSONFile(&results, results[0].Job)
 	return errSlice
+}
+
+func CreateLayoutV2(Parts []globals.Part, Materials []globals.Material, JobInfo globals.JobType) (errSlice []string) {
+	fmt.Println("Hitting CreateLayoutV2")
+
+	var results []globals.CutMaterial
+	errSlice = []string{}
+
+	if len(Parts) == 0 {
+		return []string{"Error: No parts to process."}
+	}
+
+	sortedParts := part_utils.SortPartByLength(Parts)
+	var currentMaterial globals.CutMaterial
+
+	complete := false
+	i := 0
+
+	for !complete {
+		fmt.Println("INDEX", i)
+		fmt.Println("NoPartsFit:", NoPartsFit(sortedParts, &currentMaterial), "Code:", currentMaterial.MaterialCode)
+
+		if NoPartsFit(sortedParts, &currentMaterial) && currentMaterial.MaterialCode != "" {
+			fmt.Println("Appending current because parts don't fit", currentMaterial)
+			results = append(results, currentMaterial)
+			// Reset current material
+			currentMaterial = globals.CutMaterial{
+				Job:          "",
+				MaterialCode: "",
+				Parts:        map[string]globals.PartQTY{},
+				Quantity:     0,
+				StockLength:  0,
+				Length:       0,
+			}
+		}
+
+		// Update complete status
+		complete = PartsComplete(sortedParts)
+		fmt.Println("Complete:", complete, "Code:", currentMaterial.MaterialCode)
+		if complete {
+			fmt.Println("Appending current because parts are done", currentMaterial)
+			results = append(results, currentMaterial)
+			break
+		}
+
+		fmt.Println("Current Material", currentMaterial, "Code", currentMaterial.MaterialCode)
+		if currentMaterial.MaterialCode == "" {
+			fmt.Println("No material available")
+			err := checkForMaterialV2(&sortedParts[i], &currentMaterial, &Materials, JobInfo)
+			if err != nil {
+				logger.LogError(err.Error())
+				// Optionally continue or break depending on error handling
+			}
+		}
+
+		if sortedParts[i].CutQuantity < sortedParts[i].Quantity {
+			if sortedParts[i].Length <= currentMaterial.Length {
+				if sortedParts[i].Length+globals.Settings.Kerf <= currentMaterial.Length {
+					currentMaterial.Length -= (sortedParts[i].Length + globals.Settings.Kerf)
+				} else {
+					currentMaterial.Length -= sortedParts[i].Length
+				}
+				sortedParts[i].CutQuantity++
+
+				// Update or add PartQTY
+				if partQty, exists := currentMaterial.Parts[sortedParts[i].PartNumber]; exists {
+					partQty.CurrentQty++
+					currentMaterial.Parts[sortedParts[i].PartNumber] = partQty
+				} else {
+					currentMaterial.Parts[sortedParts[i].PartNumber] = globals.PartQTY{
+						CurrentQty: 1,
+						TotalQty:   sortedParts[i].Quantity,
+					}
+				}
+			}
+		}
+
+		// Move to the next part
+		i = (i + 1) % len(sortedParts)
+	}
+	ops.SaveResultsJSONFile(&results, JobInfo.Job)
+	mergeDuplicateCutMaterialsInPlace(&results)
+	db.SavePartsToDB(&results, JobInfo)
+	return errSlice
+}
+
+// Assuming PartsComplete is updated to return a bool:
+func PartsComplete(parts []globals.Part) bool {
+	for _, part := range parts {
+		if part.Quantity > part.CutQuantity {
+			return false
+		}
+	}
+	return true
+}
+
+func NoPartsFit(parts []globals.Part, currentMaterial *globals.CutMaterial) bool {
+	fmt.Println("Checking if parts fit")
+	// if currentMaterial.MaterialCode == "" {
+	// 	fmt.Println("No material code")
+	// 	return true
+	// }
+	for _, part := range parts {
+		if part.Quantity > part.CutQuantity {
+			if part.Length <= currentMaterial.Length {
+				fmt.Println("Parts are fitting")
+				return false
+			}
+		}
+	}
+	fmt.Println("No parts fit on the material")
+	return true
+}
+
+// func PartsComplete(parts []globals.Part) bool {
+// 	fmt.Println("Checking if parts complete")
+// 	for _, part := range parts {
+// 		if part.Quantity > part.CutQuantity {
+// 			fmt.Println("Part#", part.PartNumber, "PartQ", part.Quantity, "CutQ", part.CutQuantity)
+// 			return false // Set to false if any part is not complete
+// 		}
+// 	}
+// 	return true
+// }
+
+func checkForMaterialV2(
+	p *globals.Part, currentMaterial *globals.CutMaterial, Materials *[]globals.Material,
+	JobInfo globals.JobType) error {
+	fmt.Println("Hitting CheckforMaterialV2")
+
+	if len(*Materials) == 0 {
+		return errors.New("Materials list empty")
+	}
+
+	material_utils.SortMaterialByLength(*Materials)
+	for i, material := range *Materials {
+		if material.Length >= p.Length {
+			m := globals.CutMaterial{
+				Job:          JobInfo.Job,
+				MaterialCode: material.MaterialCode,
+				Parts:        map[string]globals.PartQTY{},
+				Quantity:     1,
+				StockLength:  material.Length,
+				Length:       material.Length,
+			}
+			*currentMaterial = m
+			(*Materials)[i].Quantity-- // Decrement material quantity
+			return nil
+		}
+	}
+
+	return errors.New("Material with the correct length not found.")
 }
 
 func checkForMaterial(
@@ -119,8 +274,8 @@ func SortMaterialsByLength(materials []globals.Material) {
 }
 
 func mergeDuplicateCutMaterialsInPlace(cutMaterials *[]globals.CutMaterial) {
-	mergedResults := []globals.CutMaterial{}
-
+	var mergedResults []globals.CutMaterial
+	fmt.Println("Merging duplicates", *cutMaterials)
 	for _, cm := range *cutMaterials {
 		found := false
 		for i, merged := range mergedResults {
@@ -136,7 +291,11 @@ func mergeDuplicateCutMaterialsInPlace(cutMaterials *[]globals.CutMaterial) {
 		}
 		if !found {
 			mergedResults = append(mergedResults, cm)
+			// fmt.Println("Merged duplicate:", cm)
 		}
+	}
+	for _, merged := range mergedResults {
+		fmt.Println("Merged duplicate:", merged)
 	}
 
 	*cutMaterials = mergedResults

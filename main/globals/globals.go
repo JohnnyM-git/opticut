@@ -12,6 +12,7 @@ type Part struct {
 	Length           float64
 	Quantity         uint16
 	CuttingOperation string
+	CutQuantity      uint16
 }
 
 type Material struct {

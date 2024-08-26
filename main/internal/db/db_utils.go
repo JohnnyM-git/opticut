@@ -98,6 +98,7 @@ func SaveJobInfoToDB(jobInfo globals.JobType) error {
 }
 
 func SavePartsToDB(results *[]globals.CutMaterial, jobInfo globals.JobType) {
+	fmt.Println("Hitting SavePartsToDB")
 	if db == nil {
 		log.Println("Database is not initialized")
 		return

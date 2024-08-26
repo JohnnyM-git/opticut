@@ -245,20 +245,6 @@ func RunProject(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("HTTP Method:", r.Method)
 	fmt.Println("Endpoint Hit: Run Project")
 
-	type Part struct {
-		PartNumber       string
-		MaterialCode     string
-		Length           float64
-		Quantity         uint16
-		CuttingOperation string
-	}
-
-	type Material struct {
-		MaterialCode string
-		Length       float64
-		Quantity     uint16
-	}
-
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -287,33 +273,31 @@ func RunProject(w http.ResponseWriter, r *http.Request) {
 	sortedGroupedPartSlice := part_utils.SortPartsByCode(params.Parts)
 
 	for _, partsByCodeSlice := range sortedGroupedPartSlice {
-		// fmt.Println(partSlice)
 		materialCode := partsByCodeSlice[0].MaterialCode
-		results, err := material_utils.SortMaterialByCode(
-			params.Materials,
-			materialCode)
-		if err != nil {
-			logger.LogError(err.Error())
-		} else {
-			errSlice := optimizer.CreateLayout(
-				partsByCodeSlice,
-				results,
-				globals.JobInfo)
-			if len(errSlice) > 0 {
-				for _, err := range errSlice {
-					logger.LogError(err)
-				}
-			} else {
-				fmt.Println(results)
-			}
+		matresults, materr := material_utils.SortMaterialByCode(params.Materials, materialCode)
+
+		if materr != nil {
+			logger.LogError(materr.Error())
+			continue // Skip this iteration if there's an error
 		}
 
+		// Call CreateLayoutV2 with the current partsByCodeSlice and sorted materials
+		errSlice := optimizer.CreateLayoutV2(
+			partsByCodeSlice,
+			matresults,
+			params.JobInfo,
+		)
+
+		if len(errSlice) > 0 {
+			for _, err := range errSlice {
+				logger.LogError(err)
+			}
+		} else {
+			// Assuming results is a global or accumulated variable
+			fmt.Println("completed slice")
+		}
 	}
 
-	errSlice := optimizer.CreateLayout(params.Parts, params.Materials, params.JobInfo)
-	if errSlice != nil {
-		fmt.Println("CreateLayout error:", errSlice)
-	}
 	response := map[string]interface{}{
 		"message": "Project run successfully",
 	}

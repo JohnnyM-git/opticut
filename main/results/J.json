@@ -1,0 +1,516 @@
+[
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 7,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.3874999999999744
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 6,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.72499999999998
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 4,
+                "TotalQty": 200
+            },
+            "P2": {
+                "CurrentQty": 8,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.049999999999976
+    },
+    {
+        "Job": "J",
+        "MaterialCode": "M",
+        "Parts": {
+            "P2": {
+                "CurrentQty": 10,
+                "TotalQty": 200
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 5.3749999999999645
+    },
+    {
+        "Job": "",
+        "MaterialCode": "",
+        "Parts": {},
+        "Quantity": 0,
+        "StockLength": 0,
+        "Length": 0
+    }
+]

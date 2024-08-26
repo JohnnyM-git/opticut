@@ -15,9 +15,9 @@ function App() {
     // const [backendStatus, setBackendStatus] = useState<string>('starting');
 
 
-    useEffect(() => {
-        startBackend()
-    }, []);
+    // useEffect(() => {
+    //     startBackend()
+    // }, []);
 
     async function startBackend() {
         try {

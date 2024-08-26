@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"optimizer/globals"
+	"main/globals"
 )
 
 func SaveResultsJSONFile(results *[]globals.CutMaterial, job string) {
