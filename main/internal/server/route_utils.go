@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"main/globals"
 	"main/internal/db"
@@ -305,4 +306,37 @@ func RunProject(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func CheckHealth(w http.ResponseWriter, r *http.Request) {
+	type HealthResponse struct {
+		Status      string `json:"status"`
+		Database    string `json:"database"`
+		Version     string `json:"version"`
+		Uptime      string `json:"uptime"`
+		ServiceName string `json:"service_name"`
+	}
+
+	uptime := time.Since(StartTime).String()
+
+	health := HealthResponse{
+		Status:      "healthy",
+		Database:    db.DbHealthCheck(),
+		Version:     "1.0.0",
+		Uptime:      uptime,
+		ServiceName: "MyService",
+	}
+
+	// If any component is unhealthy, change the overall status
+	if health.Database != "healthy" {
+		health.Status = "unhealthy"
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	if health.Status == "unhealthy" {
+		w.WriteHeader(http.StatusServiceUnavailable)
+	} else {
+		w.WriteHeader(http.StatusOK)
+	}
+	json.NewEncoder(w).Encode(health)
 }

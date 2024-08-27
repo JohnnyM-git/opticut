@@ -8,6 +8,7 @@ import { LocalJobs } from "./pages/LocalJobs.tsx";
 import { CloudJobs } from "./pages/CloudJobs.tsx";
 import { Results } from "./pages/Results.tsx";
 import { invoke } from "@tauri-apps/api/tauri";
+import {apiUrl} from "./globals.ts";
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
             // Poll the backend health endpoint until it's up or timeout
             const checkBackendStatus = async () => {
                 try {
-                    const res = await fetch('http://localhost:2828/api/v1/hello'); // Replace with actual health check endpoint
+                    const res = await fetch(`${apiUrl}/hello`); // Replace with actual health check endpoint
                     if (res.ok) {
                         await logToFile("Server is running.");
                         return true;

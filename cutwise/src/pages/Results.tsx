@@ -32,6 +32,7 @@ export const Results: FunctionComponent = () => {
     },
   });
   const { jobId } = useParams();
+  // const [printable, setPrintable] = useState(true)
 
   useEffect(() => {
     getJob();
@@ -118,7 +119,7 @@ export const Results: FunctionComponent = () => {
             {/*<h4>Customer: {job.Job.Customer}</h4>*/}
           </div>
           <div className={styles.material__info__right}>
-            <Button>
+            <Button onClick={() => window.print()}>
               <Print />
               Print
             </Button>
@@ -195,7 +196,7 @@ export const Results: FunctionComponent = () => {
                         width: `${(partdata.part_cut_length / item.stock_length) * 100}%`,
                       }}
                     >
-                      <p> {partdata.part_id}</p>
+                      <p>{partdata.part_id}</p>
                     </div>
                   )),
                 )}

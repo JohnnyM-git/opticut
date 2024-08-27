@@ -23,6 +23,7 @@ func main() {
 	globals.LoadSettings()
 
 	server.StartServer()
+
 }
 
 func fileExists(filepath string) bool {

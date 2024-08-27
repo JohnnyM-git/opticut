@@ -63,6 +63,14 @@ func CloseDB() {
 	}
 }
 
+func DbHealthCheck() string {
+	err := db.Ping()
+	if err != nil {
+		return "unhealthy"
+	}
+	return "healthy"
+}
+
 func InsertPartsIntoPartTable(parts []globals.Part) {
 	if db == nil {
 		log.Println("Database is not initialized")

@@ -8,3 +8,5 @@ export interface jobListJob {
 export interface jobList {
   JobList: jobListJob[];
 }
+
+

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "../styles/Settings.module.css"
 
 export const Settings = () => {
   const [settings, setSettings] = useState({
@@ -49,18 +50,34 @@ export const Settings = () => {
   };
 
   return (
-    <div>
-      <h1>Settings</h1>
-      <label>
-        Kerf:
-        <input
-          type="number"
-          name="kerf"
-          value={settings.kerf}
-          onChange={(e) => setKerf(e.target.value)}
-        />
-      </label>
-      <button onClick={saveSettings}>Save</button>
-    </div>
+      <div>
+          <h1>Settings</h1>
+          <label>
+              Kerf:
+              <input
+                  type="number"
+                  name="kerf"
+                  value={settings.kerf}
+                  onChange={(e) => setKerf(e.target.value)}
+              />
+          </label>
+          <button onClick={saveSettings}>Save</button>
+
+
+          <div className={styles.healthDashboard}>
+              <h2>MyService Health Status</h2>
+              <div className={styles.status}>
+                  <span>Status:</span>
+                  <span className={`${styles.statusIndicator} ${styles.healthy}`}>Healthy</span>
+              </div>
+              <div className={styles.details}>
+                  <p><strong>Database:</strong> Healthy</p>
+                  <p><strong>Version:</strong> 1.0.0</p>
+                  <p><strong>Uptime:</strong> 21 seconds</p>
+              </div>
+          </div>
+
+
+      </div>
   );
 };

@@ -1,0 +1,26 @@
+/* Filename: HealthDashboard.module.css */
+
+.healthDashboard {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.status {
+    margin-bottom: 15px;
+}
+
+.statusIndicator {
+    font-weight: bold;
+}
+
+.healthy {
+    color: green;
+}
+
+.details p {
+    margin: 5px 0;
+}

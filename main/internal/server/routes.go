@@ -11,4 +11,5 @@ func RegisterRoutes() {
 	http.HandleFunc("/api/v1/settings", SettingsHandler)
 	http.HandleFunc("/api/v1/togglestar", ToggleStar)
 	http.HandleFunc("/api/v1/runproject", RunProject)
+	http.HandleFunc("/api/v1/health", CheckHealth)
 }

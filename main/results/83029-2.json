@@ -1,0 +1,152 @@
+[
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 7,
+                "TotalQty": 144
+            },
+            "593-7000-018-1R07": {
+                "CurrentQty": 8,
+                "TotalQty": 21
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 8.25
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 9,
+                "TotalQty": 144
+            },
+            "593-7000-018-1R07": {
+                "CurrentQty": 7,
+                "TotalQty": 21
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 10,
+                "TotalQty": 144
+            },
+            "593-7000-018-1R07": {
+                "CurrentQty": 6,
+                "TotalQty": 21
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 8
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 19,
+                "TotalQty": 144
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 7.25
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 19,
+                "TotalQty": 144
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 7.25
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 19,
+                "TotalQty": 144
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 7.25
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 19,
+                "TotalQty": 144
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 7.25
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 19,
+                "TotalQty": 144
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 7.25
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 19,
+                "TotalQty": 144
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 7.25
+    },
+    {
+        "Job": "83029-2",
+        "MaterialCode": "P1000PL",
+        "Parts": {
+            "593-7000-012-1R07": {
+                "CurrentQty": 4,
+                "TotalQty": 144
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 191
+    },
+    {
+        "Job": "",
+        "MaterialCode": "",
+        "Parts": {},
+        "Quantity": 0,
+        "StockLength": 0,
+        "Length": 0
+    }
+]
