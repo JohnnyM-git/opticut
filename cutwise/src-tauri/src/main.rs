@@ -2,7 +2,7 @@
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
 )]
-use std::process::{Command, Child};
+use std::process::{Command, Child, Stdio};
 use std::sync::{Arc, Mutex};
 use tauri::Manager;
 #[cfg(windows)]

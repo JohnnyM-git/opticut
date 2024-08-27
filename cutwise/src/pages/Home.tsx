@@ -63,7 +63,7 @@ export const Home: FunctionComponent = () => {
       });
       const data = await res.json();
       console.log(data);
-      // navigate(`/results/${jobInfo.Job}`);
+      navigate(`/results/${jobInfo.Job}`);
     }
   }
 
