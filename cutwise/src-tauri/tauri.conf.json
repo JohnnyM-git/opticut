@@ -1,7 +1,7 @@
 {
   "build": {
     "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "cd ../main && go build -o ../cutwise/src-tauri/resources/main/main_unix",
+    "beforeBuildCommand": "cd ../main && go build -o ../cutwise/src-tauri/resources/main/main.exe -ldflags=-H=windowsgui && go build -o ../cutwise/src-tauri/resources/main/main_unix",
     "devPath": "http://localhost:1420",
     "distDir": "../build"
   },
@@ -41,7 +41,7 @@
     ],
     "bundle": {
       "active": true,
-      "targets": ["dmg"],
+      "targets": ["nsis", "msi", "dmg"],
       "identifier": "com.cutwise.app",
       "icon": [
         "icons/icon.icns",
