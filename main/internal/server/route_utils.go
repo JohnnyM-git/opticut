@@ -170,6 +170,7 @@ func UpdateSettingsHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Update settings with new values
 	settings.Kerf = newSettings.Kerf
+	settings.Units = newSettings.Units
 
 	// Save the updated settings to the JSON file
 	err = globals.SaveSettings(settings)

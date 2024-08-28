@@ -195,16 +195,12 @@ export const Home: FunctionComponent = () => {
   }
 
   function updateMaterialQty(): void {
-    if (material.Quantity === 9999) {
-      console.log("Q in If", material.Quantity);
-      updateMaterial("Quantity", 0);
-    }
-    if (material.Quantity === 0) {
-      console.log("Q in If 2", material.Quantity);
+    updateMaterial("Quantity", 1);
+    if (!materialQtyDisabled) {
       updateMaterial("Quantity", 9999);
     }
-
     setMaterialQtyDisabled(!materialQtyDisabled);
+    console.log(material.Quantity);
   }
 
   return (
@@ -256,7 +252,7 @@ export const Home: FunctionComponent = () => {
         <div className={styles.part__addition}>
           <h4>Add Part to Cut</h4>
           <div className={styles.part__addition__inputs}>
-            <form onSubmit={addToParts}>
+            <form className={styles.form} onSubmit={addToParts}>
               <div className={styles.part__addition__inputs__form}>
                 <StyledInput
                   type={"text"}
@@ -279,6 +275,7 @@ export const Home: FunctionComponent = () => {
                   placeholder="Part Length"
                   value={part.Length !== 0 ? part.Length : ""}
                   onChange={(e) => updatePart("Length", e.target.value)}
+                  step={"0.01"}
                 />
 
                 <StyledInput
@@ -307,7 +304,7 @@ export const Home: FunctionComponent = () => {
         <div className={styles.material__addition}>
           <h4>Add Material</h4>
           <div className={styles.material__addition__inputs}>
-            <form onSubmit={addToMaterials}>
+            <form className={styles.form} onSubmit={addToMaterials}>
               <div className={styles.material__addition__inputs__form}>
                 <StyledInput
                   type={"text"}
@@ -327,17 +324,20 @@ export const Home: FunctionComponent = () => {
                   onChange={(e) =>
                     updateMaterial("Length", parseFloat(e.target.value))
                   }
+                  step={"0.01"}
                 />
                 <StyledInput
                   type={"text"}
-                  placeholder={"Material Quantity"}
-                  // value={materialQtyDisabled}
+                  placeholder={
+                    materialQtyDisabled === true
+                      ? "Material Qty Unlimited"
+                      : "Material Quantity"
+                  }
+                  // value={material.Quantity}
                   value={
-                    material.Quantity === 9999
-                      ? "Unlimited"
-                      : material.Quantity !== 0
-                        ? material.Quantity
-                        : ""
+                    material.Quantity !== 0 && materialQtyDisabled !== true
+                      ? material.Quantity
+                      : ""
                   }
                   onChange={(e) =>
                     updateMaterial("Quantity", parseInt(e.target.value))
@@ -347,7 +347,8 @@ export const Home: FunctionComponent = () => {
                 <div className={styles.checkbox}>
                   <input
                     type={"checkbox"}
-                    onClick={() => updateMaterialQty()}
+                    checked={materialQtyDisabled}
+                    onChange={() => updateMaterialQty()}
                   />
                   <p>Check for unlimited material</p>
                 </div>

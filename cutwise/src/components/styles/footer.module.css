@@ -1,0 +1,55 @@
+/* styles.css */
+.status {
+    display: flex;
+    align-items: center;
+    /*height: 48px;*/
+    /*background-color: #fff;*/
+    /*width: 100vw;*/
+}
+
+.status__dot__online {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #00e100;
+    margin: 8px;
+    animation: pulse__online 2s infinite;
+}
+
+.status__dot__offline {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: red;
+    margin: 8px;
+    animation: pulse__offline 2s infinite;
+}
+
+.status__text {
+    font-size: 14px;
+    color: #333; /* Adjust text color as needed */
+}
+
+@keyframes pulse__online {
+    0% {
+        background-color: var(--footer-color); /* Initial background color */
+    }
+    50% {
+        background-color: #00e100; /* Lighten or change color */
+    }
+    100% {
+        background-color: var(--footer-color); /* Return to initial color */
+    }
+}
+
+@keyframes pulse__offline {
+    0% {
+        background-color: var(--footer-color); /* Initial background color */
+    }
+    50% {
+        background-color: red; /* Lighten or change color */
+    }
+    100% {
+        background-color: var(--footer-color); /* Return to initial color */
+    }
+}

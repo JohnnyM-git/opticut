@@ -1,12 +1,17 @@
+// globals.ts
 export const apiUrl: string = "http://localhost:2828/api/v1/";
 
-export interface jobListJob {
+export interface JobListJob {
   JobNumber: string;
   Customer: string;
   Star: number;
 }
-export interface jobList {
-  JobList: jobListJob[];
+
+export interface JobList {
+  JobList: JobListJob[];
 }
 
-
+export interface Settings {
+  kerf: number;
+  units: string;
+}

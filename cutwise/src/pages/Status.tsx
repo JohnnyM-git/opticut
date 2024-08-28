@@ -23,6 +23,7 @@ export const Status = () => {
 
   useEffect(() => {
     async function checkStatus() {
+      setHealth(offlineState);
       const res = await fetch(`${apiUrl}/health`);
       let data = await res.json();
       if (data) {
@@ -139,7 +140,9 @@ export const Status = () => {
           {health.status === "Offline" && (
             <>
               <h3>Service is offline, please try restarting</h3>
-              <h4 onClick={restartService}>Restart Service</h4>
+              <h4 onClick={restartService} className={styles.refresh}>
+                Restart Service
+              </h4>
             </>
           )}
           <h4 onClick={() => window.location.reload()}>Refresh</h4>

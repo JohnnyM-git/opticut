@@ -33,7 +33,7 @@ h2 {
     padding: var(--padding-s) var(--padding-s);
     border: 1px solid black;
     border-radius: 12px;
-    box-shadow: 16px 16px 20px -5px #000000;
+    /*box-shadow: 16px 16px 20px -5px #000000;*/
     transition: all 200ms;
 }
 
@@ -46,7 +46,7 @@ h2 {
     padding: var(--padding-s) var(--padding-s);
     border: 1px solid black;
     border-radius: 12px;
-    box-shadow: 16px 16px 20px -5px #000000;
+    /*box-shadow: 16px 16px 20px -5px #000000;*/
     transition: all 200ms;
 }
 

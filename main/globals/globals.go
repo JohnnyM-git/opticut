@@ -98,7 +98,8 @@ type LocalJobsList struct {
 }
 
 type SettingsConfig struct {
-	Kerf float64 `json:"kerf"`
+	Kerf  float64 `json:"kerf"`
+	Units string  `json:"units"`
 }
 
 var Settings SettingsConfig

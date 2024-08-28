@@ -16,13 +16,15 @@
     --padding-s: 8px;
     --padding-m: 12px;
     --padding-l: 18px;
+    --padding-xl: 24px;
 
 
     --border-radius-s: 4px;
     --border-radius-m: 8px;
     --border-radius-l: 16px;
     --border-color: linear-gradient(45deg, orange, green);
-    --bg-color: #cccccc;
+    --bg-color: #fefefe;
+    --footer-color: #ffffff;
 
 }
 :root {
@@ -43,13 +45,43 @@
 }
 
 .container {
+    position: relative;
+  margin: 0;
+  padding-top: var(--padding-xl);
+  display: flex;
+  flex-direction: column;
+  /*justify-content: space-between;*/
+  /*  height: calc(100vh + 24px);*/
+    height: 100vh;
+    overflow: hidden;
+  text-align: center;
+    /*padding: var(--padding-m);*/
+}
+
+.container__secondary {
   margin: 0;
   /*padding-top: 10vh;*/
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /*justify-content: space-between;*/
+    height: 100vh;
   text-align: center;
     padding: var(--padding-m);
+    overflow: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    height: 24px;
+    width: 100%;
+    background-color: var(--footer-color);
 }
 
 .drawer {

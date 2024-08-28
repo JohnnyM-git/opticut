@@ -1,3 +1,4 @@
 {
-  "kerf": 0.0625
+  "kerf": 0.0625,
+  "units": "imperial"
 }

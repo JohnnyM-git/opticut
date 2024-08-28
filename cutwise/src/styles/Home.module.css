@@ -18,6 +18,41 @@
     align-items: flex-end;
     gap: 16px;
  }
+.item__additions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+.part__addition {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+.material__addition {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+}
+
 .part__addition__inputs__form {
     display: flex;
     flex-direction: row;

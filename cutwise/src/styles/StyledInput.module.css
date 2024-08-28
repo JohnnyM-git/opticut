@@ -1,24 +1,52 @@
-.styled__input {
-    border: 1px solid #ffffff;
+.inputWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.styledInput {
+    border: 1px solid #222222;
     border-radius: 4px;
-    padding: 8px;
+    padding: 16px 8px 8px; /* Add extra padding-top for the placeholder */
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
-    /*outline: none;*/
-    background: #d5d4d4 !important;
+    background: #ffffff !important;
+    /* Remove default placeholder styling */
+    position: relative; /* To allow z-index positioning */
+    z-index: 1;
 }
 
-.styled__input:focus {
+.styledInput:focus {
     border-color: #1976d2; /* MUI primary color */
     box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
 }
 
-.styled__input.error {
+.styledInput.error {
     border-color: red;
     box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
 }
 
-.styled__input::placeholder {
-    color: #252525;
+/* Floating label styles */
+.floatingLabel {
+    position: absolute;
+    top: 8px; /* Adjust depending on input padding */
+    left: 8px; /* Align with input padding */
+    font-size: 24px;
+    /*color: #252525;*/
+    transition: all 0.2s ease-out;
+    pointer-events: none;
+    background-color: transparent;
+    padding: 0 4px; /* Add padding to avoid text overlapping border */
+    z-index: 2; /* Ensure the label is above the input */
+}
+
+/* Adjust label when the input has value or is focused */
+.styledInput.hasValue ~ .floatingLabel,
+.styledInput:focus ~ .floatingLabel {
+    top: -8px; /* Moves label above the input */
+    left: 8px;
+    font-size: var(--font-size-ml); /* Smaller size for the floating label */
+    color: #222222; /* Color change for focused state */
+    background-color: #ffffff; /* Background color to match input */
+    border-radius: 6px;
 }

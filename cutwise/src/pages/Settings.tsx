@@ -1,31 +1,34 @@
-import { useEffect, useState } from "react";
-import styles from "../styles/Settings.module.css"
+// Settings.tsx
+import { useEffect } from "react";
+import styles from "../styles/Settings.module.css";
+import { StyledInput } from "../components/StyledInput";
+import { useSettings } from "../SettingsContext";
 
 export const Settings = () => {
-  const [settings, setSettings] = useState({
-    kerf: 0.0625,
-  });
+  const { settings, setSettings } = useSettings();
 
   useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch("http://localhost:2828/api/v1/settings");
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await res.json();
+        setSettings(data);
+      } catch (error) {
+        console.error("Error fetching settings:", error);
+      }
+    };
+
     fetchSettings();
-    // Fetch settings from backend
-    // axios
-    //   .get("/api/v1/settings")
-    //   .then((response) => setSettings(response.data))
-    //   .catch((error) => console.error("Error fetching settings:", error));
-
-    // console.log(settings);
-  }, []);
-
-  const fetchSettings = async () => {
-    const res = await fetch("http://localhost:2828/api/v1/settings");
-    const data = await res.json();
-    setSettings(data);
-    console.log(data);
-  };
+  }, [setSettings]);
 
   const setKerf = (value: string) => {
-    setSettings({ ...settings, kerf: parseFloat(value) });
+    setSettings((prevSettings) => ({
+      ...prevSettings,
+      kerf: parseFloat(value),
+    }));
   };
 
   const saveSettings = async () => {
@@ -41,7 +44,6 @@ export const Settings = () => {
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
-      // console.log(await res.json());
       const data = await res.json();
       console.log("Settings saved:", data);
     } catch (error) {
@@ -49,35 +51,53 @@ export const Settings = () => {
     }
   };
 
+  const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSettings((prevSettings) => ({
+      ...prevSettings,
+      units: e.target.value,
+    }));
+  };
+
   return (
-      <div>
-          <h1>Settings</h1>
-          <label>
-              Kerf:
-              <input
-                  type="number"
-                  name="kerf"
-                  value={settings.kerf}
-                  onChange={(e) => setKerf(e.target.value)}
-              />
-          </label>
-          <button onClick={saveSettings}>Save</button>
+    <div className={styles.settings}>
+      <h1>Settings</h1>
+      <div className={styles.input}>
+        <StyledInput
+          type="number"
+          value={
+            settings.units === "imperial"
+              ? settings.kerf.toFixed(4)
+              : (settings.kerf * 25.4).toFixed(4)
+          }
+          placeholder="Kerf"
+          onChange={(e) => setKerf(e.target.value)}
+          step="0.01"
+        />
 
-
-          <div className={styles.healthDashboard}>
-              <h2>MyService Health Status</h2>
-              <div className={styles.status}>
-                  <span>Status:</span>
-                  <span className={`${styles.statusIndicator} ${styles.healthy}`}>Healthy</span>
-              </div>
-              <div className={styles.details}>
-                  <p><strong>Database:</strong> Healthy</p>
-                  <p><strong>Version:</strong> 1.0.0</p>
-                  <p><strong>Uptime:</strong> 21 seconds</p>
-              </div>
-          </div>
-
-
+        <button onClick={saveSettings}>Save</button>
       </div>
+      <fieldset>
+        <label>
+          <StyledInput
+            type="radio"
+            value="imperial"
+            name="units"
+            checked={settings.units === "imperial"}
+            onChange={handleUnitChange}
+          />
+          Imperial - Ft/In
+        </label>
+        <label>
+          <StyledInput
+            type="radio"
+            value="metric"
+            name="units"
+            checked={settings.units === "metric"}
+            onChange={handleUnitChange}
+          />
+          Metric - M/mm
+        </label>
+      </fieldset>
+    </div>
   );
 };

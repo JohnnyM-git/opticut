@@ -12,7 +12,7 @@ import {
   ListItemText,
   TextField,
 } from "@mui/material";
-import { FiberNew, Settings, Storage } from "@mui/icons-material";
+import { FiberNew, MonitorHeart, Settings, Storage } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./styles/navbar.css";
 import { useNavigate } from "react-router-dom";
@@ -86,7 +86,7 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ startbackend }) => {
         <ListItem disablePadding onClick={() => navigate("/healthstatus")}>
           <ListItemButton>
             <ListItemIcon>
-              <Settings />
+              <MonitorHeart />
             </ListItemIcon>
             <ListItemText primary={"Health Status"} />
           </ListItemButton>

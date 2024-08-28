@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import styles from "../styles/Results.module.css";
 import { Button } from "@mui/material";
 import { Print, Star, StarBorder } from "@mui/icons-material";
+import { useSettings } from "../SettingsContext.tsx";
+import { inToFt, inToM, inToMm } from "../functions/unitConverter.ts";
 
 export const Results: FunctionComponent = () => {
   interface JobDetails {
@@ -32,6 +34,7 @@ export const Results: FunctionComponent = () => {
     },
   });
   const { jobId } = useParams();
+  const { settings, setSettings } = useSettings();
   // const [printable, setPrintable] = useState(true)
 
   useEffect(() => {
@@ -134,20 +137,60 @@ export const Results: FunctionComponent = () => {
                   Material Code: {item.material_code}{" "}
                   <span className={styles.tip}>(click to filter results)</span>{" "}
                 </h3>
-                <p className={styles.material__info__property}>
-                  Total Length: {(item.total_stock_length / 12).toFixed(2)}' |{" "}
-                  {item.total_stock_length.toFixed(2)}"
-                </p>
+                {settings.units === "imperial" && (
+                  <p className={styles.material__info__property}>
+                    Total Length: {inToFt(item.total_stock_length).toFixed(2)}'
+                    | {item.total_stock_length.toFixed(2)}"
+                  </p>
+                )}
 
-                <p className={styles.material__info__property}>
-                  Total Used: {(item.total_used_length / 12).toFixed(2)}' |{" "}
-                  {item.total_used_length.toFixed(2)}"
-                </p>
-                <p className={styles.material__info__property}>
-                  QTY: {item.total_quantity} | Stock Length:{" "}
-                  {(item.stock_length / 12).toFixed(2)}' |{" "}
-                  {item.stock_length.toFixed(2)}"
-                </p>
+                {settings.units === "metric" && (
+                  <p className={styles.material__info__property}>
+                    Total Length: {inToM(item.total_stock_length).toFixed(2)}M |{" "}
+                    {inToMm(item.total_stock_length).toFixed(2)}mm
+                  </p>
+                )}
+
+                {settings.units === "imperial" && (
+                  <p className={styles.material__info__property}>
+                    Total Used: {inToFt(item.total_used_length).toFixed(2)}' |{" "}
+                    {item.total_used_length.toFixed(2)}"
+                  </p>
+                )}
+
+                {settings.units === "metric" && (
+                  <p className={styles.material__info__property}>
+                    Total Used: {inToM(item.total_used_length).toFixed(2)}M |{" "}
+                    {inToMm(item.total_used_length).toFixed(2)}mm
+                  </p>
+                )}
+
+                {/*<p className={styles.material__info__property}>*/}
+                {/*  Total Used: {(item.total_used_length / 12).toFixed(2)}' |{" "}*/}
+                {/*  {item.total_used_length.toFixed(2)}"*/}
+                {/*</p>*/}
+
+                {settings.units === "imperial" && (
+                  <p className={styles.material__info__property}>
+                    QTY: {item.total_quantity} | Stock Length:{" "}
+                    {inToFt(item.stock_length).toFixed(2)}' |{" "}
+                    {item.stock_length.toFixed(2)}"
+                  </p>
+                )}
+
+                {settings.units === "metric" && (
+                  <p className={styles.material__info__property}>
+                    QTY: {item.total_quantity} | Stock Length:{" "}
+                    {inToM(item.stock_length).toFixed(2)}M |{" "}
+                    {inToMm(item.stock_length).toFixed(2)}mm
+                  </p>
+                )}
+
+                {/*<p className={styles.material__info__property}>*/}
+                {/*  QTY: {item.total_quantity} | Stock Length:{" "}*/}
+                {/*  {(item.stock_length / 12).toFixed(2)}' |{" "}*/}
+                {/*  {item.stock_length.toFixed(2)}"*/}
+                {/*</p>*/}
               </div>
             ))}
         </div>
@@ -161,19 +204,74 @@ export const Results: FunctionComponent = () => {
             <div className={styles.material__display__info__left}>
               <h4>Material Code: {item.cut_material_material_code}</h4>
               <h4>Material ID: {item.cut_material_id}</h4>
-              <h4>
-                Total Material Used: {(item.total_used_length / 12).toFixed(2)}'
-                | {item.total_used_length.toFixed(2)}"
-              </h4>
-              <h4>
-                Material Stock Length: {(item.stock_length / 12).toFixed(2)}' |{" "}
-                {item.stock_length.toFixed(2)}
-              </h4>
-              <h4>
-                Material Scrap / Drop:{" "}
-                {((item.stock_length - item.total_used_length) / 12).toFixed(2)}
-                ' | {(item.stock_length - item.total_used_length).toFixed(2)}"
-              </h4>
+
+              {settings.units === "imperial" && (
+                <h4>
+                  Total Material Used:{" "}
+                  {inToFt(item.total_used_length).toFixed(2)}' |{" "}
+                  {item.total_used_length.toFixed(2)}"
+                </h4>
+              )}
+
+              {settings.units === "metric" && (
+                <h4>
+                  Total Material Used:{" "}
+                  {inToM(item.total_used_length).toFixed(2)}M |{" "}
+                  {inToMm(item.total_used_length).toFixed(2)}mm
+                </h4>
+              )}
+
+              {/*<h4>*/}
+              {/*  Total Material Used: {(item.total_used_length / 12).toFixed(2)}'*/}
+              {/*  | {item.total_used_length.toFixed(2)}"*/}
+              {/*</h4>*/}
+
+              {settings.units === "imperial" && (
+                <h4>
+                  Material Stock Length: {inToFt(item.stock_length).toFixed(2)}'
+                  | {item.stock_length.toFixed(2)}
+                </h4>
+              )}
+
+              {settings.units === "metric" && (
+                <h4>
+                  Material Stock Length: {inToM(item.stock_length).toFixed(2)}M
+                  | {inToMm(item.stock_length).toFixed(2)}mm
+                </h4>
+              )}
+
+              {/*<h4>*/}
+              {/*  Material Stock Length: {(item.stock_length / 12).toFixed(2)}' |{" "}*/}
+              {/*  {item.stock_length.toFixed(2)}*/}
+              {/*</h4>*/}
+
+              {settings.units === "imperial" && (
+                <h4>
+                  Material Scrap / Drop:{" "}
+                  {inToFt(item.stock_length - item.total_used_length).toFixed(
+                    2,
+                  )}
+                  ' | {(item.stock_length - item.total_used_length).toFixed(2)}"
+                </h4>
+              )}
+
+              {settings.units === "metric" && (
+                <h4>
+                  Material Scrap / Drop:{" "}
+                  {inToM(item.stock_length - item.total_used_length).toFixed(2)}
+                  M |{" "}
+                  {inToMm(item.stock_length - item.total_used_length).toFixed(
+                    2,
+                  )}
+                  mm
+                </h4>
+              )}
+
+              {/*<h4>*/}
+              {/*  Material Scrap / Drop:{" "}*/}
+              {/*  {((item.stock_length - item.total_used_length) / 12).toFixed(2)}*/}
+              {/*  ' | {(item.stock_length - item.total_used_length).toFixed(2)}"*/}
+              {/*</h4>*/}
               <h4>Identical Lengths: {item.cut_material_quantity}</h4>
               <h4>Unique Parts: {item.total_parts_cut_on_material}</h4>
             </div>
@@ -268,7 +366,13 @@ export const Results: FunctionComponent = () => {
                       partdata.cut_material_id === item.cut_material_id,
                   )
                   .map((partdata, i) => (
-                    <p key={i}>{partdata.part_length}"</p>
+                    <div key={i}>
+                      {settings.units === "imperial" ? (
+                        <p>{partdata.part_length.toFixed(2)}"</p>
+                      ) : settings.units === "metric" ? (
+                        <p>{inToMm(partdata.part_length).toFixed(2)}mm</p>
+                      ) : null}
+                    </div>
                   ))}
               </div>
 

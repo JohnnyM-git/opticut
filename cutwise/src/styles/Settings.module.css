@@ -1,0 +1,13 @@
+.settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 400px;
+}
