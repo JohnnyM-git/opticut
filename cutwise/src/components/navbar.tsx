@@ -82,6 +82,16 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ startbackend }) => {
           </ListItemButton>
         </ListItem>
         <Divider />
+
+        <ListItem disablePadding onClick={() => navigate("/healthstatus")}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Settings />
+            </ListItemIcon>
+            <ListItemText primary={"Health Status"} />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
       </List>
     </Box>
   );
@@ -96,15 +106,19 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ startbackend }) => {
         <Button onClick={() => toggleDrawer(true)}>
           <MenuIcon />
         </Button>
-        <Drawer open={open} onClose={() => toggleDrawer(false)}>
+        <Drawer
+          className={"drawer"}
+          open={open}
+          onClose={() => toggleDrawer(false)}
+        >
           {DrawerList}
         </Drawer>
       </div>
       <div className={"search"}>
         <TextField
-            value={jobId}
-            placeholder={"Enter Job Number"}
-            onChange={(e) => setJobId(e.target.value)}
+          value={jobId}
+          placeholder={"Enter Job Number"}
+          onChange={(e) => setJobId(e.target.value)}
         />
         <Button onClick={() => startbackend()}>Start</Button>
         <Button onClick={() => navigate(`/results/${jobId}`)}>Go</Button>

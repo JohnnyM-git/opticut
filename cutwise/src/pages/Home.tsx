@@ -46,6 +46,7 @@ export const Home: FunctionComponent = () => {
   const [material, setMaterial] = useState<Material>(materialInitialState);
   const [partErrorMsg, setPartErrorMsg] = useState<string | JSX.Element>("");
   const [materialErrorMsg, setMaterialErrorMsg] = useState<string>("");
+  const [materialQtyDisabled, setMaterialQtyDisabled] = useState(false);
   const navigate = useNavigate();
 
   async function runProject(): Promise<void> {
@@ -193,6 +194,19 @@ export const Home: FunctionComponent = () => {
     }
   }
 
+  function updateMaterialQty(): void {
+    if (material.Quantity === 9999) {
+      console.log("Q in If", material.Quantity);
+      updateMaterial("Quantity", 0);
+    }
+    if (material.Quantity === 0) {
+      console.log("Q in If 2", material.Quantity);
+      updateMaterial("Quantity", 9999);
+    }
+
+    setMaterialQtyDisabled(!materialQtyDisabled);
+  }
+
   return (
     <div>
       <h1>Create New Job</h1>
@@ -200,7 +214,7 @@ export const Home: FunctionComponent = () => {
         <div className={styles.heading__left}>
           <StyledInput
             type={"text"}
-            placeholder={"Enter Job / Project #"}
+            placeholder={"Enter Project #"}
             value={jobInfo?.Job}
             onChange={(e) =>
               setJobInfo((prev) => ({
@@ -263,7 +277,7 @@ export const Home: FunctionComponent = () => {
                 <StyledInput
                   type={"number"}
                   placeholder="Part Length"
-                  value={part.Length}
+                  value={part.Length !== 0 ? part.Length : ""}
                   onChange={(e) => updatePart("Length", e.target.value)}
                 />
 
@@ -315,13 +329,28 @@ export const Home: FunctionComponent = () => {
                   }
                 />
                 <StyledInput
-                  type={"number"}
+                  type={"text"}
                   placeholder={"Material Quantity"}
-                  value={material.Quantity !== 0 ? material.Quantity : ""}
+                  // value={materialQtyDisabled}
+                  value={
+                    material.Quantity === 9999
+                      ? "Unlimited"
+                      : material.Quantity !== 0
+                        ? material.Quantity
+                        : ""
+                  }
                   onChange={(e) =>
                     updateMaterial("Quantity", parseInt(e.target.value))
                   }
+                  disabled={materialQtyDisabled}
                 />
+                <div className={styles.checkbox}>
+                  <input
+                    type={"checkbox"}
+                    onClick={() => updateMaterialQty()}
+                  />
+                  <p>Check for unlimited material</p>
+                </div>
               </div>
               <Button type="submit">
                 Add Material

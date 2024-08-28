@@ -1,28 +1,33 @@
 * {
-  margin: 0;
-  padding: 0;
-  --font-size-s: 8px;
-  --font-size-m: 12px;
-  --font-size-ml: 14px;
-  --font-size-l: 18px;
-  --font-size-xl: 28px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    --font-size-s: 8px;
+    --font-size-m: 12px;
+    --font-size-ml: 14px;
+    --font-size-l: 18px;
+    --font-size-xl: 28px;
 
-  --margin-s: 8px;
-  --margin-m: 12px;
-  --margin-l: 18px;
-  --margin-xl: 28px;
+    --margin-s: 8px;
+    --margin-m: 12px;
+    --margin-l: 18px;
+    --margin-xl: 28px;
 
-  --padding-s: 8px;
-  --padding-m: 12px;
-  --padding-l: 18px;
+    --padding-s: 8px;
+    --padding-m: 12px;
+    --padding-l: 18px;
 
-  --border-radius-s: 4px;
-  --border-radius-m: 8px;
-  --border-radius-l: 16px;
-  --border-color: linear-gradient(45deg, orange, green)
+
+    --border-radius-s: 4px;
+    --border-radius-m: 8px;
+    --border-radius-l: 16px;
+    --border-color: linear-gradient(45deg, orange, green);
+    --bg-color: #cccccc;
+
 }
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   /*font-size: 16px;*/
   /*line-height: 24px;*/
   /*font-weight: 400;*/
@@ -30,11 +35,11 @@
   /*color: #0f0f0f;*/
   /*background-color: #f6f6f6;*/
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 .container {
@@ -44,7 +49,17 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
+    padding: var(--padding-m);
 }
+
+.drawer {
+    /*background-color: var(--bg-color) !important;*/
+}
+
+.css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+    background-color: var(--bg-color);
+}
+
 
 
 

@@ -1,0 +1,41 @@
+/* Filename: HealthDashboard.module.css */
+
+.healthDashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+    /*border: 1px solid #757575;*/
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.status {
+    margin-bottom: 15px;
+}
+
+.statusIndicator {
+    font-weight: bold;
+}
+
+.healthy {
+    color: green;
+}
+.offline {
+    color: red;
+}
+
+.details p {
+    margin: 5px 0;
+}
+
+h4 {
+    font-size: var(--font-size-l);
+    margin: 5px 0;
+    cursor: pointer;
+    font-weight: bold;
+    color: #329ea3;
+}

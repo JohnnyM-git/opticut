@@ -9,6 +9,7 @@ import { CloudJobs } from "./pages/CloudJobs.tsx";
 import { Results } from "./pages/Results.tsx";
 import { invoke } from "@tauri-apps/api/tauri";
 import {apiUrl} from "./globals.ts";
+import {Status} from "./pages/Status.tsx";
 
 
 function App() {
@@ -147,6 +148,7 @@ function App() {
                     <Route path="/cloudjobs" element={<CloudJobs/>}/>
                     <Route path="/results/:jobId" element={<Results/>}/>
                     <Route path="/settings" element={<Settings/>}/>
+                    <Route path="/healthstatus" element={<Status />}/>
                 </Routes>
             </div>
         </Router>

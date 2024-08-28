@@ -206,7 +206,9 @@ func checkForMaterialV2(
 				Length:       material.Length,
 			}
 			*currentMaterial = m
-			(*Materials)[i].Quantity-- // Decrement material quantity
+			if (*Materials)[i].Quantity != 9999 {
+				(*Materials)[i].Quantity-- // Decrement material quantity
+			}
 			return nil
 		}
 	}
