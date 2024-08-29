@@ -1,8 +1,8 @@
 import "./App.css";
 import { Navbar } from "./components/navbar.tsx";
-import { useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Settings } from "./pages/Settings.tsx";
+import { SettingsPage } from "./pages/Settings.tsx";
 import { Home } from "./pages/Home.tsx";
 import { LocalJobs } from "./pages/LocalJobs.tsx";
 import { CloudJobs } from "./pages/CloudJobs.tsx";
@@ -14,12 +14,12 @@ import { Footer } from "./components/footer.tsx";
 import { SettingsProvider } from "./SettingsContext.tsx";
 
 function App() {
-  // const [appData, setAppData] = useState<string>()
-  // const [backendStatus, setBackendStatus] = useState<string>('starting');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // useEffect(() => {
-  //     startBackend()
-  // }, []);
+  // Function to toggle the modalOpen state
+  const toggleModal = () => {
+    setIsModalOpen((prevState) => !prevState);
+  };
 
   async function startBackend() {
     try {
@@ -78,77 +78,39 @@ function App() {
     }
   }
 
-  // async function stopBackend() {
-  //     try {
-  //         console.log(backendStatus)
-  //         // Start the backend asynchronously
-  //         await invoke("stop_backend");
-  //         console.log(backendStatus)
-  //         // Poll the backend health endpoint until it's up or timeout
-  //         const checkBackendStatus = async () => {
-  //             try {
-  //                 console.log(backendStatus)
-  //                 const res = await fetch('http://localhost:2828/api/v1/hello'); // Replace with actual health check endpoint
-  //                 if (res.ok) {
-  //                     setBackendStatus('running');
-  //                     console.log(backendStatus)
-  //                     return true;
-  //                 }
-  //             } catch (error) {
-  //                 console.log(backendStatus)
-  //                 console.log(error)
-  //                 // Backend might not be up yet, so just catch the error
-  //             }
-  //             return false;
-  //         };
-  //
-  //         let attempts = 0;
-  //         const maxAttempts = 10;
-  //         const delay = 1000; // 1 second
-  //
-  //         const pollBackend = async () => {
-  //             while (attempts < maxAttempts) {
-  //                 const success = await checkBackendStatus();
-  //                 if (success) {
-  //                     break;
-  //                 }
-  //                 attempts++;
-  //                 await new Promise(res => setTimeout(res, delay));
-  //             }
-  //
-  //             if (attempts >= maxAttempts) {
-  //                 setBackendStatus('failed');
-  //             }
-  //         };
-  //
-  //         pollBackend();
-  //     } catch (error) {
-  //         console.error("Failed to start the backend:", error);
-  //         setBackendStatus('failed');
-  //     }
-  // }
-
   return (
     <SettingsProvider>
       <Router>
-        <div className="container">
-          <div className="container__secondary">
-            <Navbar startbackend={startBackend} />
+        {/* Main content */}
+        <div className={`container ${isModalOpen ? "modalOpen" : ""}`}>
+          <Navbar startbackend={startBackend} toggleModal={toggleModal} />
 
+          <div className="container__secondary">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home toggleModal={toggleModal} />} />
               <Route path="/localjobs" element={<LocalJobs />} />
               <Route path="/cloudjobs" element={<CloudJobs />} />
               <Route path="/results/:jobId" element={<Results />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route path="/settings" element={<SettingsPage />} />
               <Route path="/healthstatus" element={<Status />} />
             </Routes>
-          </div>
 
-          <div className="footer">
-            <Footer />
+            <div className="footer">
+              <Footer />
+            </div>
           </div>
         </div>
+
+        {/* Modal content */}
+        {isModalOpen && (
+          <div className="modal" onClick={toggleModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <h2>Modal Header</h2>
+              <p>This is the modal content.</p>
+              <button onClick={toggleModal}>Close Modal</button>
+            </div>
+          </div>
+        )}
       </Router>
     </SettingsProvider>
   );

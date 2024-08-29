@@ -25,6 +25,7 @@
     --border-color: linear-gradient(45deg, orange, green);
     --bg-color: #fefefe;
     --footer-color: #ffffff;
+    scrollbar-width: none;
 
 }
 :root {
@@ -43,33 +44,34 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
 }
-
 .container {
-    position: relative;
-  margin: 0;
-  padding-top: var(--padding-xl);
-  display: flex;
-  flex-direction: column;
-  /*justify-content: space-between;*/
-  /*  height: calc(100vh + 24px);*/
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the container is at least the height of the viewport */
     overflow: hidden;
-  text-align: center;
-    /*padding: var(--padding-m);*/
+    padding: var(--padding-xl) var(--padding-m);
+    scrollbar-width: none;
+    z-index: -1!important;
+}
+/*.modalOpen {*/
+/*    display: none;*/
+
+/*}*/
+.modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 99 !important;
 }
 
 .container__secondary {
-  margin: 0;
-  /*padding-top: 10vh;*/
-  display: flex;
-  flex-direction: column;
-  /*justify-content: space-between;*/
-    height: 100vh;
-  text-align: center;
+    flex-grow: 1; /* Allow the content to grow and push the footer down */
+    display: flex;
+    flex-direction: column;
     padding: var(--padding-m);
-    overflow: scroll;
-    scroll-behavior: smooth;
+    overflow: auto;
     scrollbar-width: none;
+
 }
 
 .footer {
@@ -77,11 +79,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    position: absolute;
-    bottom: 0;
     height: 24px;
     width: 100%;
     background-color: var(--footer-color);
+    position: fixed;
+    bottom: 0;
+    /* No need to position the footer absolutely */
 }
 
 .drawer {
@@ -90,6 +93,41 @@
 
 .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
     background-color: var(--bg-color);
+}
+
+
+/* Modal Overlay Styles */
+.modal {
+    position: fixed; /* Fixes the modal's position relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent background */
+    display: flex; /* Centers content horizontally and vertically */
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Ensure it appears above other content */
+}
+
+/* Modal Content Styles */
+.modal-content {
+    background: white;
+    padding: var(--padding-l); /* Use existing padding variable */
+    border-radius: var(--border-radius-m); /* Use existing border radius variable */
+    max-width: 500px;
+    width: 90%; /* Ensure responsiveness */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: Adds shadow for better visibility */
+}
+
+/* Ensure other content in container remains below modal */
+.container {
+    z-index: 1 !important; /* Lower z-index to ensure the modal appears above */
+}
+
+/* Remove scrollbar for modal */
+.modal::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit browsers */
 }
 
 

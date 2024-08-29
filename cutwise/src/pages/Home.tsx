@@ -5,8 +5,11 @@ import { Add, Segment } from "@mui/icons-material";
 import { StyledInput } from "../components/StyledInput.tsx";
 import { apiUrl } from "../globals.ts";
 import { useNavigate } from "react-router-dom";
+import { useSettings } from "../SettingsContext.tsx";
+import { inToMm, mmToIn } from "../functions/unitConverter.ts";
+import { ListModal } from "../components/ListModal.tsx";
 
-export const Home: FunctionComponent = () => {
+export const Home: FunctionComponent = ({ toggleModal }) => {
   interface JobInfo {
     Job: string;
     Customer: string;
@@ -39,6 +42,16 @@ export const Home: FunctionComponent = () => {
     Quantity: 0,
   };
 
+  interface ModalState {
+    Open: boolean;
+    list: string;
+  }
+
+  const initialModalState = {
+    Open: false,
+    list: "parts",
+  };
+
   const [jobInfo, setJobInfo] = useState<JobInfo>({ Job: "", Customer: "" });
   const [parts, setParts] = useState<Part[]>([]);
   const [materials, setMaterials] = useState<Material[]>([]);
@@ -48,9 +61,17 @@ export const Home: FunctionComponent = () => {
   const [materialErrorMsg, setMaterialErrorMsg] = useState<string>("");
   const [materialQtyDisabled, setMaterialQtyDisabled] = useState(false);
   const navigate = useNavigate();
+  const { settings } = useSettings();
+  const [modal, setModal] = useState(initialModalState);
 
   async function runProject(): Promise<void> {
     if (checkDataValidity()) {
+      if (settings.units === "metric") {
+        await updateUnits();
+      }
+      console.log("PARTS:", parts);
+
+      console.log("Materials:", materials);
       const res = await fetch(`${apiUrl}runproject`, {
         method: "POST",
         headers: {
@@ -153,6 +174,16 @@ export const Home: FunctionComponent = () => {
     }));
   }
 
+  async function updateUnits() {
+    parts.forEach((part) => {
+      part.Length = mmToIn(part.Length);
+    });
+
+    materials.forEach((material) => {
+      material.Length = mmToIn(material.Length);
+    });
+  }
+
   function checkMaterialValidity(): boolean {
     const errors: string[] = [];
     // Check if MaterialCode is a non-empty string
@@ -203,9 +234,28 @@ export const Home: FunctionComponent = () => {
     console.log(material.Quantity);
   }
 
+  function openModal(list: string) {
+    console.log(list);
+    toggleModal();
+    setModal((prevModal) => ({
+      ...prevModal,
+      Open: !prevModal.Open,
+      list: list,
+    }));
+  }
+
   return (
-    <div>
-      <h1>Create New Job</h1>
+    <div className={styles.home}>
+      {modal.Open && (
+        <div className={styles.modal}>
+          <h1>MODAL</h1>
+          <ListModal
+            listName={modal.list}
+            list={modal.list === "parts" ? parts : materials}
+          />
+        </div>
+      )}
+      {/*<h1>Create New Job</h1>*/}
       <div className={styles.heading}>
         <div className={styles.heading__left}>
           <StyledInput
@@ -235,13 +285,13 @@ export const Home: FunctionComponent = () => {
         </div>
         <div className={styles.heading__right}>
           <Badge badgeContent={parts.length} color="primary">
-            <Button>
+            <Button onClick={() => openModal("parts")}>
               <p>Parts</p>
               <Segment />
             </Button>
           </Badge>
           <Badge badgeContent={materials.length} color="primary">
-            <Button>
+            <Button onClick={() => openModal("materials")}>
               <p>Materials</p>
               <Segment />
             </Button>
@@ -272,7 +322,12 @@ export const Home: FunctionComponent = () => {
 
                 <StyledInput
                   type={"number"}
-                  placeholder="Part Length"
+                  placeholder={
+                    settings.units === "imperial"
+                      ? "Part Length - Inch"
+                      : "Part Length - mm"
+                  }
+                  // value={part.Length}
                   value={part.Length !== 0 ? part.Length : ""}
                   onChange={(e) => updatePart("Length", e.target.value)}
                   step={"0.01"}
@@ -319,12 +374,17 @@ export const Home: FunctionComponent = () => {
                 />
                 <StyledInput
                   type={"number"}
-                  placeholder={"Material Length - inch"}
+                  placeholder={
+                    settings.units === "imperial"
+                      ? "Material Length - Inch"
+                      : "Material Length - mm"
+                  }
                   value={material.Length !== 0 ? material.Length : ""}
+                  // value={material.Length}
                   onChange={(e) =>
                     updateMaterial("Length", parseFloat(e.target.value))
                   }
-                  step={"0.01"}
+                  step={"0.0001"}
                 />
                 <StyledInput
                   type={"text"}
@@ -344,7 +404,10 @@ export const Home: FunctionComponent = () => {
                   }
                   disabled={materialQtyDisabled}
                 />
-                <div className={styles.checkbox}>
+                <div
+                  className={styles.checkbox}
+                  onClick={() => updateMaterialQty()}
+                >
                   <input
                     type={"checkbox"}
                     checked={materialQtyDisabled}

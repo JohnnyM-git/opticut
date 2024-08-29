@@ -34,7 +34,7 @@ export const Results: FunctionComponent = () => {
     },
   });
   const { jobId } = useParams();
-  const { settings, setSettings } = useSettings();
+  const { settings } = useSettings();
   // const [printable, setPrintable] = useState(true)
 
   useEffect(() => {
@@ -60,6 +60,8 @@ export const Results: FunctionComponent = () => {
       value: value,
     };
 
+    console.log(options);
+
     try {
       const res = await fetch(`${apiUrl}togglestar`, {
         method: "POST",
@@ -83,7 +85,7 @@ export const Results: FunctionComponent = () => {
   const updateStar = (newStarValue: number) => {
     setJob((prevJob) => ({
       ...prevJob,
-      Job: {
+      job_info: {
         ...prevJob.job_info,
         Star: newStarValue,
       },
@@ -98,16 +100,18 @@ export const Results: FunctionComponent = () => {
       <div className={styles.job}>
         <div className={styles.job__info}>
           <h2>Job Info</h2>
-          <h3>Job Number: {job.job_info.Job}</h3>
-          <h4>Customer: {job.job_info.Customer}</h4>
+          <h3>Job Number: {job?.job_info.Job}</h3>
+          <h4>Customer: {job?.job_info.Customer}</h4>
         </div>
         <div className={styles.buttons}>
           <Button
-            onClick={() =>
-              toggleStar(job.job_info.Job, job.job_info.Star === 0 ? 1 : 0)
-            }
+            onClick={() => {
+              if (job?.job_info) {
+                toggleStar(job.job_info.Job, job.job_info.Star ? 0 : 1);
+              }
+            }}
           >
-            {job.job_info.Star === 0 ? <StarBorder /> : <Star />}
+            {job?.job_info.Star === 0 ? <StarBorder /> : <Star />}
           </Button>
         </div>
       </div>
@@ -129,7 +133,7 @@ export const Results: FunctionComponent = () => {
           </div>
         </div>
         <div className={styles.material__totals}>
-          {job.material_data
+          {job?.material_data
             .sort((a, b) => a.material_code.localeCompare(b.material_code))
             .map((item) => (
               <div key={item.id}>
@@ -198,7 +202,7 @@ export const Results: FunctionComponent = () => {
       {/*Visual display of materials totals*/}
 
       {/*Visual display of materials*/}
-      {job.job_data_materials.map((item) => (
+      {job?.job_data_materials.map((item) => (
         <div className={styles.material__display} key={item.cut_material_id}>
           <div className={styles.material__display__info}>
             <div className={styles.material__display__info__left}>
@@ -278,7 +282,7 @@ export const Results: FunctionComponent = () => {
           </div>
           <div className={styles.material__display__material__section}>
             <div className={styles.material__display__material__visual}>
-              {job.job_data_parts
+              {job?.job_data_parts
                 .filter(
                   (partdata) =>
                     partdata.cut_material_id === item.cut_material_id,
@@ -316,14 +320,12 @@ export const Results: FunctionComponent = () => {
                 >
                   ID
                 </h5>
-                {job.job_data_parts
+                {job?.job_data_parts
                   .filter(
                     (partdata) =>
                       partdata.cut_material_id === item.cut_material_id,
                   )
-                  .map((partdata, i) => (
-                    <p key={i}>{partdata.part_id}</p>
-                  ))}
+                  .map((partdata, i) => <p key={i}>{partdata.part_id}</p>)}
               </div>
 
               <div
@@ -338,14 +340,12 @@ export const Results: FunctionComponent = () => {
                 >
                   Part Number
                 </h5>
-                {job.job_data_parts
+                {job?.job_data_parts
                   .filter(
                     (partdata) =>
                       partdata.cut_material_id === item.cut_material_id,
                   )
-                  .map((partdata, i) => (
-                    <p key={i}>{partdata.part_number}</p>
-                  ))}
+                  .map((partdata, i) => <p key={i}>{partdata.part_number}</p>)}
               </div>
 
               <div
@@ -360,7 +360,7 @@ export const Results: FunctionComponent = () => {
                 >
                   Part Length
                 </h5>
-                {job.job_data_parts
+                {job?.job_data_parts
                   .filter(
                     (partdata) =>
                       partdata.cut_material_id === item.cut_material_id,
@@ -388,14 +388,12 @@ export const Results: FunctionComponent = () => {
                 >
                   Current Qty
                 </h5>
-                {job.job_data_parts
+                {job?.job_data_parts
                   .filter(
                     (partdata) =>
                       partdata.cut_material_id === item.cut_material_id,
                   )
-                  .map((partdata, i) => (
-                    <p key={i}>{partdata.part_qty}</p>
-                  ))}
+                  .map((partdata, i) => <p key={i}>{partdata.part_qty}</p>)}
               </div>
 
               <div
@@ -410,7 +408,7 @@ export const Results: FunctionComponent = () => {
                 >
                   Total Qty
                 </h5>
-                {job.job_data_parts
+                {job?.job_data_parts
                   .filter(
                     (partdata) =>
                       partdata.cut_material_id === item.cut_material_id,

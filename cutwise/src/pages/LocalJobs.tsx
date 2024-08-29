@@ -62,37 +62,45 @@ export const LocalJobs: FunctionComponent = () => {
   }
 
   const updateStar = (index: number, newStarValue: number) => {
-    setJobs(prevJobs =>
-        prevJobs.map((job, i) =>
-            i === index ? { ...job, Star: newStarValue } : job
-        )
+    setJobs((prevJobs) =>
+      prevJobs.map((job, i) =>
+        i === index ? { ...job, Star: newStarValue } : job,
+      ),
     );
   };
 
   return (
-      <div>
-        <h1 className={styles.heading}>Local Jobs</h1>
-        <div className={styles.jobs}>
-          {jobs?.map((job, i) => (
-              <div className={styles.job} key={i}>
-                <h2
-                    className={styles.job__number}
+    <div>
+      <h1 className={styles.heading}>Local Jobs</h1>
+      <div className={styles.jobs}>
+        {jobs
+          ?.sort((a, b) => b.Star - a.Star)
+          .map((job, i) => (
+            <div className={styles.job} key={i}>
+              <h2
+                className={styles.job__number}
+                onClick={() => navigate(`/results/${job.JobNumber}`)}
+              >
+                Job: {job.JobNumber}
+              </h2>
+              <p className={styles.customer}>Customer: {job.Customer}</p>
+              <div className={styles.buttons}>
+                <Button>
+                  <Launch
                     onClick={() => navigate(`/results/${job.JobNumber}`)}
+                  />
+                </Button>
+                <Button
+                  onClick={() =>
+                    toggleStar(job.JobNumber, job.Star === 0 ? 1 : 0, i)
+                  }
                 >
-                  Job: {job.JobNumber}
-                </h2>
-                <p className={styles.customer}>Customer: {job.Customer}</p>
-                <div className={styles.buttons}>
-                  <Button>
-                    <Launch onClick={() => navigate(`/results/${job.JobNumber}`)} />
-                  </Button>
-                  <Button onClick={() => toggleStar(job.JobNumber, job.Star === 0 ? 1 : 0, i)}>
-                    {job.Star === 0 ? <StarBorder /> : <Star />}
-                  </Button>
-                </div>
+                  {job.Star === 0 ? <StarBorder /> : <Star />}
+                </Button>
               </div>
+            </div>
           ))}
-        </div>
       </div>
+    </div>
   );
 };

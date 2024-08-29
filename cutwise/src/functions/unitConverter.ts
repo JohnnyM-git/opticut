@@ -7,3 +7,6 @@ export function inToM(value: number): number {
 export function inToMm(value: number): number {
   return value * 25.4;
 }
+export function mmToIn(value: number): number {
+  return value / 25.4;
+}

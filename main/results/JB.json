@@ -1,0 +1,15 @@
+[
+    {
+        "Job": "JB",
+        "MaterialCode": "M",
+        "Parts": {
+            "PP1": {
+                "CurrentQty": 5,
+                "TotalQty": 5
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 80,
+        "Length": 29.6875
+    }
+]

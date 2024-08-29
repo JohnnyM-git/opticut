@@ -83,7 +83,7 @@ func CreateLayoutV2(Parts []globals.Part, Materials []globals.Material, JobInfo 
 		fmt.Println("NoPartsFit:", NoPartsFit(sortedParts, &currentMaterial), "Code:", currentMaterial.MaterialCode)
 
 		if NoPartsFit(sortedParts, &currentMaterial) && currentMaterial.MaterialCode != "" {
-			fmt.Println("Appending current because parts don't fit", currentMaterial)
+			fmt.Println("Appending current because parts don't fit or all are complete", currentMaterial)
 			results = append(results, currentMaterial)
 			// Reset current material
 			currentMaterial = globals.CutMaterial{
@@ -101,7 +101,10 @@ func CreateLayoutV2(Parts []globals.Part, Materials []globals.Material, JobInfo 
 		fmt.Println("Complete:", complete, "Code:", currentMaterial.MaterialCode)
 		if complete {
 			fmt.Println("Appending current because parts are done", currentMaterial)
-			results = append(results, currentMaterial)
+			if currentMaterial.MaterialCode != "" {
+				results = append(results, currentMaterial)
+
+			}
 			break
 		}
 

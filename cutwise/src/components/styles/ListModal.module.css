@@ -1,0 +1,34 @@
+.list__modal__backdrop {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(34, 34, 34, 0.37);
+    /*background-color: #222222;*/
+    z-index: 3;
+}
+
+.list__modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    gap: 16px;
+    max-width: 1000px;
+    max-height: 500px;
+    background-color: #cccccc;
+}
+
+.list__modal__parts {
+    position: absolute;
+    display: flex;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+}

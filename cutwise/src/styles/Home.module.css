@@ -1,3 +1,21 @@
+.home {
+    position: relative;
+
+}
+.modal__open {
+    background-color: #222222;
+}
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.84);
+}
+
 .heading {
     display: flex;
     justify-content: space-around;

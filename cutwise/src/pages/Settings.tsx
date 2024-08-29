@@ -1,11 +1,13 @@
 // Settings.tsx
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/Settings.module.css";
 import { StyledInput } from "../components/StyledInput";
 import { useSettings } from "../SettingsContext";
+import { Settings } from "../globals.ts";
 
-export const Settings = () => {
+export const SettingsPage = () => {
   const { settings, setSettings } = useSettings();
+  const [settingsChanged, setSettingsChanged] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -24,12 +26,32 @@ export const Settings = () => {
     fetchSettings();
   }, [setSettings]);
 
-  const setKerf = (value: string) => {
-    setSettings((prevSettings) => ({
-      ...prevSettings,
-      kerf: parseFloat(value),
+  // const setKerf = (value: string) => {
+  //   setSettings((prevSettings) => ({
+  //     ...prevSettings,
+  //     kerf: parseFloat(value),
+  //   }));
+  //   setSettingsChanged(true);
+  // };
+
+  function updateSettings(key: keyof Settings, value: string | number): void {
+    setSettingsChanged(true);
+    console.log(settingsChanged);
+    if (key === "kerf") {
+      if (typeof value === "string") {
+        const parsedValue = parseFloat(value);
+        if (isNaN(parsedValue)) {
+          console.error("Invalid value for kerf. Must be a number.");
+          return; // Exit early if parsing fails
+        }
+        value = parsedValue;
+      }
+    }
+    setSettings((prev) => ({
+      ...prev,
+      [key]: value,
     }));
-  };
+  }
 
   const saveSettings = async () => {
     try {
@@ -46,17 +68,19 @@ export const Settings = () => {
       }
       const data = await res.json();
       console.log("Settings saved:", data);
+      setSettingsChanged(false);
     } catch (error) {
       console.error("Error saving settings:", error);
     }
   };
 
-  const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings((prevSettings) => ({
-      ...prevSettings,
-      units: e.target.value,
-    }));
-  };
+  // const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSettings((prevSettings) => ({
+  //     ...prevSettings,
+  //     units: e.target.value,
+  //   }));
+  //   setSettingsChanged(true);
+  // };
 
   return (
     <div className={styles.settings}>
@@ -70,34 +94,42 @@ export const Settings = () => {
               : (settings.kerf * 25.4).toFixed(4)
           }
           placeholder="Kerf"
-          onChange={(e) => setKerf(e.target.value)}
+          onChange={(e) => updateSettings("kerf", e.target.value)}
           step="0.01"
         />
-
-        <button onClick={saveSettings}>Save</button>
       </div>
-      <fieldset>
-        <label>
-          <StyledInput
-            type="radio"
-            value="imperial"
-            name="units"
-            checked={settings.units === "imperial"}
-            onChange={handleUnitChange}
-          />
-          Imperial - Ft/In
-        </label>
-        <label>
-          <StyledInput
-            type="radio"
-            value="metric"
-            name="units"
-            checked={settings.units === "metric"}
-            onChange={handleUnitChange}
-          />
-          Metric - M/mm
-        </label>
-      </fieldset>
+      <div className={styles.unit__selection}>
+        <p>Select Units</p>
+        <fieldset className={styles.unit__selection__options}>
+          <label>
+            <StyledInput
+              type="radio"
+              value="imperial"
+              name="units"
+              checked={settings.units === "imperial"}
+              onChange={(e) => updateSettings("units", e.target.value)}
+            />
+            Imperial - Ft/In
+          </label>
+          <label>
+            <StyledInput
+              type="radio"
+              value="metric"
+              name="units"
+              checked={settings.units === "metric"}
+              onChange={(e) => updateSettings("units", e.target.value)}
+            />
+            Metric - M/mm
+          </label>
+        </fieldset>
+      </div>
+      <button
+        className={styles.button}
+        onClick={saveSettings}
+        disabled={!settingsChanged}
+      >
+        Save
+      </button>
     </div>
   );
 };
