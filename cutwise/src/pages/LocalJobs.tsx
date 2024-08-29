@@ -77,6 +77,7 @@ export const LocalJobs: FunctionComponent = () => {
           ?.sort((a, b) => b.Star - a.Star)
           .map((job, i) => (
             <div className={styles.job} key={i}>
+                <div className={styles.job__left}>
               <h2
                 className={styles.job__number}
                 onClick={() => navigate(`/results/${job.JobNumber}`)}
@@ -84,6 +85,8 @@ export const LocalJobs: FunctionComponent = () => {
                 Job: {job.JobNumber}
               </h2>
               <p className={styles.customer}>Customer: {job.Customer}</p>
+                </div>
+                <div className={styles.job__right}>
               <div className={styles.buttons}>
                 <Button>
                   <Launch
@@ -98,6 +101,7 @@ export const LocalJobs: FunctionComponent = () => {
                   {job.Star === 0 ? <StarBorder /> : <Star />}
                 </Button>
               </div>
+                </div>
             </div>
           ))}
       </div>

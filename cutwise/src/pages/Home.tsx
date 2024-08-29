@@ -1,15 +1,19 @@
 import { FunctionComponent, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { Badge, Button } from "@mui/material";
-import { Add, Segment } from "@mui/icons-material";
+import {Add, Segment} from "@mui/icons-material";
 import { StyledInput } from "../components/StyledInput.tsx";
 import { apiUrl } from "../globals.ts";
 import { useNavigate } from "react-router-dom";
 import { useSettings } from "../SettingsContext.tsx";
-import { inToMm, mmToIn } from "../functions/unitConverter.ts";
+import { mmToIn } from "../functions/unitConverter.ts";
 import { ListModal } from "../components/ListModal.tsx";
 
-export const Home: FunctionComponent = ({ toggleModal }) => {
+interface Props {
+    toggleModal: () => void;
+}
+
+export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
   interface JobInfo {
     Job: string;
     Customer: string;
@@ -57,12 +61,12 @@ export const Home: FunctionComponent = ({ toggleModal }) => {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [part, setPart] = useState<Part>(partInitialState);
   const [material, setMaterial] = useState<Material>(materialInitialState);
-  const [partErrorMsg, setPartErrorMsg] = useState<string | JSX.Element>("");
+  const [partErrorMsg, setPartErrorMsg] = useState<string | null>("");
   const [materialErrorMsg, setMaterialErrorMsg] = useState<string>("");
   const [materialQtyDisabled, setMaterialQtyDisabled] = useState(false);
   const navigate = useNavigate();
   const { settings } = useSettings();
-  const [modal, setModal] = useState(initialModalState);
+  const [modal, setModal] = useState<ModalState>(initialModalState);
 
   async function runProject(): Promise<void> {
     if (checkDataValidity()) {
@@ -136,7 +140,13 @@ export const Home: FunctionComponent = ({ toggleModal }) => {
     const errors: string[] = [];
     setPartErrorMsg(""); // Clear previous errors
 
-    // Collect errors based on the current state
+      if (parts.some(existingPart => existingPart.PartNumber === part.PartNumber)) {
+          setPartErrorMsg("Part already exists and cannot be added again");
+          return false;
+      }
+
+
+      // Collect errors based on the current state
     if (part.PartNumber.trim() === "") {
       errors.push("Part number");
     }
@@ -186,6 +196,14 @@ export const Home: FunctionComponent = ({ toggleModal }) => {
 
   function checkMaterialValidity(): boolean {
     const errors: string[] = [];
+
+      if (materials.some(existingMaterial => existingMaterial.MaterialCode === material.MaterialCode && existingMaterial.Length === material.Length)) {
+          setMaterialErrorMsg("Current material at specified length already exists. If you need to add more please" +
+              " update the quantity");
+          return false;
+      }
+
+
     // Check if MaterialCode is a non-empty string
     if (material.MaterialCode.trim() === "") {
       errors.push("Material Code");
@@ -219,9 +237,6 @@ export const Home: FunctionComponent = ({ toggleModal }) => {
       setMaterials((prev) => [...prev, material]);
       // Clear any previous error message
       setMaterialErrorMsg("");
-    } else {
-      // Set an error message to indicate invalid materials
-      setMaterialErrorMsg("Materials must be valid");
     }
   }
 
@@ -243,19 +258,68 @@ export const Home: FunctionComponent = ({ toggleModal }) => {
       list: list,
     }));
   }
+  function closeModal() {
+      setModal((prevModal) => ({
+          ...prevModal,
+          Open: false,
+      }))
+      toggleModal()
+  }
 
-  return (
-    <div className={styles.home}>
+    function deletePart(partIdentifier: string) {
+        setParts(prevState => {
+            // Determine if partIdentifier is for Part or Material
+            return prevState.filter(part => part.PartNumber !== partIdentifier && part.MaterialCode !== partIdentifier);
+        });
+    }
+
+    function updatePartInArray(partIdentifier: string, newState: Partial<Part>) {
+        setParts(prevState =>
+            prevState.map(part =>
+                part.PartNumber === partIdentifier || part.MaterialCode === partIdentifier
+                    ? { ...part, ...newState }
+                    : part
+            )
+        );
+    }
+
+    function deleteMaterial(materialIndex: number) {
+        setMaterials(prevMaterials =>
+            prevMaterials.filter((_, index) => index !== materialIndex)
+        );
+    }
+
+    function updateMaterialInArray(materialIndex: number, newState: Partial<Material>) {
+        setMaterials(prevMaterials => {
+            // Create a new array with the updated material
+            return prevMaterials.map((material, index) =>
+                index === materialIndex
+                    ? { ...material, ...newState }
+                    : material
+            );
+        });
+    }
+
+
+
+    return (
+      <>
       {modal.Open && (
-        <div className={styles.modal}>
-          <h1>MODAL</h1>
-          <ListModal
-            listName={modal.list}
-            list={modal.list === "parts" ? parts : materials}
-          />
-        </div>
-      )}
-      {/*<h1>Create New Job</h1>*/}
+              <div className={styles.modal}>
+                  <ListModal
+                      listName={modal.list}
+                      list={modal.list === "parts" ? parts : materials}
+                      deletePart={deletePart}
+                      deleteMaterial={deleteMaterial}
+                      updatePart={updatePartInArray}
+                      updateMaterialInArray={updateMaterialInArray}
+                      job={jobInfo?.Job}
+                      closeModal={closeModal}
+                  />
+              </div>
+          )}
+
+    <div className={`${modal.Open ? styles.modal__open : styles.home}`}>
       <div className={styles.heading}>
         <div className={styles.heading__left}>
           <StyledInput
@@ -389,13 +453,13 @@ export const Home: FunctionComponent = ({ toggleModal }) => {
                 <StyledInput
                   type={"text"}
                   placeholder={
-                    materialQtyDisabled === true
+                    materialQtyDisabled
                       ? "Material Qty Unlimited"
                       : "Material Quantity"
                   }
                   // value={material.Quantity}
                   value={
-                    material.Quantity !== 0 && materialQtyDisabled !== true
+                    material.Quantity !== 0 && !materialQtyDisabled
                       ? material.Quantity
                       : ""
                   }
@@ -426,5 +490,6 @@ export const Home: FunctionComponent = ({ toggleModal }) => {
         </div>
       </div>
     </div>
+      </>
   );
 };

@@ -78,12 +78,18 @@ function App() {
     }
   }
 
+  async function pingBackend() {
+      const res = await fetch(`${apiUrl}/health`);
+      const data = res.json();
+      console.log(data);
+  }
+
   return (
     <SettingsProvider>
       <Router>
         {/* Main content */}
         <div className={`container ${isModalOpen ? "modalOpen" : ""}`}>
-          <Navbar startbackend={startBackend} toggleModal={toggleModal} />
+          <Navbar startbackend={pingBackend} toggleModal={toggleModal} />
 
           <div className="container__secondary">
             <Routes>
@@ -103,7 +109,7 @@ function App() {
 
         {/* Modal content */}
         {isModalOpen && (
-          <div className="modal" onClick={toggleModal}>
+          <div className="modal">
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <h2>Modal Header</h2>
               <p>This is the modal content.</p>

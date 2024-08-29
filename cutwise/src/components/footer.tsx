@@ -27,7 +27,7 @@ export const Footer: FunctionComponent = () => {
     // Initial fetch
     getOnlineStatus();
 
-    // Set up interval to fetch status every 5 seconds
+    // Set up interval to fetch status every 5 minutes
     const intervalId = setInterval(getOnlineStatus, 300000);
 
     // Clean up interval on component unmount

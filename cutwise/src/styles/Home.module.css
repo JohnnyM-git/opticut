@@ -1,19 +1,30 @@
 .home {
-    position: relative;
+    width: 100%;
+    height: 100%;
 
 }
 .modal__open {
-    background-color: #222222;
+    /*position: relative;*/
+    display: none;
 }
 .modal {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 6;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.84);
+    top: 0;
+    left: 0;
+    transform: translate(50%, 50%);
+    z-index: 10;
+    width: 50%;
+    /*!*max-width: 600px;*!*/
+    height: 50%;
+    background-color: white;
+    border-radius: 12px !important;
+}
+.modal__heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--padding-s);
 }
 
 .heading {

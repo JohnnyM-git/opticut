@@ -61,7 +61,8 @@
     height: 100vh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.65);
-    z-index: 99 !important;
+    z-index: 9 !important;
+    overflow: hidden;
 }
 
 .container__secondary {

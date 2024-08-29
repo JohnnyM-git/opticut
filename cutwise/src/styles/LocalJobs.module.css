@@ -8,18 +8,36 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin: 0 var(--margin-m) auto var(--margin-xl);
 }
 .job {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: fit-content;
+    flex-direction: row;
+    justify-content: space-around;
+    /*min-width: fit-content;*/
+    width: calc(22% - var(--margin-m));
     margin: 0 var(--margin-m) var(--margin-m) var(--margin-m);
     padding: var(--padding-l) var(--padding-m);
     border: 1px solid black;
     border-radius: 12px;
-    box-shadow: 16px 16px 20px -5px #000000;
+    box-shadow: 16px 16px 10px -15px #000000;
     transition: all 200ms;
+}
+.job__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.job__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
 }
 .job:hover {
     scale: 1.05;
