@@ -74,14 +74,6 @@ export const SettingsPage = () => {
     }
   };
 
-  // const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSettings((prevSettings) => ({
-  //     ...prevSettings,
-  //     units: e.target.value,
-  //   }));
-  //   setSettingsChanged(true);
-  // };
-
   return (
     <div className={styles.settings}>
       <h1>Settings</h1>

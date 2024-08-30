@@ -23,7 +23,7 @@ export const LocalJobs: FunctionComponent = () => {
 
   async function getLocalJobs() {
     try {
-      const res = await fetch(`${apiUrl}localjobs`);
+      const res = await fetch(`${apiUrl}local-jobs`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
@@ -42,7 +42,7 @@ export const LocalJobs: FunctionComponent = () => {
     };
 
     try {
-      const res = await fetch(`${apiUrl}togglestar`, {
+      const res = await fetch(`${apiUrl}toggle-star`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,31 +77,31 @@ export const LocalJobs: FunctionComponent = () => {
           ?.sort((a, b) => b.Star - a.Star)
           .map((job, i) => (
             <div className={styles.job} key={i}>
-                <div className={styles.job__left}>
-              <h2
-                className={styles.job__number}
-                onClick={() => navigate(`/results/${job.JobNumber}`)}
-              >
-                Job: {job.JobNumber}
-              </h2>
-              <p className={styles.customer}>Customer: {job.Customer}</p>
-                </div>
-                <div className={styles.job__right}>
-              <div className={styles.buttons}>
-                <Button>
-                  <Launch
-                    onClick={() => navigate(`/results/${job.JobNumber}`)}
-                  />
-                </Button>
-                <Button
-                  onClick={() =>
-                    toggleStar(job.JobNumber, job.Star === 0 ? 1 : 0, i)
-                  }
+              <div className={styles.job__left}>
+                <h2
+                  className={styles.job__number}
+                  onClick={() => navigate(`/results/${job.JobNumber}`)}
                 >
-                  {job.Star === 0 ? <StarBorder /> : <Star />}
-                </Button>
+                  Job: {job.JobNumber}
+                </h2>
+                <p className={styles.customer}>Customer: {job.Customer}</p>
               </div>
+              <div className={styles.job__right}>
+                <div className={styles.buttons}>
+                  <Button>
+                    <Launch
+                      onClick={() => navigate(`/results/${job.JobNumber}`)}
+                    />
+                  </Button>
+                  <Button
+                    onClick={() =>
+                      toggleStar(job.JobNumber, job.Star === 0 ? 1 : 0, i)
+                    }
+                  >
+                    {job.Star === 0 ? <StarBorder /> : <Star />}
+                  </Button>
                 </div>
+              </div>
             </div>
           ))}
       </div>

@@ -66,9 +66,9 @@ func CloseDB() {
 func DbHealthCheck() string {
 	err := db.Ping()
 	if err != nil {
-		return "unhealthy"
+		return "Unhealthy"
 	}
-	return "healthy"
+	return "Healthy"
 }
 
 func InsertPartsIntoPartTable(parts []globals.Part) {

@@ -63,7 +63,7 @@ export const Results: FunctionComponent = () => {
     console.log(options);
 
     try {
-      const res = await fetch(`${apiUrl}togglestar`, {
+      const res = await fetch(`${apiUrl}toggle-star`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

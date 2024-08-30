@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { Badge, Button } from "@mui/material";
-import {Add, Segment} from "@mui/icons-material";
+import { Add, Segment } from "@mui/icons-material";
 import { StyledInput } from "../components/StyledInput.tsx";
 import { apiUrl } from "../globals.ts";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { mmToIn } from "../functions/unitConverter.ts";
 import { ListModal } from "../components/ListModal.tsx";
 
 interface Props {
-    toggleModal: () => void;
+  toggleModal: () => void;
 }
 
 export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
@@ -76,7 +76,7 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
       console.log("PARTS:", parts);
 
       console.log("Materials:", materials);
-      const res = await fetch(`${apiUrl}runproject`, {
+      const res = await fetch(`${apiUrl}run-project`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -140,13 +140,14 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
     const errors: string[] = [];
     setPartErrorMsg(""); // Clear previous errors
 
-      if (parts.some(existingPart => existingPart.PartNumber === part.PartNumber)) {
-          setPartErrorMsg("Part already exists and cannot be added again");
-          return false;
-      }
+    if (
+      parts.some((existingPart) => existingPart.PartNumber === part.PartNumber)
+    ) {
+      setPartErrorMsg("Part already exists and cannot be added again");
+      return false;
+    }
 
-
-      // Collect errors based on the current state
+    // Collect errors based on the current state
     if (part.PartNumber.trim() === "") {
       errors.push("Part number");
     }
@@ -197,12 +198,19 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
   function checkMaterialValidity(): boolean {
     const errors: string[] = [];
 
-      if (materials.some(existingMaterial => existingMaterial.MaterialCode === material.MaterialCode && existingMaterial.Length === material.Length)) {
-          setMaterialErrorMsg("Current material at specified length already exists. If you need to add more please" +
-              " update the quantity");
-          return false;
-      }
-
+    if (
+      materials.some(
+        (existingMaterial) =>
+          existingMaterial.MaterialCode === material.MaterialCode &&
+          existingMaterial.Length === material.Length,
+      )
+    ) {
+      setMaterialErrorMsg(
+        "Current material at specified length already exists. If you need to add more please" +
+          " update the quantity",
+      );
+      return false;
+    }
 
     // Check if MaterialCode is a non-empty string
     if (material.MaterialCode.trim() === "") {
@@ -259,237 +267,243 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
     }));
   }
   function closeModal() {
-      setModal((prevModal) => ({
-          ...prevModal,
-          Open: false,
-      }))
-      toggleModal()
+    setModal((prevModal) => ({
+      ...prevModal,
+      Open: false,
+    }));
+    toggleModal();
   }
 
-    function deletePart(partIdentifier: string) {
-        setParts(prevState => {
-            // Determine if partIdentifier is for Part or Material
-            return prevState.filter(part => part.PartNumber !== partIdentifier && part.MaterialCode !== partIdentifier);
-        });
-    }
+  function deletePart(partIdentifier: string) {
+    setParts((prevState) => {
+      // Determine if partIdentifier is for Part or Material
+      return prevState.filter(
+        (part) =>
+          part.PartNumber !== partIdentifier &&
+          part.MaterialCode !== partIdentifier,
+      );
+    });
+  }
 
-    function updatePartInArray(partIdentifier: string, newState: Partial<Part>) {
-        setParts(prevState =>
-            prevState.map(part =>
-                part.PartNumber === partIdentifier || part.MaterialCode === partIdentifier
-                    ? { ...part, ...newState }
-                    : part
-            )
-        );
-    }
+  function updatePartInArray(partIdentifier: string, newState: Partial<Part>) {
+    setParts((prevState) =>
+      prevState.map((part) =>
+        part.PartNumber === partIdentifier ||
+        part.MaterialCode === partIdentifier
+          ? { ...part, ...newState }
+          : part,
+      ),
+    );
+  }
 
-    function deleteMaterial(materialIndex: number) {
-        setMaterials(prevMaterials =>
-            prevMaterials.filter((_, index) => index !== materialIndex)
-        );
-    }
+  function deleteMaterial(materialIndex: number) {
+    setMaterials((prevMaterials) =>
+      prevMaterials.filter((_, index) => index !== materialIndex),
+    );
+  }
 
-    function updateMaterialInArray(materialIndex: number, newState: Partial<Material>) {
-        setMaterials(prevMaterials => {
-            // Create a new array with the updated material
-            return prevMaterials.map((material, index) =>
-                index === materialIndex
-                    ? { ...material, ...newState }
-                    : material
-            );
-        });
-    }
+  function updateMaterialInArray(
+    materialIndex: number,
+    newState: Partial<Material>,
+  ) {
+    setMaterials((prevMaterials) => {
+      // Create a new array with the updated material
+      return prevMaterials.map((material, index) =>
+        index === materialIndex ? { ...material, ...newState } : material,
+      );
+    });
+  }
 
-
-
-    return (
-      <>
+  return (
+    <>
       {modal.Open && (
-              <div className={styles.modal}>
-                  <ListModal
-                      listName={modal.list}
-                      list={modal.list === "parts" ? parts : materials}
-                      deletePart={deletePart}
-                      deleteMaterial={deleteMaterial}
-                      updatePart={updatePartInArray}
-                      updateMaterialInArray={updateMaterialInArray}
-                      job={jobInfo?.Job}
-                      closeModal={closeModal}
-                  />
-              </div>
-          )}
-
-    <div className={`${modal.Open ? styles.modal__open : styles.home}`}>
-      <div className={styles.heading}>
-        <div className={styles.heading__left}>
-          <StyledInput
-            type={"text"}
-            placeholder={"Enter Project #"}
-            value={jobInfo?.Job}
-            onChange={(e) =>
-              setJobInfo((prev) => ({
-                ...prev,
-                Job: e.target.value.toUpperCase(),
-              }))
-            }
+        <div className={styles.modal}>
+          <ListModal
+            listName={modal.list}
+            list={modal.list === "parts" ? parts : materials}
+            deletePart={deletePart}
+            deleteMaterial={deleteMaterial}
+            updatePart={updatePartInArray}
+            updateMaterialInArray={updateMaterialInArray}
+            job={jobInfo?.Job}
+            closeModal={closeModal}
           />
-
-          <StyledInput
-            type={"text"}
-            placeholder={"Enter Customer"}
-            value={jobInfo?.Customer}
-            onChange={(e) =>
-              setJobInfo((prev) => ({
-                ...prev,
-                Customer: e.target.value.toUpperCase(),
-              }))
-            }
-          />
-          <Button onClick={runProject}>Run Project</Button>
         </div>
-        <div className={styles.heading__right}>
-          <Badge badgeContent={parts.length} color="primary">
-            <Button onClick={() => openModal("parts")}>
-              <p>Parts</p>
-              <Segment />
-            </Button>
-          </Badge>
-          <Badge badgeContent={materials.length} color="primary">
-            <Button onClick={() => openModal("materials")}>
-              <p>Materials</p>
-              <Segment />
-            </Button>
-          </Badge>
-        </div>
-      </div>
-      <div className={styles.item__additions}>
-        <div className={styles.part__addition}>
-          <h4>Add Part to Cut</h4>
-          <div className={styles.part__addition__inputs}>
-            <form className={styles.form} onSubmit={addToParts}>
-              <div className={styles.part__addition__inputs__form}>
-                <StyledInput
-                  type={"text"}
-                  placeholder="Part Number"
-                  value={part.PartNumber}
-                  onChange={(e) => updatePart("PartNumber", e.target.value)}
-                  // onFocus={handleFocus}
-                  // onBlur={handleBlur}
-                />
+      )}
 
-                <StyledInput
-                  type={"text"}
-                  placeholder="Material Code"
-                  value={part.MaterialCode}
-                  onChange={(e) => updatePart("MaterialCode", e.target.value)}
-                />
+      <div className={`${modal.Open ? styles.modal__open : styles.home}`}>
+        <div className={styles.heading}>
+          <div className={styles.heading__left}>
+            <StyledInput
+              type={"text"}
+              placeholder={"Enter Project #"}
+              value={jobInfo?.Job}
+              onChange={(e) =>
+                setJobInfo((prev) => ({
+                  ...prev,
+                  Job: e.target.value.toUpperCase(),
+                }))
+              }
+            />
 
-                <StyledInput
-                  type={"number"}
-                  placeholder={
-                    settings.units === "imperial"
-                      ? "Part Length - Inch"
-                      : "Part Length - mm"
-                  }
-                  // value={part.Length}
-                  value={part.Length !== 0 ? part.Length : ""}
-                  onChange={(e) => updatePart("Length", e.target.value)}
-                  step={"0.01"}
-                />
-
-                <StyledInput
-                  type={"text"}
-                  placeholder={"Cutting Operation"}
-                  value={part.CuttingOperation}
-                  onChange={(e) =>
-                    updatePart("CuttingOperation", e.target.value)
-                  }
-                />
-                <StyledInput
-                  type={"number"}
-                  placeholder="Part Quantity"
-                  value={part.Quantity !== 0 ? part.Quantity : ""}
-                  onChange={(e) => updatePart("Quantity", e.target.value)}
-                />
-              </div>
-              <Button type="submit">
-                Add Part <Add />{" "}
-              </Button>
-            </form>
+            <StyledInput
+              type={"text"}
+              placeholder={"Enter Customer"}
+              value={jobInfo?.Customer}
+              onChange={(e) =>
+                setJobInfo((prev) => ({
+                  ...prev,
+                  Customer: e.target.value.toUpperCase(),
+                }))
+              }
+            />
+            <Button onClick={runProject}>Run Project</Button>
           </div>
-          {partErrorMsg && <div className="error">{partErrorMsg}</div>}
+          <div className={styles.heading__right}>
+            <Badge badgeContent={parts.length} color="primary">
+              <Button onClick={() => openModal("parts")}>
+                <p>Parts</p>
+                <Segment />
+              </Button>
+            </Badge>
+            <Badge badgeContent={materials.length} color="primary">
+              <Button onClick={() => openModal("materials")}>
+                <p>Materials</p>
+                <Segment />
+              </Button>
+            </Badge>
+          </div>
         </div>
-
-        <div className={styles.material__addition}>
-          <h4>Add Material</h4>
-          <div className={styles.material__addition__inputs}>
-            <form className={styles.form} onSubmit={addToMaterials}>
-              <div className={styles.material__addition__inputs__form}>
-                <StyledInput
-                  type={"text"}
-                  placeholder={"Material Code"}
-                  value={material.MaterialCode}
-                  onChange={(e) =>
-                    updateMaterial(
-                      "MaterialCode",
-                      e.target.value.toUpperCase().trim(),
-                    )
-                  }
-                />
-                <StyledInput
-                  type={"number"}
-                  placeholder={
-                    settings.units === "imperial"
-                      ? "Material Length - Inch"
-                      : "Material Length - mm"
-                  }
-                  value={material.Length !== 0 ? material.Length : ""}
-                  // value={material.Length}
-                  onChange={(e) =>
-                    updateMaterial("Length", parseFloat(e.target.value))
-                  }
-                  step={"0.0001"}
-                />
-                <StyledInput
-                  type={"text"}
-                  placeholder={
-                    materialQtyDisabled
-                      ? "Material Qty Unlimited"
-                      : "Material Quantity"
-                  }
-                  // value={material.Quantity}
-                  value={
-                    material.Quantity !== 0 && !materialQtyDisabled
-                      ? material.Quantity
-                      : ""
-                  }
-                  onChange={(e) =>
-                    updateMaterial("Quantity", parseInt(e.target.value))
-                  }
-                  disabled={materialQtyDisabled}
-                />
-                <div
-                  className={styles.checkbox}
-                  onClick={() => updateMaterialQty()}
-                >
-                  <input
-                    type={"checkbox"}
-                    checked={materialQtyDisabled}
-                    onChange={() => updateMaterialQty()}
+        <div className={styles.item__additions}>
+          <div className={styles.part__addition}>
+            <h4>Add Part to Cut</h4>
+            <div className={styles.part__addition__inputs}>
+              <form className={styles.form} onSubmit={addToParts}>
+                <div className={styles.part__addition__inputs__form}>
+                  <StyledInput
+                    type={"text"}
+                    placeholder="Part Number"
+                    value={part.PartNumber}
+                    onChange={(e) => updatePart("PartNumber", e.target.value)}
+                    // onFocus={handleFocus}
+                    // onBlur={handleBlur}
                   />
-                  <p>Check for unlimited material</p>
+
+                  <StyledInput
+                    type={"text"}
+                    placeholder="Material Code"
+                    value={part.MaterialCode}
+                    onChange={(e) => updatePart("MaterialCode", e.target.value)}
+                  />
+
+                  <StyledInput
+                    type={"number"}
+                    placeholder={
+                      settings.units === "imperial"
+                        ? "Part Length - Inch"
+                        : "Part Length - mm"
+                    }
+                    // value={part.Length}
+                    value={part.Length !== 0 ? part.Length : ""}
+                    onChange={(e) => updatePart("Length", e.target.value)}
+                    step={"0.01"}
+                  />
+
+                  <StyledInput
+                    type={"text"}
+                    placeholder={"Cutting Operation"}
+                    value={part.CuttingOperation}
+                    onChange={(e) =>
+                      updatePart("CuttingOperation", e.target.value)
+                    }
+                  />
+                  <StyledInput
+                    type={"number"}
+                    placeholder="Part Quantity"
+                    value={part.Quantity !== 0 ? part.Quantity : ""}
+                    onChange={(e) => updatePart("Quantity", e.target.value)}
+                  />
                 </div>
-              </div>
-              <Button type="submit">
-                Add Material
-                <Add />
-              </Button>
-            </form>
+                <Button type="submit">
+                  Add Part <Add />{" "}
+                </Button>
+              </form>
+            </div>
+            {partErrorMsg && <div className="error">{partErrorMsg}</div>}
           </div>
-          {materialErrorMsg && <div className="error">{materialErrorMsg}</div>}
+
+          <div className={styles.material__addition}>
+            <h4>Add Material</h4>
+            <div className={styles.material__addition__inputs}>
+              <form className={styles.form} onSubmit={addToMaterials}>
+                <div className={styles.material__addition__inputs__form}>
+                  <StyledInput
+                    type={"text"}
+                    placeholder={"Material Code"}
+                    value={material.MaterialCode}
+                    onChange={(e) =>
+                      updateMaterial(
+                        "MaterialCode",
+                        e.target.value.toUpperCase().trim(),
+                      )
+                    }
+                  />
+                  <StyledInput
+                    type={"number"}
+                    placeholder={
+                      settings.units === "imperial"
+                        ? "Material Length - Inch"
+                        : "Material Length - mm"
+                    }
+                    value={material.Length !== 0 ? material.Length : ""}
+                    // value={material.Length}
+                    onChange={(e) =>
+                      updateMaterial("Length", parseFloat(e.target.value))
+                    }
+                    step={"0.0001"}
+                  />
+                  <StyledInput
+                    type={"text"}
+                    placeholder={
+                      materialQtyDisabled
+                        ? "Material Qty Unlimited"
+                        : "Material Quantity"
+                    }
+                    // value={material.Quantity}
+                    value={
+                      material.Quantity !== 0 && !materialQtyDisabled
+                        ? material.Quantity
+                        : ""
+                    }
+                    onChange={(e) =>
+                      updateMaterial("Quantity", parseInt(e.target.value))
+                    }
+                    disabled={materialQtyDisabled}
+                  />
+                  <div
+                    className={styles.checkbox}
+                    onClick={() => updateMaterialQty()}
+                  >
+                    <input
+                      type={"checkbox"}
+                      checked={materialQtyDisabled}
+                      onChange={() => updateMaterialQty()}
+                    />
+                    <p>Check for unlimited material</p>
+                  </div>
+                </div>
+                <Button type="submit">
+                  Add Material
+                  <Add />
+                </Button>
+              </form>
+            </div>
+            {materialErrorMsg && (
+              <div className="error">{materialErrorMsg}</div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-      </>
+    </>
   );
 };

@@ -28,6 +28,9 @@
       },
       "os": {
         "all": true
+      },
+      "window": {
+        "all": true
       }
     },
     "windows": [
@@ -35,6 +38,8 @@
         "title": "CutWise",
         "width": 800,
         "height": 600,
+        "min-width": 768,
+        "min-height": 400,
         "resizable": true,
         "fullscreen": false
       }

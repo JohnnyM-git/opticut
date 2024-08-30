@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"time"
 
 	"main/globals"
@@ -171,6 +172,7 @@ func UpdateSettingsHandler(w http.ResponseWriter, r *http.Request) {
 	// Update settings with new values
 	settings.Kerf = newSettings.Kerf
 	settings.Units = newSettings.Units
+	settings.Excel = newSettings.Excel
 
 	// Save the updated settings to the JSON file
 	err = globals.SaveSettings(settings)
@@ -321,23 +323,84 @@ func CheckHealth(w http.ResponseWriter, r *http.Request) {
 	uptime := time.Since(StartTime).String()
 
 	health := HealthResponse{
-		Status:      "healthy",
+		Status:      "Healthy",
 		Database:    db.DbHealthCheck(),
-		Version:     "1.0.0",
+		Version:     "0.1.0",
 		Uptime:      uptime,
-		ServiceName: "MyService",
+		ServiceName: "Cutwise",
 	}
 
 	// If any component is unhealthy, change the overall status
-	if health.Database != "healthy" {
-		health.Status = "unhealthy"
+	if health.Database != "Healthy" {
+		health.Status = "Unhealthy"
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	if health.Status == "unhealthy" {
+	if health.Status == "Unhealthy" {
 		w.WriteHeader(http.StatusServiceUnavailable)
 	} else {
 		w.WriteHeader(http.StatusOK)
 	}
 	json.NewEncoder(w).Encode(health)
 }
+
+func FileUpload(w http.ResponseWriter, r *http.Request) {
+	file, _, err := r.FormFile("file")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer file.Close()
+
+	// Create a temp file to save the uploaded file
+	tempFile, err := os.CreateTemp("", "upload-*.xlsx")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer os.Remove(tempFile.Name())
+	defer tempFile.Close()
+
+	// Write the file data to the temp file
+	_, err = io.Copy(tempFile, file)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Process the Excel file
+	// data, err := processExcel(tempFile.Name())
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// Send the processed data as JSON
+	w.Header().Set("Content-Type", "application/json")
+	// json.NewEncoder(w).Encode(data)
+
+}
+
+// func processExcel(filePath string) ([]RowData, error) {
+// 	f, err := excelize.OpenFile(filePath)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	defer f.Close()
+//
+// 	rows, err := f.GetRows(globals.Settings.Excel.SheetName)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	var data []RowData
+// 	for _, row := range rows {
+// 		data = append(
+// 			data, RowData{
+// 				Column1: row[0], // Assuming the first column
+// 				Column2: row[1], // Assuming the second column
+// 			})
+// 	}
+//
+// 	return data, nil
+// }

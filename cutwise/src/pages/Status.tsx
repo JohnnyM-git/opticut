@@ -120,7 +120,7 @@ export const Status = () => {
             <span>Status:</span>
             <span
               className={`${styles.statusIndicator} ${
-                health.status === "healthy" ? styles.healthy : styles.offline
+                health.status === "Healthy" ? styles.healthy : styles.offline
               }`}
             >
               {health.status}

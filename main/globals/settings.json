@@ -1,4 +1,8 @@
 {
   "kerf": 0.0625,
-  "units": "imperial"
+  "units": "imperial",
+  "excelSettings": {
+    "SheetName": "Sheet1",
+    "HeaderRows": 1
+  }
 }

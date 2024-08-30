@@ -47,13 +47,13 @@ export const Footer: FunctionComponent = () => {
     <div className={styles.status}>
       <div
         className={
-          status === "healthy"
+          status === "Healthy"
             ? styles.status__dot__online
             : styles.status__dot__offline
         }
       ></div>
       <span className={styles.status__text}>
-        {status === "healthy" ? "Online" : "Offline"}
+        {status === "Healthy" ? "Online" : "Offline"}
       </span>
     </div>
   );

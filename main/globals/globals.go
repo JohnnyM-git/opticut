@@ -97,9 +97,15 @@ type LocalJobsList struct {
 	Star      int
 }
 
+type ExcelSettings struct {
+	SheetName  string
+	HeaderRows uint16
+}
+
 type SettingsConfig struct {
-	Kerf  float64 `json:"kerf"`
-	Units string  `json:"units"`
+	Kerf  float64       `json:"kerf"`
+	Units string        `json:"units"`
+	Excel ExcelSettings `json:"excelSettings"`
 }
 
 var Settings SettingsConfig
