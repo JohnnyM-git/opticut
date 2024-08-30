@@ -3,7 +3,8 @@
     "beforeDevCommand": "pnpm dev",
     "beforeBuildCommand": "./src-tauri/build.sh",
     "devPath": "http://localhost:1420",
-    "distDir": "../build"
+    "distDir": "../build",
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "CutWise",
@@ -11,6 +12,7 @@
   },
   "tauri": {
     "allowlist": {
+      "all": true,
       "fs": {
         "all": true,
         "readFile": true,
@@ -31,6 +33,9 @@
       },
       "window": {
         "all": true
+      },
+      "dialog": {
+        "all": true
       }
     },
     "windows": [
@@ -38,8 +43,8 @@
         "title": "CutWise",
         "width": 800,
         "height": 600,
-        "min-width": 768,
-        "min-height": 400,
+        "minWidth": 768,
+        "minHeight": 800,
         "resizable": true,
         "fullscreen": false
       }

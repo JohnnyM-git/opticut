@@ -1,7 +1,7 @@
 import styles from "../styles/Status.module.css";
 import { useEffect, useState } from "react";
 import { apiUrl } from "../globals.ts";
-import { invoke } from "@tauri-apps/api/tauri";
+// import { invoke } from "@tauri-apps/api/tauri";
 
 interface healthStatus {
   database: string;
@@ -60,54 +60,54 @@ export const Status = () => {
     }
   }
 
-  async function restartService() {
-    try {
-      await logToFile("Starting server...");
-
-      // Start the backend asynchronously
-      await invoke("start_backend");
-      await logToFile("Server started.");
-
-      // Poll the backend health endpoint until it's up or timeout
-      const checkBackendStatus = async () => {
-        try {
-          const res = await fetch(`${apiUrl}/health`); // Replace with actual health check endpoint
-          if (res.ok) {
-            setHealth(await res.json());
-            await logToFile("Server is running.");
-            return true;
-          }
-        } catch (error) {
-          await logToFile("Server is not up yet.");
-        }
-        return false;
-      };
-
-      let attempts = 0;
-      const maxAttempts = 3;
-      const delay = 1000; // 1 second
-
-      const pollBackend = async () => {
-        while (attempts < maxAttempts) {
-          const success = await checkBackendStatus();
-          if (success) {
-            break;
-          }
-          attempts++;
-          await new Promise((res) => setTimeout(res, delay));
-        }
-
-        if (attempts >= maxAttempts) {
-          await logToFile("Backend failed to start.");
-        }
-      };
-
-      pollBackend();
-    } catch (error) {
-      console.error("Failed to start the backend:", error);
-      await logToFile("Failed to start the backend.");
-    }
-  }
+  // async function restartService() {
+  //   try {
+  //     await logToFile("Starting server...");
+  //
+  //     // Start the backend asynchronously
+  //     await invoke("start_backend");
+  //     await logToFile("Server started.");
+  //
+  //     // Poll the backend health endpoint until it's up or timeout
+  //     const checkBackendStatus = async () => {
+  //       try {
+  //         const res = await fetch(`${apiUrl}/health`); // Replace with actual health check endpoint
+  //         if (res.ok) {
+  //           setHealth(await res.json());
+  //           await logToFile("Server is running.");
+  //           return true;
+  //         }
+  //       } catch (error) {
+  //         await logToFile("Server is not up yet.");
+  //       }
+  //       return false;
+  //     };
+  //
+  //     let attempts = 0;
+  //     const maxAttempts = 3;
+  //     const delay = 1000; // 1 second
+  //
+  //     const pollBackend = async () => {
+  //       while (attempts < maxAttempts) {
+  //         const success = await checkBackendStatus();
+  //         if (success) {
+  //           break;
+  //         }
+  //         attempts++;
+  //         await new Promise((res) => setTimeout(res, delay));
+  //       }
+  //
+  //       if (attempts >= maxAttempts) {
+  //         await logToFile("Backend failed to start.");
+  //       }
+  //     };
+  //
+  //     pollBackend();
+  //   } catch (error) {
+  //     console.error("Failed to start the backend:", error);
+  //     await logToFile("Failed to start the backend.");
+  //   }
+  // }
 
   return (
     <>
@@ -140,7 +140,7 @@ export const Status = () => {
           {health.status === "Offline" && (
             <>
               <h3>Service is offline, please try restarting</h3>
-              <h4 onClick={restartService} className={styles.refresh}>
+              <h4 onClick={() => console.log("renable restart service function")} className={styles.refresh}>
                 Restart Service
               </h4>
             </>

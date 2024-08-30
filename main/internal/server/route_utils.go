@@ -6,8 +6,10 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
+	"github.com/xuri/excelize/v2"
 	"main/globals"
 	"main/internal/db"
 	"main/logger"
@@ -345,62 +347,50 @@ func CheckHealth(w http.ResponseWriter, r *http.Request) {
 }
 
 func FileUpload(w http.ResponseWriter, r *http.Request) {
-	file, _, err := r.FormFile("file")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-	defer file.Close()
+	// Define the file to process
+	var filesDir = "../../files"
+	fileName := "book1.xlsx" // Replace with your file name
+	filePath := filepath.Join(filesDir, fileName)
 
-	// Create a temp file to save the uploaded file
-	tempFile, err := os.CreateTemp("", "upload-*.xlsx")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer os.Remove(tempFile.Name())
-	defer tempFile.Close()
+	fmt.Println("File Path:", filePath)
 
-	// Write the file data to the temp file
-	_, err = io.Copy(tempFile, file)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	// Check if the file exists
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		http.Error(w, "File not found", http.StatusNotFound)
 		return
 	}
 
 	// Process the Excel file
-	// data, err := processExcel(tempFile.Name())
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
+	data, err := processExcel(filePath)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	// Send the processed data as JSON
 	w.Header().Set("Content-Type", "application/json")
-	// json.NewEncoder(w).Encode(data)
-
+	json.NewEncoder(w).Encode(data)
 }
 
-// func processExcel(filePath string) ([]RowData, error) {
-// 	f, err := excelize.OpenFile(filePath)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer f.Close()
-//
-// 	rows, err := f.GetRows(globals.Settings.Excel.SheetName)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	var data []RowData
-// 	for _, row := range rows {
-// 		data = append(
-// 			data, RowData{
-// 				Column1: row[0], // Assuming the first column
-// 				Column2: row[1], // Assuming the second column
-// 			})
-// 	}
-//
-// 	return data, nil
-// }
+func processExcel(filePath string) ([]globals.Part, error) {
+	f, err := excelize.OpenFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	rows, err := f.GetRows(globals.Settings.Excel.SheetName)
+	if err != nil {
+		return nil, err
+	}
+
+	var data []globals.Part
+	for _, row := range rows {
+		data = append(
+			data, globals.Part{
+				PartNumber: row[0], // Assuming the first column
+			})
+	}
+
+	return data, nil
+}

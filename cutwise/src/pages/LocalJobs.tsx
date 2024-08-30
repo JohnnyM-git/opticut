@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { apiUrl } from "../globals.ts";
 import styles from "../styles/LocalJobs.module.css";
-import { jobListJob } from "../globals.ts"; // Update import if needed
+import { JobListJob } from "../globals.ts"; // Update import if needed
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { Launch, Star, StarBorder } from "@mui/icons-material";
@@ -9,11 +9,11 @@ import { Launch, Star, StarBorder } from "@mui/icons-material";
 // Update interface to match API response
 interface JobsResponse {
   Message: string;
-  JobsList: jobListJob[];
+  JobsList: JobListJob[];
 }
 
 export const LocalJobs: FunctionComponent = () => {
-  const [jobs, setJobs] = useState<jobListJob[]>([]);
+  const [jobs, setJobs] = useState<JobListJob[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
