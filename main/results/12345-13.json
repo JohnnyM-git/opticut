@@ -1,0 +1,244 @@
+[
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 2,
+                "TotalQty": 10
+            },
+            "P2": {
+                "CurrentQty": 1,
+                "TotalQty": 5
+            },
+            "P3": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 3
+            },
+            "P5": {
+                "CurrentQty": 1,
+                "TotalQty": 16
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.5625
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 2,
+                "TotalQty": 10
+            },
+            "P2": {
+                "CurrentQty": 1,
+                "TotalQty": 5
+            },
+            "P3": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 3
+            },
+            "P5": {
+                "CurrentQty": 1,
+                "TotalQty": 16
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.5625
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 2,
+                "TotalQty": 10
+            },
+            "P2": {
+                "CurrentQty": 1,
+                "TotalQty": 5
+            },
+            "P3": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 3
+            },
+            "P5": {
+                "CurrentQty": 1,
+                "TotalQty": 16
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.5625
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 1,
+                "TotalQty": 10
+            },
+            "P2": {
+                "CurrentQty": 2,
+                "TotalQty": 5
+            },
+            "P3": {
+                "CurrentQty": 2,
+                "TotalQty": 25
+            },
+            "P5": {
+                "CurrentQty": 2,
+                "TotalQty": 16
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.5
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P1": {
+                "CurrentQty": 3,
+                "TotalQty": 10
+            },
+            "P3": {
+                "CurrentQty": 2,
+                "TotalQty": 25
+            },
+            "P5": {
+                "CurrentQty": 2,
+                "TotalQty": 16
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 10.5
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P3": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P5": {
+                "CurrentQty": 1,
+                "TotalQty": 16
+            },
+            "P6": {
+                "CurrentQty": 2,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 9.75
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P3": {
+                "CurrentQty": 3,
+                "TotalQty": 25
+            },
+            "P5": {
+                "CurrentQty": 2,
+                "TotalQty": 16
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 16.625
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P3": {
+                "CurrentQty": 4,
+                "TotalQty": 25
+            },
+            "P5": {
+                "CurrentQty": 5,
+                "TotalQty": 16
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 9.4375
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P3": {
+                "CurrentQty": 7,
+                "TotalQty": 25
+            },
+            "P5": {
+                "CurrentQty": 1,
+                "TotalQty": 16
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 7.5
+    },
+    {
+        "Job": "12345-13",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P3": {
+                "CurrentQty": 3,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 149.8125
+    }
+]

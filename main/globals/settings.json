@@ -2,7 +2,10 @@
   "kerf": 0.0625,
   "units": "imperial",
   "excelSettings": {
-    "SheetName": "Sheet1",
-    "HeaderRows": 1
+    "filesPath": "C:\\temp\\opticutexcelfiles",
+    "PartSheet": "Parts",
+    "PartHeaderRows": 3,
+    "MaterialSheet": "Materials",
+    "MaterialHeaderRows": 1
   }
 }

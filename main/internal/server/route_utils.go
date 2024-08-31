@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"time"
 
 	"github.com/xuri/excelize/v2"
@@ -347,10 +348,13 @@ func CheckHealth(w http.ResponseWriter, r *http.Request) {
 }
 
 func FileUpload(w http.ResponseWriter, r *http.Request) {
+
+	filePath := r.URL.Query().Get("filePath")
 	// Define the file to process
-	var filesDir = "../../files"
-	fileName := "book1.xlsx" // Replace with your file name
-	filePath := filepath.Join(filesDir, fileName)
+	// cwd, _ := os.Getwd()
+	// var filesDir = globals.Settings.Excel.FilesPath
+	// fileName := "Book1.xlsx" // Replace with your file name
+	// filePath := filepath.Join(filesDir, fileName)
 
 	fmt.Println("File Path:", filePath)
 
@@ -372,23 +376,194 @@ func FileUpload(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(data)
 }
 
-func processExcel(filePath string) ([]globals.Part, error) {
+func BatchProcessFiles(w http.ResponseWriter, r *http.Request) {
+
+	// Define the file to process
+	// cwd, _ := os.Getwd()
+	var filesDir = globals.Settings.Excel.FilesPath
+	errors := make([]string, 0)
+
+	files, err := os.ReadDir(filesDir)
+	if err != nil {
+		http.Error(w, "Failed to read directory", http.StatusInternalServerError)
+		return
+	}
+
+	// fileName := "Book1.xlsx" // Replace with your file name
+	// filePath := filepath.Join(filesDir, fileName)
+	var fileNames []string
+	for _, file := range files {
+		if !file.IsDir() {
+			fileNames = append(fileNames, file.Name())
+		}
+	}
+
+	for _, fileName := range fileNames {
+		filePath := filepath.Join(filesDir, fileName)
+		fmt.Println("File Path:", filePath)
+
+		// Check if the file exists
+		if _, err := os.Stat(filePath); os.IsNotExist(err) {
+			errMsg := fmt.Sprintln("File not found:", fileName, "Error Message", err)
+			errors = append(errors, errMsg)
+			http.Error(w, "File not found", http.StatusNotFound)
+			return
+		}
+
+		// Process the Excel file
+		data, err := processExcel(filePath)
+		if err != nil {
+			errMsg := fmt.Sprintln("Failed to process file:", fileName, "Error Message", err)
+			errors = append(errors, errMsg)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		db.InsertPartsIntoPartTable(data.Parts)
+
+		saveJobErr := db.SaveJobInfoToDB(data.Job)
+		if saveJobErr != nil {
+			errMsg := fmt.Sprintf("Failed to save job info to database: %v", err)
+			logger.LogError(errMsg)
+			errors = append(errors, errMsg)
+		}
+
+		sortedGroupedPartSlice := part_utils.SortPartsByCode(data.Parts)
+
+		for _, partsByCodeSlice := range sortedGroupedPartSlice {
+			materialCode := partsByCodeSlice[0].MaterialCode
+			matresults, materr := material_utils.SortMaterialByCode(data.Materials, materialCode)
+
+			if materr != nil {
+				logger.LogError(materr.Error())
+				continue // Skip this iteration if there's an error
+			}
+
+			// Call CreateLayoutV2 with the current partsByCodeSlice and sorted materials
+			errSlice := optimizer.CreateLayoutV2(
+				partsByCodeSlice,
+				matresults,
+				data.Job,
+			)
+
+			if len(errSlice) > 0 {
+				for _, err := range errSlice {
+					logger.LogError(err)
+					errors = append(errors, err)
+				}
+			} else {
+				// Assuming results is a global or accumulated variable
+				fmt.Println("completed slice")
+			}
+		}
+
+		// errSlice := optimizer.CreateLayoutV2(data.Parts, data.Materials, data.Job)
+		// if len(errSlice) > 0 {
+		// 	for _, err := range errSlice {
+		// 		logger.LogError(err)
+		// 		errors = append(errors, err)
+		// 	}
+		// }
+	}
+
+	// Send the processed data as JSON
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(errors)
+}
+
+func processExcel(filePath string) (globals.ExcelFileData, error) {
 	f, err := excelize.OpenFile(filePath)
 	if err != nil {
-		return nil, err
+		return globals.ExcelFileData{}, err
 	}
 	defer f.Close()
 
-	rows, err := f.GetRows(globals.Settings.Excel.SheetName)
+	jobValue, err := f.GetCellValue(globals.Settings.Excel.PartSheet, "B1")
 	if err != nil {
-		return nil, err
+		return globals.ExcelFileData{}, err
 	}
 
-	var data []globals.Part
-	for _, row := range rows {
-		data = append(
-			data, globals.Part{
-				PartNumber: row[0], // Assuming the first column
+	customerValue, err := f.GetCellValue(globals.Settings.Excel.PartSheet, "B2")
+	if err != nil {
+		return globals.ExcelFileData{}, err
+	}
+	partsHeaderRows := int(globals.Settings.Excel.PartHeaderRows)
+	partrows, err := f.GetRows(globals.Settings.Excel.PartSheet)
+	if err != nil {
+		return globals.ExcelFileData{}, err
+	}
+
+	if partsHeaderRows < len(partrows) {
+		partrows = partrows[partsHeaderRows:]
+	}
+
+	materialHeaderRows := int(globals.Settings.Excel.MaterialHeaderRows)
+
+	materialRows, err := f.GetRows(globals.Settings.Excel.MaterialSheet)
+	if err != nil {
+		return globals.ExcelFileData{}, err
+	}
+
+	if materialHeaderRows < len(materialRows) {
+		materialRows = materialRows[materialHeaderRows:]
+	}
+
+	// Skip the header rows
+
+	// if materialHeaderRows < len(materialRows) {
+	// 	materialRows = materialRows[materialHeaderRows:] // Skip the specified number of header rows
+	// } else {
+	// 	// Handle the case where headerRows is greater than or equal to the total number of rows
+	// 	return globals.ExcelFileData{}, fmt.Errorf("header rows exceed the total number of rows")
+	// }
+	//
+	// if partsHeaderRows < len(materialRows) {
+	// 	partrows = partrows[partsHeaderRows:] // Skip the specified number of header rows
+	// } else {
+	// 	// Handle the case where headerRows is greater than or equal to the total number of rows
+	// 	return globals.ExcelFileData{}, fmt.Errorf("header rows exceed the total number of rows")
+	// }
+	var data globals.ExcelFileData
+
+	data.Job.Job = jobValue
+	data.Job.Customer = customerValue
+
+	for _, row := range partrows {
+
+		Length, err := strconv.ParseFloat(row[2], 64)
+		if err != nil {
+			return globals.ExcelFileData{}, fmt.Errorf("failed to parse length '%s': %w", row[2], err)
+		}
+		//
+		Quantity, err := strconv.ParseUint(row[3], 10, 16)
+		if err != nil {
+			return globals.ExcelFileData{}, fmt.Errorf("failed to parse length '%s': %w", row[2], err)
+		}
+
+		data.Parts = append(
+			data.Parts, globals.Part{
+				PartNumber:       row[0],
+				MaterialCode:     row[1],
+				Length:           Length,
+				Quantity:         uint16(Quantity),
+				CuttingOperation: row[4],
+				// CutQuantity:      0,
+			})
+	}
+
+	for _, row := range materialRows {
+		Length, err := strconv.ParseFloat(row[1], 64)
+		if err != nil {
+
+		}
+		Quantity, err := strconv.ParseUint(row[2], 10, 16)
+		if err != nil {
+
+		}
+		data.Materials = append(
+			data.Materials, globals.Material{
+				MaterialCode: row[0],
+				Length:       Length,
+				Quantity:     uint16(Quantity),
 			})
 	}
 

@@ -98,8 +98,17 @@ type LocalJobsList struct {
 }
 
 type ExcelSettings struct {
-	SheetName  string
-	HeaderRows uint16
+	FilesPath          string
+	PartSheet          string
+	PartHeaderRows     uint16
+	MaterialSheet      string
+	MaterialHeaderRows uint16
+}
+
+type ExcelFileData struct {
+	Job       JobType
+	Parts     []Part     `json:"parts"`
+	Materials []Material `json:"materials"`
 }
 
 type SettingsConfig struct {

@@ -8,14 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { useSettings } from "../SettingsContext.tsx";
 import { mmToIn } from "../functions/unitConverter.ts";
 import { ListModal } from "../components/ListModal.tsx";
+import { dialog } from "@tauri-apps/api";
 // import { dialog } from "@tauri-apps/api";
 // import { invoke } from "@tauri-apps/api/tauri";
 // import axios from "axios";
 // import { readBinaryFile } from "tauri/api/fs";
 // import { appWindow } from '@tauri-apps/api/window';
-
-
-
 
 interface Props {
   toggleModal: () => void;
@@ -323,94 +321,131 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
     });
   }
 
-    // async function selectAndUploadFile() {
-    //     // console.log('App window label:', window.__TAURI__.appWindow.label);
-    //     console.log(file)
-    //
-    //     const formData = new FormData();
-    //
-    //        formData.append(
-    //            "file",
-    //            file.name
-    //           )
-    //
-    //    console.log(formData)
-    //
-    //
-    //     // Open file dialog to select a file
-    //     // const selected = await dialog.open({
-    //     //     filters: [{
-    //     //         name: 'Excel Files',
-    //     //         extensions: ['xlsx', 'xls'],
-    //     //     }]
-    //     // });
-    //     //
-    //     // if (typeof selected === 'string') {
-    //     //     try {
-    //     //         console.log('Selected file:', selected);
-    //     //
-    //     //         // Read the file as binary data
-    //     //         const fileData = await readBinaryFile(selected);
-    //     //         console.log(fileData)
-    //     //
-    //     //         // Prepare the file for upload
-    //     //         const formData = new FormData();
-    //     //         // @ts-ignore
-    //     //         const blob = new Blob([fileData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    //     //         formData.append('file', blob, 'file.xlsx');
-    //     //
-    //     //         // Send the file to the Go backend
-    //     //         const response = await axios.post('http://localhost:2828/file-upload', formData, {
-    //     //             headers: {
-    //     //                 'Content-Type': 'multipart/form-data',
-    //     //             },
-    //     //         });
-    //     //
-    //     //         console.log(response.data); // Process and display the response data
-    //     //     } catch (e) {
-    //     //         console.error('Error uploading file:', e);
-    //     //     }
-    //     // }
-    // }
-    //
-    // // Helper function to read file as binary
-    // async function readBinaryFile(filePath: string) {
-    //     const response = await fetch(filePath);
-    //     return response.arrayBuffer();
-    // }
+  // async function selectAndUploadFile() {
+  //     // console.log('App window label:', window.__TAURI__.appWindow.label);
+  //     console.log(file)
+  //
+  //     const formData = new FormData();
+  //
+  //        formData.append(
+  //            "file",
+  //            file.name
+  //           )
+  //
+  //    console.log(formData)
+  //
+  //
+  //     // Open file dialog to select a file
+  //     // const selected = await dialog.open({
+  //     //     filters: [{
+  //     //         name: 'Excel Files',
+  //     //         extensions: ['xlsx', 'xls'],
+  //     //     }]
+  //     // });
+  //     //
+  //     // if (typeof selected === 'string') {
+  //     //     try {
+  //     //         console.log('Selected file:', selected);
+  //     //
+  //     //         // Read the file as binary data
+  //     //         const fileData = await readBinaryFile(selected);
+  //     //         console.log(fileData)
+  //     //
+  //     //         // Prepare the file for upload
+  //     //         const formData = new FormData();
+  //     //         // @ts-ignore
+  //     //         const blob = new Blob([fileData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  //     //         formData.append('file', blob, 'file.xlsx');
+  //     //
+  //     //         // Send the file to the Go backend
+  //     //         const response = await axios.post('http://localhost:2828/file-upload', formData, {
+  //     //             headers: {
+  //     //                 'Content-Type': 'multipart/form-data',
+  //     //             },
+  //     //         });
+  //     //
+  //     //         console.log(response.data); // Process and display the response data
+  //     //     } catch (e) {
+  //     //         console.error('Error uploading file:', e);
+  //     //     }
+  //     // }
+  // }
+  //
+  // // Helper function to read file as binary
+  // async function readBinaryFile(filePath: string) {
+  //     const response = await fetch(filePath);
+  //     return response.arrayBuffer();
+  // }
 
+  // async function testFileSelection() {
+  //     const selected = await dialog.open({
+  //         filters: [{
+  //             name: 'Excel Files',
+  //             extensions: ['xlsx', 'xls'],
+  //         }]
+  //     });
+  //     if (typeof selected === 'string') {
+  //         console.log('Selected file:', selected);
+  //         const file = await readBinaryFile(selected);
+  //         console.log('File content:', file);
+  //     }
+  // }
 
-    // async function testFileSelection() {
-    //     const selected = await dialog.open({
-    //         filters: [{
-    //             name: 'Excel Files',
-    //             extensions: ['xlsx', 'xls'],
-    //         }]
-    //     });
-    //     if (typeof selected === 'string') {
-    //         console.log('Selected file:', selected);
-    //         const file = await readBinaryFile(selected);
-    //         console.log('File content:', file);
-    //     }
-    // }
+  async function runUploadedFiles() {
+    try {
+      setParts([]);
+      setMaterials([]);
+      const filePath = await dialog.open({
+        filters: [
+          {
+            name: "Excel Files",
+            extensions: ["xlsx", "xls"],
+          },
+        ],
+      });
 
-    async function runUploadedFiles() {
-        try {
-            const res = await fetch(`${apiUrl}file-upload`);
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            // const data: JobsResponse = await res.json();
-            const data = await res.json()
-            console.log(data);
-            // setJobs(data.JobsList); // Update state with JobsList
-        } catch (error) {
-            console.error("Uploading File", error);
-        }
+      console.log(filePath);
+
+      const res = await fetch(`${apiUrl}file-upload?filePath=${filePath}`);
+
+      // const res = await fetch(`${apiUrl}fileupload`, {});
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      // const data: JobsResponse = await res.json();
+      const data = await res.json();
+      console.log(data);
+      data.parts.forEach((part: Part) => {
+        setParts((prevState) => [...prevState, part]);
+      });
+
+      data.materials.forEach((material: Material) => {
+        setMaterials((prevState) => [...prevState, material]);
+      });
+
+      setJobInfo((prevState) => ({
+        ...prevState,
+        Job: data.Job.Job,
+      }));
+
+      setJobInfo((prevState) => ({
+        ...prevState,
+        Customer: data.Job.Customer,
+      }));
+
+      // setJobs(data.JobsList); // Update state with JobsList
+    } catch (error) {
+      console.error("Uploading File", error);
     }
+  }
 
+  async function batchProcess() {
+    const res = await fetch(`${apiUrl}batch-run-files`);
+    const data = await res.json();
+    console.log(data);
+  }
 
-    return (
+  return (
     <>
       {modal.Open && (
         <div className={styles.modal}>
@@ -456,6 +491,7 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
             <Button onClick={runProject}>Run Project</Button>
             {/*  <input type={"file"} onChange={(e) => setFile(e.target.files[0])}/>*/}
             <Button onClick={runUploadedFiles}>Upload File</Button>
+            <Button onClick={batchProcess}>Batch Process</Button>
           </div>
           <div className={styles.heading__right}>
             <Badge badgeContent={parts.length} color="primary">

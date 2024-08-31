@@ -13,4 +13,5 @@ func RegisterRoutes() {
 	http.HandleFunc("/api/v1/run-project", RunProject)
 	http.HandleFunc("/api/v1/health", CheckHealth)
 	http.HandleFunc("/api/v1/file-upload", FileUpload)
+	http.HandleFunc("/api/v1/batch-run-files", BatchProcessFiles)
 }
