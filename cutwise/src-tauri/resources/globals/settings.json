@@ -1,0 +1,11 @@
+{
+  "kerf": 0.0625,
+  "units": "imperial",
+  "excelSettings": {
+    "filesPath": "C:\\temp\\batch files",
+    "PartSheet": "Parts",
+    "PartHeaderRows": 4,
+    "MaterialSheet": "Materials",
+    "MaterialHeaderRows": 1
+  }
+}

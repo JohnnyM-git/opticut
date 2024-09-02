@@ -1,7 +1,7 @@
 {
   "build": {
     "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "./src-tauri/build.sh",
+    "beforeBuildCommand": "start ./src-tauri/build.bat",
     "devPath": "http://localhost:1420",
     "distDir": "../build",
     "withGlobalTauri": true
@@ -11,6 +11,14 @@
     "version": "0.1.0"
   },
   "tauri": {
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://your-server.com/api/v1/update"
+      ],
+      "dialog": true,
+      "pubkey": "your-public-key-here"
+    },
     "allowlist": {
       "all": true,
       "fs": {
