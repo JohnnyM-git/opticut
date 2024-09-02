@@ -7,8 +7,8 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "CutWise",
-    "version": "0.1.0"
+    "productName": "MaterialWise",
+    "version": "0.0.19"
   },
   "tauri": {
     "updater": {
