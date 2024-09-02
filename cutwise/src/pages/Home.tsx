@@ -440,8 +440,26 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
   }
 
   async function batchProcess() {
+    const startTime = performance.now(); // Start timer
+
     const res = await fetch(`${apiUrl}batch-run-files`);
     const data = await res.json();
+
+    const endTime = performance.now(); // End timer
+
+    console.log(data);
+
+    // Calculate the time taken
+    const timeTaken = endTime - startTime;
+    console.log(
+      `Batch processing completed in ${timeTaken.toFixed(2)} milliseconds`,
+    );
+
+    // if (data.errors.length > 0) {
+    //   console.log(data.errors);
+    //   return;
+    // }
+    // navigate(`/localjobs`);
     console.log(data);
   }
 

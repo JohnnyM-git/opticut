@@ -5,7 +5,6 @@ import (
 )
 
 func RegisterRoutes() {
-	http.HandleFunc("/api/v1/hello", HelloHandler)
 	http.HandleFunc("/api/v1/job", HandleGetJob)
 	http.HandleFunc("/api/v1/local-jobs", HandleGetLocalJobs)
 	http.HandleFunc("/api/v1/settings", SettingsHandler)

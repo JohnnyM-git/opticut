@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS parts (
                                      id INTEGER PRIMARY KEY AUTOINCREMENT,
                                      part_number TEXT NOT NULL UNIQUE,
                                      material_code TEXT NOT NULL,
-                                     length REAL NOT NULL
+                                     length REAL NOT NULL,
+                                     cutting_operation TEXT
 );
 
 -- Create the cut_materials table
@@ -24,6 +25,7 @@ CREATE TABLE IF NOT EXISTS cut_materials (
                                              quantity INTEGER NOT NULL,
                                              stock_length REAL NOT NULL,
                                              length REAL NOT NULL,
+                                             cutting_operation TEXT,
                                              FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE
 );
 
@@ -37,6 +39,7 @@ CREATE TABLE IF NOT EXISTS cut_material_parts (
                                                   length REAL,
                                                   part_cut_length REAL,
                                                   material_code TEXT,
+                                                  cutting_operation TEXT,
                                                   PRIMARY KEY (cut_material_id, part_id),
                                                   FOREIGN KEY (cut_material_id) REFERENCES cut_materials(id),
                                                   FOREIGN KEY (part_id) REFERENCES parts(id),

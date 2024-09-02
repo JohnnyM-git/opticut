@@ -45,7 +45,9 @@ export const Results: FunctionComponent = () => {
     console.log(jobId);
     // const jobNum = query
     const res = await fetch(`${apiUrl}job?job_id=${jobId}`);
+    console.log(res);
     if (!res.ok) {
+      console.log(await res.json());
       // console.error(res);
       throw new Error(`HTTP error! status: ${res.status}`);
     }
@@ -169,6 +171,34 @@ export const Results: FunctionComponent = () => {
                   </p>
                 )}
 
+                {settings.units === "imperial" && (
+                  <p className={styles.material__info__property}>
+                    Total Material Scrap / Drop:{" "}
+                    {inToFt(
+                      item.total_stock_length - item.total_used_length,
+                    ).toFixed(2)}
+                    ' |{" "}
+                    {(item.total_stock_length - item.total_used_length).toFixed(
+                      2,
+                    )}
+                    "
+                  </p>
+                )}
+
+                {settings.units === "metric" && (
+                  <p className={styles.material__info__property}>
+                    Total Material Scrap / Drop:{" "}
+                    {inToM(
+                      item.total_stock_length - item.total_used_length,
+                    ).toFixed(2)}
+                    M |{" "}
+                    {inToMm(
+                      item.total_stock_length - item.total_used_length,
+                    ).toFixed(2)}
+                    mm
+                  </p>
+                )}
+
                 {/*<p className={styles.material__info__property}>*/}
                 {/*  Total Used: {(item.total_used_length / 12).toFixed(2)}' |{" "}*/}
                 {/*  {item.total_used_length.toFixed(2)}"*/}
@@ -208,6 +238,7 @@ export const Results: FunctionComponent = () => {
             <div className={styles.material__display__info__left}>
               <h4>Material Code: {item.cut_material_material_code}</h4>
               <h4>Material ID: {item.cut_material_id}</h4>
+              <h4>Cutting Operation: {item.cutting_operation}</h4>
 
               {settings.units === "imperial" && (
                 <h4>

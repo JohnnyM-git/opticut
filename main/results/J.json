@@ -3,21 +3,14 @@
         "Job": "J",
         "MaterialCode": "M",
         "Parts": {
-            "P1": {
-                "CurrentQty": 1,
-                "TotalQty": 1
+            "P": {
+                "CurrentQty": 2,
+                "TotalQty": 2
             }
         },
         "Quantity": 1,
         "StockLength": 10,
-        "Length": 8.875
-    },
-    {
-        "Job": "",
-        "MaterialCode": "",
-        "Parts": {},
-        "Quantity": 0,
-        "StockLength": 0,
-        "Length": 0
+        "Length": 7.875,
+        "CuttingOperation": ""
     }
 ]

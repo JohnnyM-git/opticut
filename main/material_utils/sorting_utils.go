@@ -31,9 +31,5 @@ func SortMaterialByCode(materials []globals.Material, target string) ([]globals.
 		errMsg := fmt.Sprintf("%s: no material found", target)
 		return result, errors.New(errMsg)
 	}
-	// else {
-	// 	result = SortMaterialByLength(result)
-	// }
-	// fmt.Println(target, ":", result)
 	return result, nil
 }
