@@ -31,13 +31,11 @@ jobs:
         run: npm install -g pnpm
 
       - name: Change directory to cutwise
-        run: cd cutwise
-
-      - name: Install dependencies
+        working-directory: ./cutwise
         run: pnpm install
 
-
       - name: Run build script
+        working-directory: ./cutwise
         run: ./src-tauri/build.bat
 
       - name: Create GitHub Release
