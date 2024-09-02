@@ -54,8 +54,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Release Assets
-        uses: actions/upload-release-asset@v1
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v2
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./cutwise/src-tauri/resources/main/main.exe
@@ -63,7 +63,7 @@ jobs:
           asset_content_type: application/octet-stream
 
       - name: Upload additional assets
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v2
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./cutwise/src-tauri/resources/globals/settings.json
@@ -71,7 +71,7 @@ jobs:
           asset_content_type: application/json
 
       - name: Upload additional assets
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v2
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./cutwise/src-tauri/resources/main/internal/db/setup_db.sql
