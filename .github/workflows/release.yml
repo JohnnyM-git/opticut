@@ -27,8 +27,15 @@ jobs:
       - name: Install Tauri CLI
         run: cargo install tauri-cli
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Change directory to cutwise
+        run: cd cutwise
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
+
 
       - name: Run build script
         run: ./src-tauri/build.bat
