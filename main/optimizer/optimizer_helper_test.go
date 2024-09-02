@@ -798,3 +798,128 @@ func TestCheckForMaterialV2(t *testing.T) {
 			})
 	}
 }
+
+// func TestShouldAppendCurrentMaterial(t *testing.T) {
+// 	tests := []struct {
+// 		name            string
+// 		parts           []globals.Part
+// 		currentMaterial globals.CutMaterial
+// 		expected        bool
+// 	}{
+// 		{
+// 			name: "All Parts Too Long",
+// 			parts: []globals.Part{
+// 				{
+// 					PartNumber:       "P1",
+// 					Length:           6.0,
+// 					CuttingOperation: "Cutting",
+// 					MaterialCode:     "A",
+// 					CutQuantity:      1,
+// 					Quantity:         2,
+// 				},
+// 				{
+// 					PartNumber:       "P2",
+// 					Length:           8.0,
+// 					CuttingOperation: "Cutting",
+// 					MaterialCode:     "A",
+// 					CutQuantity:      1,
+// 					Quantity:         2,
+// 				},
+// 			},
+// 			currentMaterial: globals.CutMaterial{
+// 				MaterialCode:     "A",
+// 				Length:           5.0,
+// 				CuttingOperation: "Cutting",
+// 			},
+// 			expected: true,
+// 		},
+// 		{
+// 			name: "All Parts Don't Match Cutting Operation",
+// 			parts: []globals.Part{
+// 				{
+// 					PartNumber:       "P1",
+// 					Length:           6.0,
+// 					CuttingOperation: "Cutting",
+// 					MaterialCode:     "A",
+// 					CutQuantity:      1,
+// 					Quantity:         2,
+// 				},
+// 				{
+// 					PartNumber:       "P2",
+// 					Length:           8.0,
+// 					CuttingOperation: "Cutting",
+// 					MaterialCode:     "A",
+// 					CutQuantity:      1,
+// 					Quantity:         2,
+// 				},
+// 			},
+// 			currentMaterial: globals.CutMaterial{
+// 				MaterialCode:     "A",
+// 				Length:           5.0,
+// 				CuttingOperation: "Saw",
+// 			},
+// 			expected: true,
+// 		},
+// 		{
+// 			name: "One Part Fits Length and Operation",
+// 			parts: []globals.Part{
+// 				{
+// 					PartNumber:       "P1",
+// 					Length:           6.0,
+// 					CuttingOperation: "Cutting",
+// 					MaterialCode:     "A",
+// 					CutQuantity:      1,
+// 					Quantity:         2,
+// 				},
+// 				{
+// 					PartNumber:       "P2",
+// 					Length:           3.0,
+// 					CuttingOperation: "Cutting",
+// 					MaterialCode:     "A",
+// 					CutQuantity:      1,
+// 					Quantity:         2,
+// 				},
+// 			},
+// 			currentMaterial: globals.CutMaterial{
+// 				MaterialCode:     "A",
+// 				Length:           5.0,
+// 				CuttingOperation: "Cutting",
+// 			},
+// 			expected: false,
+// 		},
+// 		{
+// 			name: "Empty Current Material",
+// 			parts: []globals.Part{
+// 				{
+// 					PartNumber:       "P1",
+// 					Length:           6.0,
+// 					CuttingOperation: "Cutting",
+// 					MaterialCode:     "A",
+// 					CutQuantity:      2,
+// 					Quantity:         1,
+// 				},
+// 				{
+// 					PartNumber:       "P2",
+// 					Length:           3.0,
+// 					CuttingOperation: "Cutting",
+// 					MaterialCode:     "A",
+// 					CutQuantity:      2,
+// 					Quantity:         1,
+// 				},
+// 			},
+// 			currentMaterial: globals.CutMaterial{},
+// 			expected:        false,
+// 		},
+// 	}
+//
+// 	for _, tt := range tests {
+// 		t.Run(
+// 			tt.name, func(t *testing.T) {
+// 				result := shouldAppendCurrentMaterial(tt.parts, &tt.currentMaterial)
+// 				if result != tt.expected {
+// 					t.Errorf("ShouldAppendCurrentMaterial() = %v, want %v", result, tt.expected)
+// 				}
+// 			})
+// 	}
+//
+// }

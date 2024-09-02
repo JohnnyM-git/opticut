@@ -19,7 +19,9 @@ func PartsComplete(parts []globals.Part) bool {
 }
 
 func NoPartsFit(parts []globals.Part, currentMaterial *globals.CutMaterial) bool {
-
+	if currentMaterial.MaterialCode == "" {
+		return true
+	}
 	for _, part := range parts {
 		if part.Quantity > part.CutQuantity {
 			if part.Length <= currentMaterial.Length && part.CuttingOperation == currentMaterial.CuttingOperation {
@@ -155,3 +157,57 @@ func checkForMaterialV2(
 
 	return errors.New("material with the correct length not found")
 }
+
+// func shouldAppendCurrentMaterial(sortedParts []globals.Part, currentMaterial *globals.CutMaterial) bool {
+// 	return NoPartsFit(sortedParts, currentMaterial) && currentMaterial.MaterialCode != ""
+// }
+//
+// func appendCurrentMaterial(results *[]globals.CutMaterial, currentMaterial *globals.CutMaterial) {
+// 	*results = append(*results, *currentMaterial)
+// }
+//
+// func processPart(sortedParts []globals.Part, i int, currentMaterial *globals.CutMaterial) {
+// 	if sortedParts[i].CutQuantity < sortedParts[i].Quantity {
+// 		if canCutPart(&sortedParts[i], currentMaterial) {
+// 			if shouldSubtractKerf(&sortedParts[i], currentMaterial) {
+// 				subtractKerf(&sortedParts[i], currentMaterial)
+// 			} else {
+// 				subtractLength(&sortedParts[i], currentMaterial)
+// 			}
+// 			updatePartQuantity(&sortedParts[i], currentMaterial)
+// 		}
+// 	}
+// }
+//
+// func canCutPart(sortedPart *Part, currentMaterial *Material) bool {
+// 	return sortedPart.Length <= currentMaterial.Length && sortedPart.CuttingOperation == currentMaterial.CuttingOperation
+// }
+//
+// func shouldSubtractKerf(sortedPart *Part, currentMaterial *Material) bool {
+// 	return sortedPart.Length+globals.Settings.Kerf <= currentMaterial.Length
+// }
+//
+// func subtractKerf(sortedPart *Part, currentMaterial *Material) {
+// 	fmt.Print("Subtracting Kerf", sortedPart.Length+globals.Settings.Kerf)
+// 	fmt.Println("Kerf is: ", globals.Settings.Kerf)
+// 	currentMaterial.Length -= (sortedPart.Length + globals.Settings.Kerf)
+// }
+//
+// func subtractLength(sortedPart *Part, currentMaterial *Material) {
+// 	fmt.Print("Not Subtracting Kerf", sortedPart.Length+globals.Settings.Kerf)
+// 	fmt.Println("NOT Kerf is: ", globals.Settings.Kerf)
+// 	currentMaterial.Length -= sortedPart.Length
+// }
+//
+// func updatePartQuantity(sortedPart *Part, currentMaterial *Material) {
+// 	if partQty, exists := currentMaterial.Parts[sortedPart.PartNumber]; exists {
+// 		partQty.CurrentQty++
+// 		currentMaterial.Parts[sortedPart.PartNumber] = partQty
+// 	} else {
+// 		currentMaterial.Parts[sortedPart.PartNumber] = globals.PartQTY{
+// 			CurrentQty: 1,
+// 			TotalQty:   sortedPart.Quantity,
+// 		}
+// 	}
+// 	sortedPart.CutQuantity++
+// }

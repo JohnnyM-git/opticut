@@ -149,3 +149,47 @@ func CreateLayoutV2(Parts []globals.Part, Materials []globals.Material, JobInfo 
 	db.SavePartsToDB(&results, JobInfo)
 	return errSlice
 }
+
+// func CreateLayoutV2(Parts []globals.Part, Materials []globals.Material, JobInfo globals.JobType) (errSlice []string) {
+// 	var results []globals.CutMaterial
+// 	errSlice = []string{}
+//
+// 	if len(Parts) == 0 {
+// 		return []string{"Error: No parts to process."}
+// 	}
+//
+// 	sortedParts := part_utils.SortPartByLength(Parts)
+// 	var currentMaterial globals.CutMaterial
+// 	complete := false
+// 	i := 0
+//
+// 	for !complete {
+// 		if shouldAppendCurrentMaterial(sortedParts, &currentMaterial) {
+// 			appendCurrentMaterial(&results, &currentMaterial)
+// 		}
+//
+// 		complete = PartsComplete(sortedParts)
+// 		if complete {
+// 			finalizeCurrentMaterial(&results, &currentMaterial)
+// 			break
+// 		}
+//
+// 		if currentMaterial.MaterialCode == "" {
+// 			err := checkForMaterialV2(&sortedParts[i], &currentMaterial, &Materials, JobInfo)
+// 			if err != nil {
+// 				logger.LogError("MaterialErrors", err.Error())
+// 				// Optionally handle error (e.g., continue, break, etc.)
+// 			}
+// 		}
+//
+// 		processPart(sortedParts, i, &currentMaterial)
+//
+// 		// Move to the next part
+// 		i = (i + 1) % len(sortedParts)
+// 	}
+//
+// 	ops.SaveResultsJSONFile(&results, JobInfo.Job)
+// 	mergeDuplicateCutMaterialsInPlace(&results)
+// 	db.SavePartsToDB(&results, JobInfo)
+// 	return errSlice
+// }
