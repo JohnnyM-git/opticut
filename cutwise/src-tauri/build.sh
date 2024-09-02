@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Update package lists
 sudo apt-get update
 
@@ -11,7 +9,8 @@ sudo apt-get install -y \
   libpango1.0-dev \
   libcairo2-dev \
   pkg-config \
-  build-essential
+  build-essential \
+  libsoup2.4-dev 
 
 # Set PKG_CONFIG_PATH to help find pkg-config files
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
