@@ -34,9 +34,14 @@ jobs:
         working-directory: ./cutwise
         run: pnpm install
 
+      - name: Make build.sh executable
+        run: chmod +x ./src-tauri/build.sh
+        working-directory: ./cutwise
+
       - name: Run build script
         working-directory: ./cutwise
-        run: ./src-tauri/build.bat
+        run: ./src/tauri/build.sh
+
 
       - name: Create GitHub Release
         id: create_release
