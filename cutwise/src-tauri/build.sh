@@ -10,7 +10,8 @@ sudo apt-get install -y \
   libcairo2-dev \
   pkg-config \
   build-essential \
-  libsoup2.4-dev 
+  libsoup2.4-dev \
+  libjavascriptcoregtk-4.0-dev  # Add this line to install javascriptcoregtk-4.0 development files
 
 # Set PKG_CONFIG_PATH to help find pkg-config files
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
