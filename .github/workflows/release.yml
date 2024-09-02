@@ -40,7 +40,7 @@ jobs:
 
       - name: Run build script
         working-directory: ./cutwise
-        run: ./src/tauri/build.sh
+        run: ./src-tauri/build.sh
 
 
       - name: Create GitHub Release
