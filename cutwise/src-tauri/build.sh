@@ -11,3 +11,5 @@ cp ../main/globals/settings.json ../cutwise/src-tauri/resources/globals/settings
 
 # Copy the setup_db.sql file
 cp ../main/internal/db/setup_db.sql ../cutwise/src-tauri/resources/main/internal/db/setup_db.sql
+
+cd ../cutwise && pnpm tauri build
