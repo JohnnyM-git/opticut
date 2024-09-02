@@ -2,7 +2,7 @@
 
 # Install system dependencies
 sudo apt-get update
-sudo apt-get install -y libgtk-3-dev
+sudo apt-get install -y libgtk-3-dev libgsoup-2.4-dev
 
 # Build the Go backend
 cd ../main && go build -o ../cutwise/src-tauri/resources/main/main_unix
