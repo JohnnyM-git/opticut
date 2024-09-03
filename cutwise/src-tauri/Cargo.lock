@@ -4,7 +4,7 @@ version = 3
 
 [[package]]
 name = "MaterialWise"
-version = "0.0.34"
+version = "0.0.36"
 dependencies = [
  "chrono",
  "serde",
