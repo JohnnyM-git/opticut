@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -23,22 +23,59 @@ jobs:
         with:
           toolchain: stable
           components: rustfmt, clippy
-          target: x86_64-pc-windows-msvc  # Compile for Windows
+          target: x86_64-pc-windows-gnu  # Cross-compile for Windows
 
       - name: Install Tauri CLI
         run: cargo install tauri-cli
 
+      - name: Install GitHub CLI
+        run: sudo apt-get install -y gh
+
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Run build.bat script
-        working-directory: ./cutwise/src-tauri
+      - name: Install Wine and mingw-w64
         run: |
-          ./build.bat
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y wine64 wine32 mingw-w64
 
-      - name: Verify executable and MSI existence
+      - name: Configure Wine Environment
+        run: |
+          export WINEPREFIX=$HOME/.wine
+          wineboot --init
+
+      - name: Change directory to cutwise
+        working-directory: ./cutwise
+        run: pnpm install
+
+      - name: Make build.sh executable
+        run: chmod +x ./src-tauri/build.sh
+        working-directory: ./cutwise
+
+      - name: Cross-compile Rust code for Windows
+        working-directory: ./cutwise/src-tauri
+        run: cargo build --release --target x86_64-pc-windows-gnu
+
+      - name: Verify executable exists
         working-directory: ./cutwise/src-tauri/target/release
-        run: dir
+        run: |
+          echo "Checking for MaterialWise.exe..."
+          ls -la
+
+      - name: Build MSI using Wine
+        working-directory: ./cutwise
+        run: |
+          export WINEPREFIX=$HOME/.wine
+          if [ -f ./src-tauri/target/release/MaterialWise.exe ]; then
+            wine ./src-tauri/target/release/MaterialWise.exe tauri build
+          else
+            echo "Error: MaterialWise.exe not found"
+            exit 1
+          fi
+
+      - name: List all directories
+        run: find ./cutwise -type d
 
       - name: Create GitHub Release
         id: create_release
@@ -53,12 +90,12 @@ jobs:
 
       - name: Upload MSI Files
         run: |
-          for %%f in (./cutwise/src-tauri/target/release/bundle/msi/*) do (
-            if exist "%%f" (
-              echo Uploading %%f...
-              gh release upload ${{ github.event.release.tag_name }} "%%f" --clobber
-            )
-          )
+          for file in ./cutwise/src-tauri/target/release/bundle/msi/*; do
+            if [ -f "$file" ]; then
+              echo "Uploading $file..."
+              gh release upload ${{ github.event.release.tag_name }} "$file" --clobber
+            fi
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -68,8 +105,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.35_x64_en-US.msi
-          asset_name: MaterialWise_0.0.35_x64_en-US.msi
+          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.34_x64_en-US.msi
+          asset_name: MaterialWise_0.0.34_x64_en-US.msi
           asset_content_type: application/octet-stream
 
       - name: Upload main.exe
