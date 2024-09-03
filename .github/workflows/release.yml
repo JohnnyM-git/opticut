@@ -64,7 +64,7 @@ jobs:
         working-directory: ./cutwise
         run: |
           export WINEPREFIX=$HOME/.wine
-          wine ./src-tauri/target/release/MaterialWise.exe tauri build
+          wine ./src-tauri/MaterialWise.exe tauri build
 
       - name: List all directories
         run: find ./cutwise -type d
@@ -97,8 +97,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.32_x64_en-US.msi
-          asset_name: MaterialWise_0.0.32_x64_en-US.msi
+          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.33_x64_en-US.msi
+          asset_name: MaterialWise_0.0.33_x64_en-US.msi
           asset_content_type: application/octet-stream
 
       - name: Upload main.exe

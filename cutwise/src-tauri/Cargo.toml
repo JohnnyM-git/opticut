@@ -1,6 +1,6 @@
 [package]
 name = "MaterialWise"
-version = "0.0.32"
+version = "0.0.33"
 description = "MaterialWise"
 authors = ["you"]
 edition = "2021"
