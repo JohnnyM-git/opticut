@@ -1,0 +1,30 @@
+[
+    {
+        "Job": "41648-7",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 15,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 9.502275000000083,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "41648-7",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 10,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 86.33485000000007,
+        "CuttingOperation": "PYTHONX"
+    }
+]

@@ -1,0 +1,90 @@
+[
+    {
+        "Job": "99609-4",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P78": {
+                "CurrentQty": 2,
+                "TotalQty": 2
+            },
+            "P84": {
+                "CurrentQty": 3,
+                "TotalQty": 17
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 19.301926000000016,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "99609-4",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 3,
+                "TotalQty": 17
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 48.75738600000002,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "99609-4",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 3,
+                "TotalQty": 17
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 48.75738600000002,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "99609-4",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 3,
+                "TotalQty": 17
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 48.75738600000002,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "99609-4",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 3,
+                "TotalQty": 17
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 48.75738600000002,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "99609-4",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 2,
+                "TotalQty": 17
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 112.50492400000002,
+        "CuttingOperation": "SAW"
+    }
+]

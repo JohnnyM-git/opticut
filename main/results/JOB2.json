@@ -1,0 +1,618 @@
+[
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P20": {
+                "CurrentQty": 1,
+                "TotalQty": 1
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P42": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P79": {
+                "CurrentQty": 1,
+                "TotalQty": 4
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 0.002571999999986474,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P47": {
+                "CurrentQty": 1,
+                "TotalQty": 2
+            },
+            "P64": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P71": {
+                "CurrentQty": 1,
+                "TotalQty": 24
+            },
+            "P79": {
+                "CurrentQty": 1,
+                "TotalQty": 4
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 0.5501050000000376,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 2,
+                "TotalQty": 26
+            },
+            "P42": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P47": {
+                "CurrentQty": 1,
+                "TotalQty": 2
+            },
+            "P64": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 1,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 2.472941000000013,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P42": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 2,
+                "TotalQty": 24
+            },
+            "P79": {
+                "CurrentQty": 1,
+                "TotalQty": 4
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 10.636968000000039,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P42": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P79": {
+                "CurrentQty": 1,
+                "TotalQty": 4
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 8.098129000000007,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P42": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P64": {
+                "CurrentQty": 2,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 1,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 1.7524010000000345,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 2,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P42": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 1,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 3.1330960000000374,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P42": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P64": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 2,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 11.569612000000035,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P42": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P64": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 15.09821000000003,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P64": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 3,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 8.485384000000025,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 2,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P64": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 1,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 5.946545000000022,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 3,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 2,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 0.04886800000003433,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 2,
+                "TotalQty": 23
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 2,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 8.293428000000034,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P66": {
+                "CurrentQty": 2,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 2,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 12.097069000000047,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 2,
+                "TotalQty": 23
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 2,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 8.29342800000002,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 2,
+                "TotalQty": 23
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 2,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 8.29342800000002,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 2,
+                "TotalQty": 23
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P71": {
+                "CurrentQty": 2,
+                "TotalQty": 24
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 8.29342800000002,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 2,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 1,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 2,
+                "TotalQty": 23
+            },
+            "P66": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 5.754589000000031,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 2,
+                "TotalQty": 26
+            },
+            "P29": {
+                "CurrentQty": 1,
+                "TotalQty": 23
+            },
+            "P66": {
+                "CurrentQty": 2,
+                "TotalQty": 19
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 15.625667000000028,
+        "CuttingOperation": ""
+    },
+    {
+        "Job": "JOB2",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P10": {
+                "CurrentQty": 1,
+                "TotalQty": 19
+            },
+            "P16": {
+                "CurrentQty": 6,
+                "TotalQty": 26
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 38.98422900000003,
+        "CuttingOperation": ""
+    }
+]

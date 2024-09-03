@@ -48,7 +48,7 @@
     },
     "windows": [
       {
-        "title": "CutWise",
+        "title": "MaterialWise",
         "width": 800,
         "height": 600,
         "minWidth": 768,
@@ -59,7 +59,7 @@
     ],
     "bundle": {
       "active": true,
-      "targets": ["msi"],
+      "targets": ["nsis"],
       "identifier": "com.cutwise.app",
       "icon": [
         "icons/icon.icns",
@@ -67,11 +67,6 @@
       ],
       "resources": [
         "resources/main"
-      ],
-      "windows": {
-        "certificateThumbprint": "",
-        "digestAlgorithm": "sha256",
-        "timestampUrl": "http://timestamp.digicert.com"
-      }
+      ]
     }
   }}

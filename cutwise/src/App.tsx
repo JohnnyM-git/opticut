@@ -1,13 +1,13 @@
 import "./App.css";
 import { Navbar } from "./components/navbar.tsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SettingsPage } from "./pages/Settings.tsx";
 import { Home } from "./pages/Home.tsx";
 import { LocalJobs } from "./pages/LocalJobs.tsx";
 import { CloudJobs } from "./pages/CloudJobs.tsx";
 import { Results } from "./pages/Results.tsx";
-// import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/tauri";
 import { apiUrl } from "./globals.ts";
 import { Status } from "./pages/Status.tsx";
 import { Footer } from "./components/footer.tsx";
@@ -21,6 +21,10 @@ function App() {
     setIsModalOpen((prevState) => !prevState);
   };
 
+  //   useEffect(() => {
+  //       startBackend()
+  //   }, []);
+  //
   // async function startBackend() {
   //   try {
   //     await logToFile("Starting server...");
@@ -69,14 +73,14 @@ function App() {
   //   }
   // }
 
-  // async function logToFile(message: string) {
-  //   try {
-  //     await invoke("log_to_file", { message });
-  //     console.log("Log message written successfully.");
-  //   } catch (error) {
-  //     console.error("Failed to write log:", error);
-  //   }
-  // }
+  async function logToFile(message: string) {
+    try {
+      await invoke("log_to_file", { message });
+      console.log("Log message written successfully.");
+    } catch (error) {
+      console.error("Failed to write log:", error);
+    }
+  }
 
   async function pingBackend() {
       const res = await fetch(`${apiUrl}/health`);

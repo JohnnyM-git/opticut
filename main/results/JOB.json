@@ -1,0 +1,951 @@
+[
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P78": {
+                "CurrentQty": 2,
+                "TotalQty": 2
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 7.175331000000009,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P11": {
+                "CurrentQty": 4,
+                "TotalQty": 16
+            },
+            "P53": {
+                "CurrentQty": 8,
+                "TotalQty": 19
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 1.7995159999999553,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 4,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.551097000000034,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 2,
+                "TotalQty": 38
+            },
+            "P72": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            },
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 20
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 35.28412700000003,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.63079100000001,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P72": {
+                "CurrentQty": 2,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 63.14033800000003,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.630791000000016,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P72": {
+                "CurrentQty": 2,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 63.14033800000003,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.630791000000016,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P72": {
+                "CurrentQty": 2,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 63.14033800000003,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.630791000000016,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P72": {
+                "CurrentQty": 2,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 63.14033800000003,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.630791000000016,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P72": {
+                "CurrentQty": 2,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 63.14033800000003,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.630791000000016,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P72": {
+                "CurrentQty": 2,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 63.14033800000003,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P4": {
+                "CurrentQty": 1,
+                "TotalQty": 18
+            },
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 1,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 36.630791000000016,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P45": {
+                "CurrentQty": 2,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 2,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 23.495690000000018,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P45": {
+                "CurrentQty": 2,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 2,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 23.495690000000018,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P45": {
+                "CurrentQty": 2,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 2,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 23.495690000000018,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P45": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            },
+            "P84": {
+                "CurrentQty": 3,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.252769000000022,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P11": {
+                "CurrentQty": 4,
+                "TotalQty": 16
+            },
+            "P53": {
+                "CurrentQty": 8,
+                "TotalQty": 19
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 1.7995159999999837,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 3,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 48.75738600000002,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P11": {
+                "CurrentQty": 4,
+                "TotalQty": 16
+            },
+            "P53": {
+                "CurrentQty": 3,
+                "TotalQty": 19
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 33.119590999999986,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 3,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 48.75738600000002,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P11": {
+                "CurrentQty": 4,
+                "TotalQty": 16
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 51.911636000000016,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "JOB",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 2,
+                "TotalQty": 35
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 112.50492400000002,
+        "CuttingOperation": "SAW"
+    }
+]

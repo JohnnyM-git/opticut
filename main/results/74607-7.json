@@ -1,0 +1,44 @@
+[
+    {
+        "Job": "74607-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P62": {
+                "CurrentQty": 9,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 0.7992329999999512,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "74607-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P62": {
+                "CurrentQty": 9,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 0.7992329999999512,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "74607-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P62": {
+                "CurrentQty": 7,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 53.95495899999995,
+        "CuttingOperation": "SAW"
+    }
+]

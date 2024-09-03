@@ -4,7 +4,7 @@
   "excelSettings": {
     "filesPath": "C:\\temp\\batch files",
     "PartSheet": "Parts",
-    "PartHeaderRows": 4,
+    "PartHeaderRows": 3,
     "MaterialSheet": "Materials",
     "MaterialHeaderRows": 1
   }

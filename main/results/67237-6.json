@@ -1,0 +1,152 @@
+[
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 2,
+                "TotalQty": 15
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 6.172765000000027,
+        "CuttingOperation": "PLASMA"
+    },
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 1,
+                "TotalQty": 15
+            },
+            "P6": {
+                "CurrentQty": 2,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 29.940022999999997,
+        "CuttingOperation": "PLASMA"
+    },
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 2,
+                "TotalQty": 15
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 6.172765000000027,
+        "CuttingOperation": "PLASMA"
+    },
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 1,
+                "TotalQty": 15
+            },
+            "P6": {
+                "CurrentQty": 2,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 29.940022999999997,
+        "CuttingOperation": "PLASMA"
+    },
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 2,
+                "TotalQty": 15
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 6.172765000000027,
+        "CuttingOperation": "PLASMA"
+    },
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 2,
+                "TotalQty": 15
+            },
+            "P6": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 6.172764999999998,
+        "CuttingOperation": "PLASMA"
+    },
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 2,
+                "TotalQty": 15
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 68.27033800000002,
+        "CuttingOperation": "PLASMA"
+    },
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 2,
+                "TotalQty": 15
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 68.27033800000002,
+        "CuttingOperation": "PLASMA"
+    },
+    {
+        "Job": "67237-6",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P51": {
+                "CurrentQty": 1,
+                "TotalQty": 15
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 154.13516900000002,
+        "CuttingOperation": "PLASMA"
+    }
+]

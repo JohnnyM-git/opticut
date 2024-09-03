@@ -1,0 +1,67 @@
+[
+    {
+        "Job": "80116-9",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 6,
+                "TotalQty": 18
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 28.90481400000006,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "80116-9",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P53": {
+                "CurrentQty": 19,
+                "TotalQty": 19
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 120.98371499999999,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "80116-9",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 6,
+                "TotalQty": 18
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 28.90481400000006,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "80116-9",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "80116-9",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P84": {
+                "CurrentQty": 6,
+                "TotalQty": 18
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 28.90481400000006,
+        "CuttingOperation": "PYTHONX"
+    }
+]

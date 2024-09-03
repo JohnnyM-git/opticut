@@ -1,0 +1,357 @@
+[
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 1,
+                "TotalQty": 13
+            },
+            "P34": {
+                "CurrentQty": 2,
+                "TotalQty": 9
+            },
+            "P92": {
+                "CurrentQty": 2,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 10.864463000000004,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 1,
+                "TotalQty": 13
+            },
+            "P34": {
+                "CurrentQty": 2,
+                "TotalQty": 9
+            },
+            "P92": {
+                "CurrentQty": 2,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 10.864463000000004,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 1,
+                "TotalQty": 13
+            },
+            "P34": {
+                "CurrentQty": 2,
+                "TotalQty": 9
+            },
+            "P92": {
+                "CurrentQty": 2,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 10.864463000000004,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 1,
+                "TotalQty": 13
+            },
+            "P34": {
+                "CurrentQty": 2,
+                "TotalQty": 9
+            },
+            "P92": {
+                "CurrentQty": 2,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 10.864463000000004,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 2,
+                "TotalQty": 13
+            },
+            "P34": {
+                "CurrentQty": 1,
+                "TotalQty": 9
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 32.135453,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P89": {
+                "CurrentQty": 5,
+                "TotalQty": 21
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 5.35963500000004,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 2,
+                "TotalQty": 13
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 55.608226,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P89": {
+                "CurrentQty": 5,
+                "TotalQty": 21
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 5.35963500000004,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 2,
+                "TotalQty": 13
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 55.608226,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P89": {
+                "CurrentQty": 5,
+                "TotalQty": 21
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 5.35963500000004,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 2,
+                "TotalQty": 13
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 55.608226,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P89": {
+                "CurrentQty": 5,
+                "TotalQty": 21
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 5.35963500000004,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P32": {
+                "CurrentQty": 1,
+                "TotalQty": 13
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 147.804113,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P89": {
+                "CurrentQty": 1,
+                "TotalQty": 21
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 193.07192700000002,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P70": {
+                "CurrentQty": 5,
+                "TotalQty": 12
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 21.01031500000004,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P70": {
+                "CurrentQty": 5,
+                "TotalQty": 12
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 21.01031500000004,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "54430-7",
+        "MaterialCode": "HSS6X6X1",
+        "Parts": {
+            "P70": {
+                "CurrentQty": 2,
+                "TotalQty": 12
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 152.40412600000002,
+        "CuttingOperation": "SAW"
+    }
+]

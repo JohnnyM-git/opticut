@@ -1,0 +1,16 @@
+[
+    {
+        "Job": "99356-1",
+        "MaterialCode": "HSS4X4X.5",
+        "Parts": {
+            "P98": {
+                "CurrentQty": 2,
+                "TotalQty": 2
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 154.44698800000003,
+        "CuttingOperation": "PYTHONX"
+    }
+]

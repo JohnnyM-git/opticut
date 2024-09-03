@@ -1,0 +1,100 @@
+[
+    {
+        "Job": "98826-9",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P18": {
+                "CurrentQty": 4,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 47.642427999999995,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "98826-9",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P18": {
+                "CurrentQty": 4,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 47.642427999999995,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "98826-9",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P18": {
+                "CurrentQty": 4,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 47.642427999999995,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "98826-9",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P18": {
+                "CurrentQty": 4,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 47.642427999999995,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "98826-9",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P18": {
+                "CurrentQty": 4,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 47.642427999999995,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "98826-9",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P18": {
+                "CurrentQty": 4,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 47.642427999999995,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "98826-9",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P18": {
+                "CurrentQty": 1,
+                "TotalQty": 25
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 191.910607,
+        "CuttingOperation": "SAW"
+    }
+]

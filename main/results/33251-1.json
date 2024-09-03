@@ -1,0 +1,174 @@
+[
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P8": {
+                "CurrentQty": 2,
+                "TotalQty": 14
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 75.91022399999999,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P27": {
+                "CurrentQty": 7,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.2680489999999764,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P8": {
+                "CurrentQty": 2,
+                "TotalQty": 14
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 75.91022399999999,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P27": {
+                "CurrentQty": 7,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.2680489999999764,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P8": {
+                "CurrentQty": 2,
+                "TotalQty": 14
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 75.91022399999999,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P27": {
+                "CurrentQty": 7,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 4.2680489999999764,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P8": {
+                "CurrentQty": 2,
+                "TotalQty": 14
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 75.91022399999999,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P27": {
+                "CurrentQty": 1,
+                "TotalQty": 22
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 206.324007,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P8": {
+                "CurrentQty": 2,
+                "TotalQty": 14
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 75.91022399999999,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P8": {
+                "CurrentQty": 2,
+                "TotalQty": 14
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 75.91022399999999,
+        "CuttingOperation": "PYTHONX"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {},
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 240,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "33251-1",
+        "MaterialCode": "HSS3X3X.25",
+        "Parts": {
+            "P8": {
+                "CurrentQty": 2,
+                "TotalQty": 14
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 75.91022399999999,
+        "CuttingOperation": "PYTHONX"
+    }
+]

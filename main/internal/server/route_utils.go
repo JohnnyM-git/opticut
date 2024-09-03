@@ -316,6 +316,168 @@ func BatchProcessFiles(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+func BatchAddFiles(w http.ResponseWriter, r *http.Request) {
+	var filesDir = globals.Settings.Excel.FilesPath
+	errors := make([]string, 0)
+
+	files, err := os.ReadDir(filesDir)
+	if err != nil {
+		http.Error(w, "Failed to read directory", http.StatusInternalServerError)
+		return
+	}
+
+	// fileName := "Book1.xlsx" // Replace with your file name
+	// filePath := filepath.Join(filesDir, fileName)
+	var fileNames []string
+	for _, file := range files {
+		if !file.IsDir() {
+			fileNames = append(fileNames, file.Name())
+		}
+	}
+	// Initialize batchData with empty slices
+	var batchData globals.ExcelFileData
+
+	for _, fileName := range fileNames {
+		filePath := filepath.Join(filesDir, fileName)
+		fmt.Println("File Path:", filePath)
+		if _, err := os.Stat(filePath); os.IsNotExist(err) {
+			errMsg := fmt.Sprintln("File not found:", fileName, "Error Message", err)
+			errors = append(errors, errMsg)
+			http.Error(w, "File not found", http.StatusNotFound)
+			return
+		}
+
+		data, err := processMultiExcel(filePath)
+		if err != nil {
+			errMsg := fmt.Sprintln("Failed to process file:", fileName, "Error Message", err)
+			errors = append(errors, errMsg)
+			continue // Skip to the next file
+		}
+
+		// Merge Parts
+		for _, newPart := range data.Parts {
+			partExists := false
+			for i, existingPart := range batchData.Parts {
+				if existingPart.PartNumber == newPart.PartNumber {
+					// Part already exists, so add the quantities
+					batchData.Parts[i].Quantity += newPart.Quantity
+					partExists = true
+					break
+				}
+			}
+			if !partExists {
+				// Part does not exist, so add it to the batch
+				batchData.Parts = append(batchData.Parts, newPart)
+			}
+		}
+
+		// Merge Materials
+		for _, newMaterial := range data.Materials {
+			materialExists := false
+			for i, existingMaterial := range batchData.Materials {
+				if existingMaterial.MaterialCode == newMaterial.MaterialCode && existingMaterial.Length == newMaterial.Length {
+					// Material already exists, so add the quantities
+					batchData.Materials[i].Quantity += newMaterial.Quantity
+					materialExists = true
+					break
+				}
+			}
+			if !materialExists {
+				// Material does not exist, so add it to the batch
+				batchData.Materials = append(batchData.Materials, newMaterial)
+			}
+		}
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(batchData)
+
+}
+
+func processMultiExcel(filePath string) (globals.ExcelFileData, error) {
+	f, err := excelize.OpenFile(filePath)
+	if err != nil {
+		return globals.ExcelFileData{}, err
+	}
+	defer f.Close()
+
+	// jobValue, err := f.GetCellValue(globals.Settings.Excel.PartSheet, "B1")
+	// if err != nil {
+	// 	return globals.ExcelFileData{}, err
+	// }
+
+	// customerValue, err := f.GetCellValue(globals.Settings.Excel.PartSheet, "B2")
+	// if err != nil {
+	// 	return globals.ExcelFileData{}, err
+	// }
+	partsHeaderRows := int(globals.Settings.Excel.PartHeaderRows)
+	partrows, err := f.GetRows(globals.Settings.Excel.PartSheet)
+	if err != nil {
+		return globals.ExcelFileData{}, err
+	}
+
+	if partsHeaderRows < len(partrows) {
+		partrows = partrows[partsHeaderRows:]
+	}
+
+	materialHeaderRows := int(globals.Settings.Excel.MaterialHeaderRows)
+
+	materialRows, err := f.GetRows(globals.Settings.Excel.MaterialSheet)
+	if err != nil {
+		return globals.ExcelFileData{}, err
+	}
+
+	if materialHeaderRows < len(materialRows) {
+		materialRows = materialRows[materialHeaderRows:]
+	}
+	var data globals.ExcelFileData
+
+	data.Job.Job = ""
+	data.Job.Customer = ""
+
+	for _, row := range partrows {
+
+		Length, err := strconv.ParseFloat(row[2], 64)
+		if err != nil {
+			return globals.ExcelFileData{}, fmt.Errorf("failed to parse length '%s': %w", row[2], err)
+		}
+		//
+		Quantity, err := strconv.ParseUint(row[3], 10, 16)
+		if err != nil {
+			return globals.ExcelFileData{}, fmt.Errorf("failed to parse length '%s': %w", row[2], err)
+		}
+
+		data.Parts = append(
+			data.Parts, globals.Part{
+				PartNumber:       row[0],
+				MaterialCode:     row[1],
+				Length:           Length,
+				Quantity:         uint16(Quantity),
+				CuttingOperation: row[4],
+				// CutQuantity:      0,
+			})
+	}
+
+	for _, row := range materialRows {
+		Length, err := strconv.ParseFloat(row[1], 64)
+		if err != nil {
+
+		}
+		Quantity, err := strconv.ParseUint(row[2], 10, 16)
+		if err != nil {
+
+		}
+		data.Materials = append(
+			data.Materials, globals.Material{
+				MaterialCode: row[0],
+				Length:       Length,
+				Quantity:     uint16(Quantity),
+			})
+	}
+
+	return data, nil
+}
+
 func processExcel(filePath string) (globals.ExcelFileData, error) {
 	f, err := excelize.OpenFile(filePath)
 	if err != nil {

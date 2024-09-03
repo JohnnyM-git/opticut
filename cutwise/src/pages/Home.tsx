@@ -76,6 +76,9 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
   // const [file, setFile] = useState()
 
   async function runProject(): Promise<void> {
+      const startTime = performance.now(); // Start timer
+
+
     if (checkDataValidity()) {
       if (settings.units === "metric") {
         await updateUnits();
@@ -96,6 +99,14 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
       });
       const data = await res.json();
       console.log(data);
+        const endTime = performance.now(); // End timer
+
+
+        // Calculate the time taken
+        const timeTaken = endTime - startTime;
+        console.log(
+            `Run Project completed in ${timeTaken.toFixed(2)} milliseconds`,
+        );
       navigate(`/results/${jobInfo.Job}`);
     }
   }
@@ -460,10 +471,83 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
     //   return;
     // }
     // navigate(`/localjobs`);
-    console.log(data);
+    // console.log(data);
   }
 
-  return (
+
+    async function batchAddProcess() {
+        const startTime = performance.now(); // Start timer
+
+        const res = await fetch(`${apiUrl}batch-add-files`);
+        const data = await res.json();
+
+        const endTime = performance.now(); // End timer
+
+        console.log(data);
+        data.parts.forEach((part: Part) => {
+            // batchaddToParts(part)
+            setParts((prevState) => [...prevState, part]);
+        });
+
+        data.materials.forEach((material: Material) => {
+            // batchaddToMaterials(material)
+            setMaterials((prevState) => [...prevState, material]);
+        });
+
+        // Calculate the time taken
+        const timeTaken = endTime - startTime;
+        console.log(
+            `Batch processing completed in ${timeTaken.toFixed(2)} milliseconds`,
+        );
+
+        // if (data.errors.length > 0) {
+        //   console.log(data.errors);
+        //   return;
+        // }
+        // navigate(`/localjobs`);
+        console.log(data);
+    }
+
+    // function batchaddToParts(part: Part): void {
+    //     setParts((prevParts) => {
+    //         // Check if the part already exists in the array
+    //         const existingPartIndex = prevParts.findIndex(
+    //             (existingPart) => existingPart.PartNumber === part.PartNumber
+    //         );
+    //
+    //         if (existingPartIndex !== -1) {
+    //             // If the part exists, update its Quantity
+    //             const updatedParts = [...prevParts];
+    //             updatedParts[existingPartIndex].Quantity += part.Quantity;
+    //             return updatedParts;
+    //         } else {
+    //             // If the part does not exist, add it to the array
+    //             return [...prevParts, part];
+    //         }
+    //     });
+    // }
+    //
+    // function batchaddToMaterials(material: Material): void {
+    //     setMaterials((prevMaterials) => {
+    //         // Check if the part already exists in the array
+    //         const existingMaterialIndex = prevMaterials.findIndex(
+    //             (existingMaterial) => existingMaterial.MaterialCode === material.MaterialCode && existingMaterial.Length === material.Length
+    //         );
+    //
+    //         if (existingMaterialIndex !== -1) {
+    //             // If the part exists, update its Quantity
+    //             const updatedMaterials = [...prevMaterials];
+    //             updatedMaterials[existingMaterialIndex].Quantity += material.Quantity;
+    //             return updatedMaterials;
+    //         } else {
+    //             // If the part does not exist, add it to the array
+    //             return [...prevMaterials, material];
+    //         }
+    //     });
+    // }
+
+
+    return (
     <>
       {modal.Open && (
         <div className={styles.modal}>
@@ -510,6 +594,7 @@ export const Home: FunctionComponent<Props> = ({ toggleModal }) => {
             {/*  <input type={"file"} onChange={(e) => setFile(e.target.files[0])}/>*/}
             <Button onClick={runUploadedFiles}>Upload File</Button>
             <Button onClick={batchProcess}>Batch Process</Button>
+            <Button onClick={batchAddProcess}>Batch Add Process</Button>
           </div>
           <div className={styles.heading__right}>
             <Badge badgeContent={parts.length} color="primary">

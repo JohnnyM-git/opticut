@@ -1,0 +1,44 @@
+[
+    {
+        "Job": "57411-8",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P64": {
+                "CurrentQty": 7,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 18.983204000000043,
+        "CuttingOperation": "SAW"
+    },
+    {
+        "Job": "57411-8",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P47": {
+                "CurrentQty": 2,
+                "TotalQty": 2
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 206.917418,
+        "CuttingOperation": "TUBE LASER"
+    },
+    {
+        "Job": "57411-8",
+        "MaterialCode": "HSS2X2X.25",
+        "Parts": {
+            "P64": {
+                "CurrentQty": 1,
+                "TotalQty": 8
+            }
+        },
+        "Quantity": 1,
+        "StockLength": 240,
+        "Length": 208.426172,
+        "CuttingOperation": "SAW"
+    }
+]
