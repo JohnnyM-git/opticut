@@ -46,7 +46,7 @@ jobs:
         run: ./src-tauri/build.sh
 
       - name: List all files and directories
-        run: find ./cutwise
+        run: find ./cutwise -type d
 
 #      - name: List MSI Directory (Debugging Step)
 #        run: ls -R ./cutwise/src-tauri/target/release/bundle/msi
@@ -80,8 +80,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.23_x64_en-US.msi
-          asset_name: MaterialWise_0.0.22_x64_en-US.msi
+          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.24_x64_en-US.msi
+          asset_name: MaterialWise_0.0.24_x64_en-US.msi
           asset_content_type: application/octet-stream
 
       - name: Upload Release Asset

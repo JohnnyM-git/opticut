@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "MaterialWise",
-    "version": "0.0.23"
+    "version": "0.0.24"
   },
   "tauri": {
     "updater": {
@@ -59,7 +59,7 @@
     ],
     "bundle": {
       "active": true,
-      "targets": ["nsis", "msi", "dmg"],
+      "targets": ["msi"],
       "identifier": "com.cutwise.app",
       "icon": [
         "icons/icon.icns",
@@ -67,7 +67,11 @@
       ],
       "resources": [
         "resources/main"
-      ]
+      ],
+      "windows": {
+        "certificateThumbprint": "",
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "http://timestamp.digicert.com"
+      }
     }
-  }
-}
+  }}
