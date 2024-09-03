@@ -1,0 +1,80 @@
+version: 2.1
+
+executors:
+  windows:
+    machine:
+      image: windows-server-2019-vs2019:stable
+
+jobs:
+  build:
+    executor: windows
+    steps:
+      - checkout
+
+      - run:
+          name: Set up Node.js
+          command: choco install nodejs-lts --version=20.5.1
+
+      - run:
+          name: Set up Rust
+          command: rustup-init.exe -y --default-toolchain stable --profile minimal --component rustfmt,clippy
+
+      - run:
+          name: Install Tauri CLI
+          command: cargo install tauri-cli
+
+      - run:
+          name: Install pnpm
+          command: npm install -g pnpm
+
+      - run:
+          name: Run build.bat script
+          command: ./cutwise/src-tauri/build.bat
+
+      - run:
+          name: Verify executable and MSI existence
+          command: |
+            if (Test-Path "./cutwise/src-tauri/target/release/bundle/msi/") {
+              Write-Output "MSI files exist."
+            } else {
+              Write-Output "Error: MSI files not found."
+              Exit 1
+            }
+
+      - store_artifacts:
+          path: ./cutwise/src-tauri/target/release/bundle/msi/
+          destination: msi
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./cutwise/src-tauri/target/release/bundle/msi/
+
+  release:
+    executor: windows
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Install GitHub CLI
+          command: choco install gh
+
+      - run:
+          name: Create GitHub Release
+          command: |
+            gh release create $CIRCLE_TAG ./cutwise/src-tauri/target/release/bundle/msi/* --title "Release $CIRCLE_TAG" --notes "Automated release by CircleCI"
+
+workflows:
+  version: 2
+  build_and_release:
+    jobs:
+      - build
+      - release:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
