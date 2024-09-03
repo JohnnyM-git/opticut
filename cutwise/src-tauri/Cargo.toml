@@ -1,7 +1,7 @@
 [package]
-name = "CutWise"
-version = "0.1.0"
-description = "CutWise"
+name = "MaterialWise"
+version = "0.0.32"
+description = "MaterialWise"
 authors = ["you"]
 edition = "2021"
 

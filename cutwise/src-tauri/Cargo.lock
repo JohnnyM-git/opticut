@@ -3,8 +3,8 @@
 version = 3
 
 [[package]]
-name = "CutWise"
-version = "0.1.0"
+name = "MaterialWise"
+version = "0.0.32"
 dependencies = [
  "chrono",
  "serde",
