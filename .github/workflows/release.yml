@@ -57,14 +57,22 @@ jobs:
         working-directory: ./cutwise/src-tauri
         run: cargo build --release --target x86_64-pc-windows-gnu
 
-      - name: List all directories
-        run: find ./cutwise/src-tauri -type d
+      - name: Verify executable exists
+        working-directory: ./cutwise/src-tauri/target/release
+        run: |
+          echo "Checking for MaterialWise.exe..."
+          ls -la
 
       - name: Build MSI using Wine
         working-directory: ./cutwise
         run: |
           export WINEPREFIX=$HOME/.wine
-          wine ./src-tauri/MaterialWise.exe tauri build
+          if [ -f ./src-tauri/target/release/MaterialWise.exe ]; then
+            wine ./src-tauri/target/release/MaterialWise.exe tauri build
+          else
+            echo "Error: MaterialWise.exe not found"
+            exit 1
+          fi
 
       - name: List all directories
         run: find ./cutwise -type d
@@ -97,8 +105,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.33_x64_en-US.msi
-          asset_name: MaterialWise_0.0.33_x64_en-US.msi
+          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.34_x64_en-US.msi
+          asset_name: MaterialWise_0.0.34_x64_en-US.msi
           asset_content_type: application/octet-stream
 
       - name: Upload main.exe
