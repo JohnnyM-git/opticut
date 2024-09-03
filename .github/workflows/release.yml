@@ -45,9 +45,12 @@ jobs:
         working-directory: ./cutwise
         run: ./src-tauri/build.sh
 
-      - name: List MSI Directory (Debugging Step)
-        run: ls -R ./cutwise/src-tauri/target/release/bundle/msi
-        continue-on-error: true
+      - name: List all files and directories
+        run: find ./cutwise
+
+#      - name: List MSI Directory (Debugging Step)
+#        run: ls -R ./cutwise/src-tauri/target/release/bundle/msi
+#        continue-on-error: true
 
       - name: Create GitHub Release
         id: create_release
@@ -60,16 +63,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload MSI Files
-        run: |
-          for file in ./cutwise/src-tauri/target/release/bundle/msi/*; do
-            if [ -f "$file" ]; then
-              echo "Uploading $file..."
-              gh release upload ${{ github.event.release.tag_name }} "$file" --clobber
-            fi
-          done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Upload MSI Files
+#        run: |
+#          for file in ./cutwise/src-tauri/target/release/bundle/msi/*; do
+#            if [ -f "$file" ]; then
+#              echo "Uploading $file..."
+#              gh release upload ${{ github.event.release.tag_name }} "$file" --clobber
+#            fi
+#          done
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -77,7 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./cutwise/src-tauri\target\release\bundle\msi\MaterialWise_0.0.22_x64_en-US.msi
+          asset_path: ./cutwise/src-tauri/target/release/bundle/msi/MaterialWise_0.0.23_x64_en-US.msi
           asset_name: MaterialWise_0.0.22_x64_en-US.msi
           asset_content_type: application/octet-stream
 
