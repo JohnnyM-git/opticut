@@ -3,7 +3,7 @@ version: 2.1
 executors:
   windows:
     machine:
-      image: windows-server-2019-vs2019:stable
+      image: windows-server-2019
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
 
       - run:
           name: Set up Rust
-          command: rustup-init.exe -y --default-toolchain stable --profile minimal --component rustfmt,clippy
+          command: rustup-init.exe -y --default-toolchain stable --profile minimal --component rustfmt clippy
 
       - run:
           name: Install Tauri CLI
