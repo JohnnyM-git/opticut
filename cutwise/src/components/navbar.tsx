@@ -18,11 +18,15 @@ import "./styles/navbar.css";
 import { useNavigate } from "react-router-dom";
 
 interface NavbarProps {
-  startbackend?: any;
+  // startbackend?: any;
+  checkForUpdates?: any;
   // stopbackend?: any;
 }
 
-export const Navbar: FunctionComponent<NavbarProps> = ({ startbackend }) => {
+export const Navbar: FunctionComponent<NavbarProps> = ({
+  // startbackend,
+  checkForUpdates,
+}) => {
   const [open, setOpen] = useState<boolean>(false);
   const [jobId, setJobId] = useState("");
   const navigate = useNavigate();
@@ -120,7 +124,8 @@ export const Navbar: FunctionComponent<NavbarProps> = ({ startbackend }) => {
           placeholder={"Enter Job Number"}
           onChange={(e) => setJobId(e.target.value)}
         />
-        <Button onClick={() => startbackend()}>Start</Button>
+        {/*<Button onClick={() => startbackend()}>Start</Button>*/}
+        <Button onClick={() => checkForUpdates()}>Check</Button>
         <Button onClick={() => navigate(`/results/${jobId}`)}>Go</Button>
       </div>
     </div>

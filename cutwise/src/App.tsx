@@ -12,6 +12,12 @@ import { apiUrl } from "./globals.ts";
 import { Status } from "./pages/Status.tsx";
 import { Footer } from "./components/footer.tsx";
 import { SettingsProvider } from "./SettingsContext.tsx";
+import {
+  checkUpdate,
+  installUpdate,
+  onUpdaterEvent,
+} from "@tauri-apps/api/updater";
+import { relaunch } from "@tauri-apps/api/process";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,57 +27,57 @@ function App() {
     setIsModalOpen((prevState) => !prevState);
   };
 
-  //   useEffect(() => {
-  //       startBackend()
-  //   }, []);
-  //
-  // async function startBackend() {
-  //   try {
-  //     await logToFile("Starting server...");
-  //
-  //     // Start the backend asynchronously
-  //     await invoke("start_backend");
-  //     await logToFile("Server started.");
-  //
-  //     // Poll the backend health endpoint until it's up or timeout
-  //     const checkBackendStatus = async () => {
-  //       try {
-  //         const res = await fetch(`${apiUrl}/hello`); // Replace with actual health check endpoint
-  //         if (res.ok) {
-  //           await logToFile("Server is running.");
-  //           return true;
-  //         }
-  //       } catch (error) {
-  //         await logToFile("Server is not up yet.");
-  //       }
-  //       return false;
-  //     };
-  //
-  //     let attempts = 0;
-  //     const maxAttempts = 3;
-  //     const delay = 1000; // 1 second
-  //
-  //     const pollBackend = async () => {
-  //       while (attempts < maxAttempts) {
-  //         const success = await checkBackendStatus();
-  //         if (success) {
-  //           break;
-  //         }
-  //         attempts++;
-  //         await new Promise((res) => setTimeout(res, delay));
-  //       }
-  //
-  //       if (attempts >= maxAttempts) {
-  //         await logToFile("Backend failed to start.");
-  //       }
-  //     };
-  //
-  //     pollBackend();
-  //   } catch (error) {
-  //     console.error("Failed to start the backend:", error);
-  //     await logToFile("Failed to start the backend.");
-  //   }
-  // }
+  useEffect(() => {
+    startBackend();
+  }, []);
+
+  async function startBackend() {
+    try {
+      await logToFile("Starting server...");
+
+      // Start the backend asynchronously
+      await invoke("start_backend");
+      await logToFile("Server started.");
+
+      // Poll the backend health endpoint until it's up or timeout
+      const checkBackendStatus = async () => {
+        try {
+          const res = await fetch(`${apiUrl}/hello`); // Replace with actual health check endpoint
+          if (res.ok) {
+            await logToFile("Server is running.");
+            return true;
+          }
+        } catch (error) {
+          await logToFile("Server is not up yet.");
+        }
+        return false;
+      };
+
+      let attempts = 0;
+      const maxAttempts = 3;
+      const delay = 1000; // 1 second
+
+      const pollBackend = async () => {
+        while (attempts < maxAttempts) {
+          const success = await checkBackendStatus();
+          if (success) {
+            break;
+          }
+          attempts++;
+          await new Promise((res) => setTimeout(res, delay));
+        }
+
+        if (attempts >= maxAttempts) {
+          await logToFile("Backend failed to start.");
+        }
+      };
+
+      pollBackend();
+    } catch (error) {
+      console.error("Failed to start the backend:", error);
+      await logToFile("Failed to start the backend.");
+    }
+  }
 
   async function logToFile(message: string) {
     try {
@@ -82,18 +88,53 @@ function App() {
     }
   }
 
-  async function pingBackend() {
-      const res = await fetch(`${apiUrl}/health`);
-      const data = res.json();
-      console.log(data);
+  // async function pingBackend() {
+  //   const res = await fetch(`${apiUrl}/health`);
+  //   const data = res.json();
+  //   console.log(data);
+  // }
+
+  async function checkForUpdates() {
+    try {
+      const { shouldUpdate, manifest } = await checkUpdate();
+
+      if (shouldUpdate) {
+        console.log(`Update available: ${manifest?.version}`);
+
+        if (
+          window.confirm(
+            `Update available to version ${manifest?.version}. Do you want to update now?`,
+          )
+        ) {
+          await installUpdate();
+          console.log("Update installed. Restarting application...");
+          await relaunch(); // This restarts the app after the update
+        }
+      } else {
+        console.log("No updates available.");
+      }
+    } catch (error) {
+      console.error("Error checking for updates:", error);
+    }
   }
+
+  onUpdaterEvent(({ error, status }) => {
+    if (error) {
+      console.error("Update error:", error);
+    } else {
+      console.log("Update status:", status);
+    }
+  });
 
   return (
     <SettingsProvider>
       <Router>
         {/* Main content */}
         <div className={`container ${isModalOpen ? "modalOpen" : ""}`}>
-          <Navbar startbackend={pingBackend} />
+          <Navbar
+            // startbackend={pingBackend}
+            checkForUpdates={checkForUpdates}
+          />
 
           <div className="container__secondary">
             <Routes>
@@ -110,17 +151,6 @@ function App() {
             </div>
           </div>
         </div>
-
-        {/* Modal content */}
-        {isModalOpen && (
-          <div className="modal">
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h2>Modal Header</h2>
-              <p>This is the modal content.</p>
-              <button onClick={toggleModal}>Close Modal</button>
-            </div>
-          </div>
-        )}
       </Router>
     </SettingsProvider>
   );
